@@ -1,0 +1,8 @@
+.credit-card{
+  width: 400px;
+  height: 200px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}

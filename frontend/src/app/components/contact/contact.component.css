@@ -1,0 +1,71 @@
+/* * {
+  display: inline;
+}
+
+.contacto {
+  height: auto;
+  width: 30px;
+}
+
+.boton {
+  width: 50px;
+  height: 40px;
+  padding: 0;
+  margin: 1px;
+  border-radius: 15px;
+
+}
+
+.boton:hover {
+  background-color: rgb(194, 190, 190);
+  transition: all, 1s;
+
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+  display: inline;
+  color: white
+}
+
+body {
+  background-color: black;
+  min-height: 100%;
+  display: inline;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+
+.buttons {
+  min-width: 700px;
+  justify-content: left;
+
+}
+
+.icons {
+  display: inline-block;
+  width: 500px;
+}
+
+.buttons a {
+  text-decoration: none;
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #314652;
+  color: #f1f1f1;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+  transition: all .4s ease-in-out;
+  margin: 10px 0 0 10px;
+}
+
+.buttons a:hover {
+  transform: scale(1.2);
+}

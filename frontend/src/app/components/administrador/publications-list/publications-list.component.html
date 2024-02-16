@@ -1,0 +1,39 @@
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/admin">
+      <img src="https://cdn.icon-icons.com/icons2/317/PNG/96/shop-icon_34368.png" alt="Logo" width="30" height="24"
+        class="d-inline-block align-text-top">
+    </a>
+    <h4 class="cabecera">Listado Publicaciones</h4>
+  </div>
+</nav>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table id="tableProducts" style="width:100%" class="table table-striped table-bordered table-condensed">
+        <thead class="text-center">
+          <tr>
+            <th>Administrador</th>
+            <th>Mail</th>
+            <th>Producto</th>
+            <th>Id Producto</th>
+            <th>Imagen</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let publication of publicationsList">
+          <tr>
+            <td>{{publication.name}}</td>
+            <td>{{publication.email}}</td>
+            <td>{{publication.model}}</td>
+
+            <td>{{publication.idProduct}}</td>
+            <td style=" width: 30%; text-align: center; justify-content: center; align-items: center;"><img
+                style="max-width: 20%" [src]=getUrl(publication.image) alt=" ..."></td>
+            <td>{{publication.createdAt}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

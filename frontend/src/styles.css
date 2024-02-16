@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(https://wallpapercave.com/wp/wp6994803.jpg);
+  background-size: cover;
+  height: 100%;
+}
+
+.logo {
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.body {
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

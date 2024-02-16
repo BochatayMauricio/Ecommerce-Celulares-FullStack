@@ -1,0 +1,14 @@
+.card {
+  width: 18rem;
+  border: 2px solid white;
+  display: inline-block;
+  background-color: rgba(240, 237, 233, 0.592);
+  margin: 0px 10px 15px 0px;
+}
+
+.fondo {
+  background-image: url(https://wallpapercave.com/wp/wp6994803.jpg);
+  background-size: cover;
+  background-attachment: scroll;
+  min-height: 100%;
+}

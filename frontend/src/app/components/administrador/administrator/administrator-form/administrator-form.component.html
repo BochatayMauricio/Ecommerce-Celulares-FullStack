@@ -1,0 +1,23 @@
+<form [formGroup]="administratorForm" (ngSubmit)="registrarForm()" class="form">
+  <mat-form-field>
+    <mat-label>Dni</mat-label>
+    <input matInput formControlName="dni">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Apellido</mat-label>
+    <input matInput formControlName="surname">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Contraseña</mat-label>
+    <input matInput formControlName="password">
+  </mat-form-field>
+  <button [disabled]="!administratorForm.valid" class="btn btn-success">Registrar</button>
+</form>

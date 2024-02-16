@@ -1,0 +1,26 @@
+<img [src]=getUrl(productReceived.image) class="img">
+<mat-form-field>
+  <mat-label>{{productReceived.id}}</mat-label>
+  <input matInput [disabled]="true">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>{{productReceived.brand}}</mat-label>
+  <input matInput [disabled]="true">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>{{productReceived.model}}</mat-label>
+  <input matInput [disabled]="true">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Precio</mat-label>
+  <input matInput placeholder="{{productReceived.price}}" #price>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Stock</mat-label>
+  <input matInput placeholder="{{productReceived.stock}}" #stock>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Descripcion</mat-label>
+  <textarea matInput placeholder="{{productReceived.description}}" #desc></textarea>
+</mat-form-field>
+<button class="btn btn-primary" (click)="updateProducto(price,stock,desc)">Actualizar</button>

@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<body>
+  <div class="container-wrapper">
+    <div class="container1">
+      <div>
+        <h2><b><i>{{newProduct?.model}}</i></b></h2>
+        <h6>{{newProduct?.brand}}</h6><br>
+        <img [src]=getUrl(newProduct?.image) style="width: 30%;" alt="">
+      </div>
+    </div>
+    <div class="container2">
+      <div>
+        <h2><b><i>ESPECIFICACIONES</i></b></h2>
+        <p>Descripción: {{newProduct?.description}}</p><br>
+        <p>Precio: ${{newProduct?.price}}</p><br>
+        <p>Stock: {{newProduct?.stock}}</p><br>
+        <p maxlength="10">Publicación: {{newProduct?.createdAt}}</p>
+        <button [disabled]="newProduct?.stock==0 || amount==0" class="btn btn-outline-success" style="margin: 0;"
+          (click)="addCart(newProduct!,amount)">Agregar al Carrito</button>
+
+        <button class="btn btn-success" style="margin-left: 10px;" (click)="increaseAmount()">+</button>
+        <p style="display: inline;">{{amount}}</p>
+        <button class="btn btn-danger" style="margin-left: 2px;" (click)="decreaseAmount()">--</button>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <app-footer></app-footer>
+  </footer>
+
+  <div class="container">
+    <div class=" row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>

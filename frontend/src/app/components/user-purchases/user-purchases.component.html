@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+
+<body>
+  <div class="container">
+
+    <div class="container-right">
+      <div class="container-right-body">
+        <div class="card">
+          <p><b><i>Tus Compras</i></b></p>
+        </div>
+                <mat-accordion *ngFor="let sales of listOfSales" class="rows">
+                  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header >
+                      <mat-panel-title class="title">
+                        <tbody class="content">
+                          <tr>
+                            <td class="data">
+                              <p><strong>Modelo: </strong> {{sales.model}}</p>
+                            </td>
+                            <td class="data">
+                              <p><strong>Marca: </strong> {{sales.brand}}</p>
+                            </td>
+                            <td class="data">
+                              <p><strong>Precio: </strong> ${{sales.price*sales.quantity}}</p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </mat-panel-title>
+                      <mat-panel-description *ngIf="!panelOpenState" style="margin-left: 10%;">
+                        Click para mas detalles!
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                  <div class="modal-body">
+                    <div class="modal-body-right">
+                      <img [src]=getUrl(sales?.image) style="max-height:200px ;" alt="">
+                    </div>
+                    <div class="modal-body-left">
+                      <td>
+                        <b>
+                          Cantidad compra: {{sales.quantity}}
+                        </b>
+                      </td><br>
+                      <td>
+                        <b>Fecha Compra: {{sales.createdAt}}</b>
+                      </td><br>
+                      <td>
+                        <b>Precio: {{sales.price*sales.quantity}}</b>
+                      </td><br>
+                    </div>
+                  
+                  </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+      </div>
+    </div>
+  </div>
+</body>

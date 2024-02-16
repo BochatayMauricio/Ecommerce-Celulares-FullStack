@@ -1,0 +1,6 @@
+.body {
+  border: 2px solid white;
+  background-color: rgba(255, 255, 255, 0.413);
+  border-radius: 15px;
+  padding: 15px;
+}

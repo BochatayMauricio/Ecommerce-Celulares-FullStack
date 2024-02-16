@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+}
+
+header {
+  background-color: #e9e9e9f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 1px 10%;
+}
+
+header .logo {
+  cursor: pointer;
+}
+
+header .logo img {
+  margin-top: 50%;
+  height: 50px;
+  width: auto;
+  transition: all 0.3s;
+}
+
+header .logo img:hover {
+  transform: scale(1.2, 1.2);
+}
+
+
+header .nav-links {
+  list-style: none;
+}
+
+
+header .nav-links li {
+  display: inline-block;
+  padding: 0 40px;
+}
+
+.btn {
+  padding: 5px;
+}
+
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.carrito {
+  margin-left: 20rem;
+  
+}
+
+.cart_panel{
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  overflow-y: auto;  
+  width: 100%;
+}
+
+
+header .carrito {
+  cursor: pointer;
+}
+
+
+
+header .carrito img {
+  height: 40px;
+  width: auto;
+  transition: all 0.3s;
+}
+
+header .carrito img:hover {
+  transform: scale(1.2, 1.2);
+}
+
+header .login {
+  cursor: pointer;
+}
+
+header .login img{
+  height: 40px;
+  width: auto;
+  transition: all 0.3s;
+}
+header .login img:hover {
+  transform: scale(1.2, 1.2);
+}
+
+
+.fondo {
+  background-image: url(https://wallpapercave.com/wp/wp6994803.jpg);
+  background-size: cover;
+  background-attachment: scroll;
+
+}
+
+h2 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-style: oblique;
+  color: rgb(0, 0, 0);
+
+}
+
+
+.card {
+  width: 18rem;
+  border: 2px solid white;
+  display: inline-block;
+  background-color: rgba(240, 237, 233, 0.592);
+  margin: 0px 10px 15px 0px;
+}
+
+.card img {
+  height: auto;
+  background-size: contain;
+  background-position: center;
+}
+
+
+
+.modal-body {
+  display: flex;
+}
+
+.modal-body-right img {
+  max-width: 150px;
+}

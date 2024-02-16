@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+
+<body>
+  <div class="card">
+    <div class="container">
+      <div class="container-right">
+        <button class="btn btn-outline-primary" *ngIf="!showData" (click)="showData=!showData">Mostrar Datos</button>
+        <button class="btn btn-outline-primary" *ngIf="showData" (click)="showData=!showData">Ocultar Datos</button>
+        <div *ngIf="showData">
+          <tr>
+            <p class="tit"><b><i>DNI</i></b></p>
+            {{user.dni}}
+          </tr>
+          <tr>
+
+            <p class="tit"><b><i>Nombre</i></b></p>
+            {{user.name}}
+          </tr>
+          <tr>
+
+            <p class="tit"><b><i>Apeliido</i></b></p>
+            {{user.surname}}
+          </tr>
+          <tr>
+
+            <p class="tit"><b><i>Email</i></b></p>
+            {{user.email}}
+          </tr>
+          <tr>
+            <p class="tit"><b><i>Fecha Creacion</i></b></p>
+            {{(user.createdAt)}}
+          </tr>
+        </div>
+      </div>
+      <div *ngIf="showData" class="container-left">
+        <button class="btn btn-outline-success" (click)="data = !data">Modificar
+          Datos</button>
+
+        <div *ngIf="data">
+
+          <div class="form-floating mt-3 mb-3">
+            <input type="email" [(ngModel)]="newEmail" class="form-control" placeholder="Ingrese Mail">
+            <label>Mail</label>
+          </div>
+
+          <div class="form-floating mt-3 mb-3">
+            <input type="text" [(ngModel)]="newPassword" class="form-control" placeholder="Ingrese Mail">
+            <label>Nueva Password</label>
+          </div>
+          <div class="form-floating mt-3 mb-3">
+            <input type="text" [(ngModel)]="newPassword2" class="form-control" placeholder="Ingrese Mail">
+            <label>Nueva Password Nuevamente</label>
+          </div>
+
+
+        </div>
+
+
+
+
+        <button *ngIf="data" class="btn btn-success" id="mod" (click)="userModifier()">Modificar</button>
+      </div>
+
+    </div>
+  </div>
+</body>

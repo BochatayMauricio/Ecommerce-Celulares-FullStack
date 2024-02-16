@@ -1,0 +1,41 @@
+<header>
+  <div class="logo">
+    <a routerLink="/dashboard"><img width="100px" src="../../../assets/img/cuenta.png" alt="Logo"></a>
+  </div>
+
+  <div class="form-control" style="justify-content: center; text-align: center; width: auto;">
+    <input type="text" class="search" style="border-radius: 5px; border: 0; " placeholder="Ingrese Marca" #search>
+    <button class="btn btn-group" (click)="getProductByName(search.value)"><i class="fa fa-search"></i></button>
+  </div>
+  <mat-icon [matBadge]="countProduct" matBadgeColor="warn" (click)="isCollapsed = !isCollapsed"
+    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic" class="carrito"><img
+      src="../../../assets/img/carrito.png"></mat-icon>
+  <div class="btn-group" *ngIf="login" dropdown>
+    <button *ngIf="user?.isAdmin" routerLink="/admin" mat-button>Admin</button>
+    <button mat-button [matMenuTriggerFor]="menu" class="btn"
+      aria-label="Example icon-button with a menu">{{user.name}}</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="userProfileModifier()">
+        <span>Modificar Perfil</span>
+      </button>
+      <button mat-menu-item (click)="userPurchases()">
+        <span>Mis Compras</span>
+      </button>
+      <button mat-menu-item (click)="logOut()">
+        <span>Salir</span>
+      </button>
+    </mat-menu>
+  </div>
+
+
+  <a *ngIf="!login" class="login" type="submit" (click)="singIn()"><img
+      src="../../../assets/img/esquema-del-boton-de-flecha-cuadrada-de-inicio-de-sesion.png"></a>
+
+
+</header>
+
+<div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true" class="cart_panel">
+  <div class="well ">
+    <app-cart (eventPay)="pay"></app-cart>
+  </div>
+</div>

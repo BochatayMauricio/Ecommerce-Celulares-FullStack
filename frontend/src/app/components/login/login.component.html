@@ -1,0 +1,47 @@
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<div class="wrapper">
+  <div class="body" *ngIf="!loading">
+    <img class="logo" src="../../../assets/img/cuenta.png" alt="img login">
+    <h3>Login</h3>
+    <label *ngIf="adminLogin">Administrador</label>
+    <label *ngIf="!adminLogin">Cliente</label>
+    <div class="container">
+      <label class="switch">
+        <input type="checkbox" (change)="adminLogin=!adminLogin" class="input">
+        <div class="rail">
+          <span class="circle"></span>
+        </div>
+        <span class="indicator"></span>
+      </label>
+    </div>
+
+
+
+
+    <div class="form-floating mt-3 mb-3">
+      <input type="text" [(ngModel)]="email" class="form-control" placeholder="Ingrese Mail">
+      <label>Email</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="password" [(ngModel)]="password" id="password" #pass class="form-control"
+        placeholder="Ingrese Password" maxlength="12">
+      <label>Password</label>
+      <i class="bx bx-show" *ngIf="show" (click)="showPassword(pass); show=!show"></i>
+      <i class="bx bx-hide" *ngIf="!show" (click)="showPassword(pass); show=!show"></i>
+      <!-- <i>
+        <p class="retrieve"><a>Recuperar Contraseña</a></p>
+      </i> -->
+
+
+
+    </div>
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary btn-lg" (click)="login()">Aceptar</button>
+    </div>
+    <p class="mt-3">No tienes Cuenta? <a routerLink="/signin">Registrar</a></p>
+    <p class="mt-3"><a routerLink="/dashboard">Seguir Observando sin Ingresar</a></p>
+
+  </div>
+  <app-spinner *ngIf="loading"></app-spinner>
+
+</div>

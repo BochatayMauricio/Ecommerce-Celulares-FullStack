@@ -1,0 +1,12 @@
+div {
+  display: inline-block;
+
+}
+
+.btn-help {
+  justify-content: center;
+}
+
+.p-help {
+  display: inline;
+}

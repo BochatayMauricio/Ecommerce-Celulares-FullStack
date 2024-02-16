@@ -1,0 +1,74 @@
+<header class="container">
+  <h2 class="text text-center">Carrito</h2>
+  <div class="alert alert-info" role="alert" *ngIf="productsCart.length === 0">
+    No tienes productos en el carrito
+  </div>
+  <table class="table" *ngIf="productsCart.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">Imagen</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Subtotal</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let products of productsCart">
+      <tr>
+        <th scope="row"><img [src]=getUrl(products.image) width="80px" height="80px" alt="imagen"></th>
+        <td class="col">{{products.model}}</td>
+        <td class="col">{{products.brand}}</td>
+        <td class="col">{{products.price}}</td>
+        <td class="col">{{products.quantity}}</td>
+        <td class="col">{{products.quantity * products.price}}</td>
+        <td><button class="button" (click)="deleteProduct(products.id)"><img
+              src="../../../assets/img/basura.png"></button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-outline-success" *ngIf=" productsCart.length > 0 && !user" (click)="openModal2(template2)">
+    Comprar Todo
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
+
+
+  <ng-template #template2>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Loguearse Para Comprar</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Debe Loguearse antes de Realizar una Compra</p>
+      <div>
+        <button class="btn btn-danger" routerLink="/login" style="margin: 0;"
+          (click)="modalRef?.hide()">Loguearse</button>
+        <button class="btn btn-success" (click)="modalRef?.hide()" style="margin: 0 0 0   10px;">Seguir Mirando</button>
+      </div>
+
+    </div>
+  </ng-template>
+
+
+
+
+  <button class="btn btn-outline-success" *ngIf="productsCart.length > 0 && user" (click)="chargeCart()"
+    (click)="openModal(template)">
+    Comprar Todo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png">
+  </button>
+</header>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 style="margin-left: 10%;">Datos Tarjeta Debito</h5>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="margin-left: 25px; height:auto">
+    <app-payment [cartSell]="cartSales" (objectCharge)="doSell($event)"></app-payment>
+  </div>
+</ng-template>

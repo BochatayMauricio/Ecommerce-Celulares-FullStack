@@ -1,0 +1,13 @@
+<div class="credit-card">
+  <div>
+    <div #cardInfo></div>
+    <div class="error" *ngIf="cardError">
+      {{cardError}}
+    </div>
+  </div>
+  <button (click)="onClick()" class="btn btn-success" [disabled]="cardError != null" *ngIf="!progress_bar">
+    Pagar
+  </button>
+  <mat-progress-bar *ngIf="progress_bar" mode="buffer"></mat-progress-bar>
+</div>
+

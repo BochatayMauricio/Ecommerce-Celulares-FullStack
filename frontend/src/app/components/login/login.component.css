@@ -1,0 +1,96 @@
+.body {
+  border: 2px solid white;
+  background-color: rgba(255, 255, 255, 0.616);
+  border-radius: 15px;
+  padding: 15px;
+  width: 100%;
+}
+
+
+.wrapper {
+  background-color: white;
+}
+
+.container {
+  min-height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+
+}
+
+
+.container .switch {
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.475);
+  padding: .8rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: solid 1.5px white;
+}
+
+.container .switch .input {
+  display: none;
+}
+
+.container .switch .rail {
+  position: relative;
+  width: 30px;
+  height: 18px;
+  background-color: #fff;
+  border-radius: 3rem;
+}
+
+.container .switch .rail .circle {
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: rgb(46, 109, 226);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  transition: transform 0.4s;
+}
+
+.container .switch .indicator {
+  width: 7px;
+  height: 7px;
+  background-color: #e90b0b;
+  border-radius: 50%;
+  margin-left: .5rem;
+  transition: 0.4s;
+}
+
+.container .switch .input:checked~.rail .circle {
+  transform: translate(15px, -50%);
+}
+
+.container .switch .input:checked~.indicator {
+  background-color: #43e97b;
+}
+
+
+a {
+  text-decoration: solid;
+  padding: 0.3rem;
+
+}
+
+
+.bx {
+  font-size: 30px;
+  transform: translate(110px, -43px);
+  cursor: pointer;
+}
+
+.retrieve {
+  font-size: 15px;
+  justify-content: right;
+  text-align: right;
+  transform: translateY(-30px);
+}

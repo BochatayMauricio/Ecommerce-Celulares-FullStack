@@ -1,0 +1,30 @@
+<mat-form-field>
+  <mat-label>{{administratorReceived.dni}}</mat-label>
+  <input matInput placeholder="{{administratorReceived.email}}" [disabled]="true">
+</mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{administratorReceived.name}}</mat-label>
+    <input matInput placeholder="{{administratorReceived.email}}" [disabled]="true">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>{{administratorReceived.surname}}</mat-label>
+    <input matInput placeholder="{{administratorReceived.email}}" [disabled]="true">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="{{administratorReceived.email}}" #email>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Contraseña</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" #pass>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+  
+  <button class="btn btn-primary" (click)="updateAdministrator(email,pass)">Actualizar</button>
+
