@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit /*,AfterViewChecked*/ {
   user!: user;
   login: any;
   isCollapsed = true;
+  isCollapsed2 = true;
   productList: product[] = [];
   productString: string = '';
   search: any = '';

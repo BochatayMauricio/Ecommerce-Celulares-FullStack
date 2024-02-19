@@ -1,5 +1,91 @@
 <app-navbar></app-navbar>
+<div class="w-75 mx-auto border border-1 mt-4 py-3">
+  <h3 class="px-5 py-3">Datos Personales</h3>
+  <div class="input-group px-5 my-2">
+    <input type="text" disabled aria-label="First name" class="form-control" value={{user.name}}>
+    <input type="text" disabled aria-label="Last name" class="form-control" value={{user.surname}}>
+  </div>
 
+  <div class="input-group px-5 my-2">
+    <input type="text" disabled aria-label="First name" class="form-control" value={{user.dni}}>
+    <input type="text" disabled aria-label="Last name" class="form-control" value={{user.createdAt}}>
+  </div>
+
+  <div class="input-group px-5 my-2">
+    <input type="text" class="form-control" placeholder={{user.email}} aria-label="Recipient's username"
+      aria-describedby="button-addon2" [(ngModel)]="newEmail">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+      (click)="userModifier()">Modificar</button>
+  </div>
+
+  <div class="input-group px-5 my-2">
+    <input type="password" class="form-control" placeholder="Contraseña" aria-label="Recipient's username"
+      aria-describedby="button-addon2" [(ngModel)]="newPassword" #pass1>
+    <input type="password" class="form-control" placeholder="Repita Contraseña" aria-label="Recipient's username"
+      aria-describedby="button-addon2" [(ngModel)]="newPassword2" #pass2>
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+      (click)="showPasswords(pass1,pass2)">{{button}}</button>
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+      (click)="userModifier()">Modificar</button>
+  </div>
+</div>
+
+<section class="w-50 mx-auto text-center pt-3">
+  <h3 class="px-5 pt-5 text-center">
+    Por qué es Importante Mantener sus Contraseñas y Mail Actualizados?
+  </h3>
+
+  <p class="p-3 fs-4">
+    Recomendado Por: <span class="text-primary "> RosarioCelu</span>
+  </p>
+</section>
+
+<section class="container-fluid">
+  <div class="row w-75 mx-auto servicio-fila">
+
+    <div class="col-lg-6 col-md-12 col-sm-12 my-5 d-flex  icono-wrap">
+      <img src="../../../assets/img/istockphoto-936681148-612x612.jpg" alt="Seguridad" width="180" height="160">
+      <div>
+        <h3 class="fs-5 mt-4 px-4 pb-1">Seguridad de la Cuenta</h3>
+        <p class="px-4">Mantener contraseñas fuertes y actualizadas es una defensa primaria contra el acceso no
+          autorizado a tus cuentas en línea.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12 my-5 d-flex icono-wrap">
+      <img
+        src="../../../assets/img/line-sword-with-shield-logo-design-graphic-symbol-icon-illustration-creative-idea-vector.jpg"
+        alt="Proteccion" width="180" height="160">
+      <div>
+        <h3 class="fs-5 mt-4 px-4 pb-1">Protección contra Ataques</h3>
+        <p class="px-4">Los ataques cibernéticos, como el phishing, se están volviendo cada vez más sofisticados.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12 my-5 d-flex  icono-wrap">
+      <img src="../../../assets/img/117115.png" alt="Actualizacion" width="180" height="160">
+      <div>
+        <h3 class="fs-5 mt-0 px-4 pb-1">Actualizaciones de Seguridad</h3>
+        <p class="px-4">Las plataformas y servicios en línea a menudo implementan actualizaciones de seguridad para
+          abordar nuevas amenazas.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12 my-5 d-flex justify-content-start icono-wrap">
+      <img src="../../../assets/img/456212.png" alt="Identidad" width="180" height="160">
+      <div>
+        <h3 class="fs-5 mt-0 px-4 pb-1">Prevención de Suplantación de Identidad</h3>
+        <p class="px-4">Mantener la información de tu cuenta actualizada dificulta la suplantación de identidad en
+          línea.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<app-footer></app-footer>
+<!-- 
 <body>
   <div class="card">
     <div class="container">
@@ -63,4 +149,4 @@
 
     </div>
   </div>
-</body>
+</body> -->

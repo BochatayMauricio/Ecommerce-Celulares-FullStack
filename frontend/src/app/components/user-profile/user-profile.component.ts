@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserProfileComponent implements OnInit {
   showData: boolean = true;
+  button: string = 'Mostrar';
   data: boolean = false;
   mail: boolean = false;
   user: any;
@@ -32,7 +33,7 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private errorService: ErrorService,
     private toastr: ToastrService,) {
-   
+
     //this.user = this.userService.getThisUserWithSignal()
     this.userService.getThisUserBehaviour().subscribe(value => this.user = value);
     this.userM.email = "";
@@ -48,12 +49,15 @@ export class UserProfileComponent implements OnInit {
     if ((this.newPassword != '' && this.newPassword2 != '') || (this.newEmail != '')) {
       if (this.newEmail != "") {
         this.userM.email = this.newEmail;
-        console.log(this.userM.email);
         this.customerService.updateCustomers(this.user.dni, this.userM).subscribe({
           next: (res: any) => {
             this.user.email = this.userM.email;
-            this.userService.updateUser();
+            localStorage.setItem('user', JSON.stringify(this.user));
             this.toastr.success(`Mail Modificado a: ${this.userM.email}`);
+
+            this.newPassword = '';
+            this.newPassword2 = '';
+            this.newEmail = '';
 
           }, error: (e: HttpErrorResponse) => {
             this.toastr.error(`ERROR  ${this.userM.email}`);
@@ -64,10 +68,15 @@ export class UserProfileComponent implements OnInit {
       } if ((this.newPassword != '' && this.newPassword2 != '')) {
         if (this.newPassword === this.newPassword2) {
           this.userM.password = this.newPassword;
+
           this.customerService.updateCustomers(this.user.dni, this.userM).subscribe({
             next: () => {
               this.toastr.success(`Contraseña modificada`);
-              console.log(this.userM.password);
+
+              this.newPassword = '';
+              this.newPassword2 = '';
+              this.newEmail = '';
+
             }, error: () => {
               this.toastr.error("Ocurrio un Error");
             }
@@ -76,15 +85,24 @@ export class UserProfileComponent implements OnInit {
           this.toastr.error(`Las contraseñas deben Coincidir`)
         };
       }
-      this.newPassword = '';
-      this.newPassword2 = '';
-      this.newEmail = '';
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
-    } else {
-      this.toastr.error('Todos los campos son obligatorios')
 
+    } else {
+      this.toastr.error('Los campos son obligatorios')
+
+    }
+
+
+  }
+
+  showPasswords(pass1: any, pass2: any) {
+    if (pass1.type == 'text') {
+      pass1.type = 'password';
+      pass2.type = 'password';
+      this.button = 'Ocultar'
+    } else {
+      pass1.type = 'text';
+      pass2.type = 'text';
+      this.button = 'Mostrar'
     }
 
 

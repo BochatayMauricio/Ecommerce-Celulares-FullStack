@@ -64,6 +64,30 @@ body {
   padding: 7px 0 100px 5px;
 }
 
-.btn {
+/* .btn {
   margin-left: 2rem;
+} */
+
+.icono-wrap img {
+  width: 45rem;
+  height: auto;
+}
+
+
+@media(max-width: 768px) {
+  p {
+    font-size: medium !important;
+  }
+
+  .icono-wrap img {
+    width: auto !important;
+    height: auto;
+  }
+}
+
+@media(max-width: 576px) {
+  p {
+    font-size: small !important;
+  }
+
 }

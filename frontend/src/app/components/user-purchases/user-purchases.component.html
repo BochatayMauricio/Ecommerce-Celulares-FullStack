@@ -1,57 +1,111 @@
 <app-navbar></app-navbar>
+<section class="w-50 mx-auto text-center pt-5" id="intro">
+  <h3 class="p-3 fs-2 border-top border-3">
+    Tus Compras
+  </h3>
+</section>
 
-<body>
-  <div class="container">
 
-    <div class="container-right">
-      <div class="container-right-body">
-        <div class="card">
-          <p><b><i>Tus Compras</i></b></p>
-        </div>
-                <mat-accordion *ngFor="let sales of listOfSales" class="rows">
-                  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header >
-                      <mat-panel-title class="title">
-                        <tbody class="content">
-                          <tr>
-                            <td class="data">
-                              <p><strong>Modelo: </strong> {{sales.model}}</p>
-                            </td>
-                            <td class="data">
-                              <p><strong>Marca: </strong> {{sales.brand}}</p>
-                            </td>
-                            <td class="data">
-                              <p><strong>Precio: </strong> ${{sales.price*sales.quantity}}</p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </mat-panel-title>
-                      <mat-panel-description *ngIf="!panelOpenState" style="margin-left: 10%;">
-                        Click para mas detalles!
-                      </mat-panel-description>
-                    </mat-expansion-panel-header>
-                  <div class="modal-body">
-                    <div class="modal-body-right">
-                      <img [src]=getUrl(sales?.image) style="max-height:200px ;" alt="">
-                    </div>
-                    <div class="modal-body-left">
-                      <td>
-                        <b>
-                          Cantidad compra: {{sales.quantity}}
-                        </b>
-                      </td><br>
-                      <td>
-                        <b>Fecha Compra: {{sales.createdAt}}</b>
-                      </td><br>
-                      <td>
-                        <b>Precio: {{sales.price*sales.quantity}}</b>
-                      </td><br>
-                    </div>
-                  
-                  </div>
-                  </mat-expansion-panel>
-                </mat-accordion>
+
+<mat-accordion *ngFor="let sales of listOfSales" class="rows">
+  <mat-expansion-panel class="panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="title">
+        <tbody class="content">
+          <tr>
+            <td class="data">
+              <p><strong>Celular: </strong> {{sales.brand}} {{sales.model}}</p>
+            </td>
+
+          </tr>
+        </tbody>
+      </mat-panel-title>
+      <mat-panel-description *ngIf="!panelOpenState" style="margin-left: 40%;">
+        Click para mas detalles!
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="modal-body">
+      <div class="modal-body-right">
+        <img [src]=getUrl(sales?.image) style="max-height:200px ;" alt="">
       </div>
+      <div class="modal-body-left">
+        <td>
+          <b>
+            Cantidad compra: {{sales.quantity}}
+          </b>
+        </td><br>
+        <td>
+          <b>Fecha Compra: {{sales.createdAt}}</b>
+        </td><br>
+        <td>
+          <b>Precio: {{sales.price*sales.quantity}}</b>
+        </td><br>
+      </div>
+
     </div>
-  </div>
-</body>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<p *ngIf="!listOfSales" class="text-center fs-3">
+  Parece que no tienes Compras Registradas
+</p>
+
+<section class=" w-50 mx-auto text-center pt-5" id="intro">
+
+  <h1 class="p-3 fs-2 border-top border-3">Recuerda que <span class="text-primary ">RosarioCelu</span> protege cada una
+    de tus compras con nuestro nuevo sistema de seguridad M2023.
+  </h1>
+  <p class="p-3 fs-4">El nuevo sistema <span class="text-primary ">M2023</span> es una plataforma diseñada para
+    garantizar la seguridad y la confianza de los consumidores al
+    realizar transacciones en
+    Internet. Este sistema integra diversas medidas de seguridad y características para proteger a los compradores
+    durante
+    todo el proceso de compra en línea.
+  </p>
+</section>
+
+<ol class="list-group list-group-numbered mx-5">
+
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Encriptación Segura:</div>
+      Utiliza tecnologías de encriptación avanzadas para proteger la información personal y financiera del comprador
+      durante
+      la transferencia de datos.
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Autenticación de Usuario:</div>
+      Implementa métodos seguros de autenticación, como contraseñas robustas, verificación en dos pasos u otras
+      tecnologías
+      biométricas, para garantizar la identidad del usuario.
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Certificados de Seguridad:</div>
+      Muestra certificados de seguridad, como el protocolo SSL (Secure Sockets Layer), para indicar que la conexión es
+      segura
+      y la información transmitida está cifrada.
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Seguridad en Pagos:</div>
+      Utiliza pasarelas de pago seguras y reconocidas para procesar transacciones financieras, como tarjetas de crédito
+      o
+      servicios de pago en línea.
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start mb-5">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Protección contra Fraudes:</div>
+      Incorpora sistemas de detección de fraudes y patrones sospechosos para prevenir transacciones fraudulentas y
+      proteger la
+      información del comprador.
+    </div>
+  </li>
+</ol>
+
+<app-footer></app-footer>

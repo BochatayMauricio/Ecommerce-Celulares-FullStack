@@ -1,12 +1,76 @@
-.admin{
-  margin-left: 74%;
-  border-radius: 40%;
-  border-style: 0.1rem;
-}
-.navbar{
-  background-color: rgba(0, 0, 53, 0.849);
+// .admin{
+//   margin-left: 74%;
+//   border-radius: 40%;
+//   border-style: 0.1rem;
+// }
+// .navbar{
+//   background-color: rgba(0, 0, 53, 0.849);
+// }
+
+// .nav-link{
+//  color: white;
+// }
+
+
+#menu {
+  padding: 0 10px;
+  margin: 0;
 }
 
-.nav-link{
- color: white;
+#menu a {
+  cursor: pointer;
+}
+
+#menu a>img {
+  max-width: 30px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.2s;
+}
+
+#menu a>img:hover {
+  transform: scale(1.1, 1.1);
+}
+
+#menu div>a>img {
+  max-width: 30px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.2s;
+}
+
+#menu div>a>img:hover {
+  transform: scale(1.1, 1.1);
+}
+
+
+.dropdown-menu li {
+  cursor: pointer;
+}
+
+@media(max-width:992px) {
+  .nav-item {
+    margin: 3px 0;
+    padding: 0 !important;
+  }
+
+  .nav-item a {
+    margin: 3px 0;
+    padding: 0 !important;
+  }
+
+  form {
+    margin-top: 5px;
+  }
+}
+
+.nav-item {
+  border-radius: 10px;
+  transition: all 1s;
+  margin: 0 5px
+}
+
+.nav-item:hover {
+  border-radius: 10px;
+  background-color: rgb(222, 222, 222);
 }

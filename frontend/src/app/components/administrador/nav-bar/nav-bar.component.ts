@@ -3,6 +3,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { Parser } from '@angular/compiler';
 import { user } from 'src/app/interfaces/user';
+
+import { Input } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,12 +12,13 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit{
+export class NavBarComponent implements OnInit {
+  @Input() component: any;
 
   administrator!: user;
   constructor(private modalService: BsModalService,
     private router: Router, private userService: UserService) {
-    
+
   }
 
   ngOnInit(): void {

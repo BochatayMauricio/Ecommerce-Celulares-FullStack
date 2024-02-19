@@ -14,11 +14,12 @@ h2 {
 
 
 .card {
-  width: 18rem;
-  border: 2px solid white;
+  border: 2px solid rgb(101, 101, 101);
   display: inline-block;
   background-color: rgba(240, 237, 233, 0.592);
-  margin: 0px 10px 15px 0px;
+  margin: 0px 10px 15px 15px;
+  width: 18rem;
+  height: 28rem;
 }
 
 .card img {

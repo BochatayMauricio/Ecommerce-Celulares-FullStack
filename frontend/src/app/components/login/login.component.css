@@ -1,15 +1,13 @@
 .body {
-  border: 2px solid white;
-  background-color: rgba(255, 255, 255, 0.616);
+  border: 2px solid rgb(190, 188, 188);
+  background-color: rgba(188, 186, 186, 0.413);
   border-radius: 15px;
   padding: 15px;
   width: 100%;
 }
 
 
-.wrapper {
-  background-color: white;
-}
+
 
 .container {
   min-height: 5vh;
