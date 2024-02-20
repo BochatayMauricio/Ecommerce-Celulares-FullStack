@@ -1,37 +1,59 @@
-<nav class="navbar navbar-expand-lg bg-body-">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid" id="menu">
     <a class="navbar-brand" routerLink="/admin">
-      <img src="https://cdn.icon-icons.com/icons2/317/PNG/96/shop-icon_34368.png" width="30" height="24"
-        class="d-inline-block align-text-top">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <img src="../../../assets/img/casa.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
         <li class="nav-item">
-          <a class="nav-link " aria-current="page" routerLink="/admin/products">Productos</a>
+          <a class="nav-link active" aria-current="page" aria-controls="collapseBasic"
+            routerLink="/admin/products">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " routerLink="/admin/customers">Administradores</a>
+          <a class="nav-link active" aria-current="page" type="submit" routerLink="/admin/customers">Administradores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " routerLink="/admin/sales">Ventas</a>
+          <a class="nav-link active" aria-current="page" type="submit" routerLink="/admin/sales">Ventas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " routerLink="/dashboard">Dashboard</a>
+          <a class="nav-link active" aria-current="page" type="submit" routerLink="/dashboard">Dashboard</a>
         </li>
+
+
       </ul>
-      <button class="admin" (click)="openModal(template)">
-        <img src="https://cdn.icon-icons.com/icons2/35/PNG/512/admin_person_user_man_2839.png" width="30" height="30"
-          class="d-inline-block align-text-top">
-      </button>
+
+
+
+
+
+
+
+
+      <ul class="nav-item mb-0">
+        <a class="nav-link active" aria-current="page" aria-controls="collapseBasic2"
+          (click)="openModal(template1)"><img src="../../../assets/img/usuario.png" alt=""
+            *ngIf="component == 'admin'"></a>
+        <button type="button" class="btn btn-secondary" (click)="openModal(template2)"
+          *ngIf="component=='products'">Nuevo
+          Producto</button>
+
+        <!-- Ya podemos Borrar NavBar2 -->
+        <button type="button" class="btn btn-secondary" (click)="staticModal.show()"
+          *ngIf="component=='administrators'">Alta Administrador</button>
+
+      </ul>
+
+
     </div>
   </div>
 </nav>
 
-<ng-template #template>
+<ng-template #template1>
   <div class="modal-header">
     <h6 class="modal-title pull-left">Mis Datos</h6>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
@@ -64,3 +86,36 @@
     </div>
   </div>
 </ng-template>
+
+<ng-template #template2>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Registrar Producto</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mt-2">
+    <app-formulario-registro (hideModal)="modalRef?.hide()"></app-formulario-registro>
+    <button aria-label="Close" (click)="modalRef?.hide()" class="btn btn-danger" style="width: 100%;">Cancelar</button>
+  </div>
+</ng-template>
+
+
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-static-name">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-static-name" class="modal-title pull-left">Alta Administrador</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mt-2">
+        <app-administrator-form (hideModal)="staticModal.hide()"></app-administrator-form>
+        <button aria-label="Close" (click)="staticModal.hide()" class="btn btn-danger"
+          style="width: 100%;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

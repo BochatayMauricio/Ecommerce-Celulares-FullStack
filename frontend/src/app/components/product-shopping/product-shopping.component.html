@@ -1,46 +1,37 @@
 <app-navbar></app-navbar>
-<body>
-  <div class="container-wrapper">
-    <div class="container1">
+<section class="container-fluid">
+  <div class="row w-100 mx-auto servicio-fila">
+
+    <div class="col-12 my-5 d-flex icono-wrap">
+      <img [src]=getUrl(newProduct?.image) alt="Celular">
       <div>
-        <h2><b><i>{{newProduct?.model}}</i></b></h2>
-        <h6>{{newProduct?.brand}}</h6><br>
-        <img [src]=getUrl(newProduct?.image) style="width: 30%;" alt="">
-      </div>
-    </div>
-    <div class="container2">
-      <div>
-        <h2><b><i>ESPECIFICACIONES</i></b></h2>
-        <p>Descripción: {{newProduct?.description}}</p><br>
-        <p>Precio: ${{newProduct?.price}}</p><br>
-        <p>Stock: {{newProduct?.stock}}</p><br>
-        <p maxlength="10">Publicación: {{newProduct?.createdAt}}</p>
-        <button [disabled]="newProduct?.stock==0 || amount==0" class="btn btn-outline-success" style="margin: 0;"
-          (click)="addCart(newProduct!,amount)">Agregar al Carrito</button>
-
-        <button class="btn btn-success" style="margin-left: 10px;" (click)="increaseAmount()">+</button>
-        <p style="display: inline;">{{amount}}</p>
-        <button class="btn btn-danger" style="margin-left: 2px;" (click)="decreaseAmount()">--</button>
-
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <app-footer></app-footer>
-  </footer>
-
-  <div class="container">
-    <div class=" row">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-
+        <h3 class="mt-5 fs-3 px-4 pb-1 text-center">{{newProduct?.brand}} {{newProduct?.model}}</h3>
+        <p class="px-4 mt-5 fs-3 text-center">{{newProduct?.description}}</p>
+        <p class="px-4 mt-5 fs-3 text-center">{{newProduct?.createdAt}}</p>
+        <p class="px-4 mt-5 fs-3 text-center"><span class="text-success" *ngIf="newProduct?.stock != 0">
+            Disponible a
+          </span>${{newProduct?.price}}</p>
+        <div class="d-grid gap-2">
+          <div class="mx-auto">
+            <button class="btn btn-success" (click)="increaseAmount()">+</button>
+            <p class="d-inline text-center mx-3">{{amount}}</p>
+            <button class=" btn btn-danger" (click)="decreaseAmount()">--</button>
 
           </div>
+          <button [disabled]="newProduct?.stock==0 || amount==0" class="btn btn-outline-success "
+            (click)="addCart(newProduct!,amount)">Agregar al Carrito</button>
         </div>
+
+
+
+
+
+
       </div>
     </div>
   </div>
+</section>
 
-</body>
+
+
+<app-footer></app-footer>

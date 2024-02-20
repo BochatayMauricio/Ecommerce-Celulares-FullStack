@@ -1,5 +1,6 @@
 import { Component, OnInit, afterNextRender } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
 import { product } from 'src/app/interfaces/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -21,7 +22,7 @@ export class ProductShoppingComponent implements OnInit {
   stock: any;
 
   constructor(private _productService: ProductService,
-    private activateRouter: ActivatedRoute, private cartService: CartService) {
+    private activateRouter: ActivatedRoute, private cartService: CartService, private toast: ToastrService) {
 
 
   }
@@ -67,6 +68,8 @@ export class ProductShoppingComponent implements OnInit {
       createdAt: newProduct.createdAt
     }
     this.cartService.addProduct(product);
+    this.amount = 0;
+    this.toast.success("Producto Agregado al Carrito");
   }
 
   getUrl(image: string | undefined) {

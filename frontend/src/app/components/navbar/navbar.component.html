@@ -1,38 +1,73 @@
-<header>
-  <div class="logo">
-    <a routerLink="/dashboard"><img width="100px" src="../../../assets/img/cuenta.png" alt="Logo"></a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid" id="menu">
+    <a class="navbar-brand" href="/dashboard">
+      <img src="../../../assets/img/casa.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="isCollapsed=!isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"><img
+              src="../../../assets/img/carrito-de-compras.png" alt=""></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" *ngIf="!login" type="submit" (click)="singIn()"><img
+              src="../../../assets/img/esquema-del-boton-de-flecha-cuadrada-de-inicio-de-sesion.png"></a>
+        </li>
+        <li class="nav-item">
+
+          <div class="btn-group d-inline" *ngIf="login">
+            <a class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../../../assets/img/usuario.png" alt="">
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="userProfileModifier()">Modificar Perfil</a></li>
+              <li><a class="dropdown-item" (click)="userPurchases()">Mis Compras</a></li>
+              <li><a class="dropdown-item" *ngIf="user.isAdmin" routerLink="/admin">Admin</a></li>
+              <li><a class="dropdown-item" (click)="logOut()">Salir</a></li>
+            </ul>
+          </div>
+        </li>
+
+      </ul>
+
+      <ul class="nav-item mb-0">
+        <a class="nav-link active" aria-current="page" (click)="isCollapsed2=!isCollapsed2"
+          [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic2"><img src="../../../assets/img/1176.png"
+            alt=""></a>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="text" placeholder="Ingrese Marca" aria-label="text" #search>
+        <button class="btn btn-primary" type="button" (click)="getProductByName(search.value)">Buscar</button>
+      </form>
+
+    </div>
   </div>
+</nav>
 
-  <div class="form-control" style="justify-content: center; text-align: center; width: auto;">
-    <input type="text" class="search" style="border-radius: 5px; border: 0; " placeholder="Ingrese Marca" #search>
-    <button class="btn btn-group" (click)="getProductByName(search.value)"><i class="fa fa-search"></i></button>
-  </div>
-  <mat-icon [matBadge]="countProduct" matBadgeColor="warn" (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic" class="carrito"><img
-      src="../../../assets/img/carrito.png"></mat-icon>
-  <div class="btn-group" *ngIf="login" dropdown>
-    <button *ngIf="user?.isAdmin" routerLink="/admin" mat-button>Admin</button>
-    <button mat-button [matMenuTriggerFor]="menu" class="btn"
-      aria-label="Example icon-button with a menu">{{user.name}}</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="userProfileModifier()">
-        <span>Modificar Perfil</span>
-      </button>
-      <button mat-menu-item (click)="userPurchases()">
-        <span>Mis Compras</span>
-      </button>
-      <button mat-menu-item (click)="logOut()">
-        <span>Salir</span>
-      </button>
-    </mat-menu>
-  </div>
+<div id="collapseBasic2" [collapse]="isCollapsed2" [isAnimated]="true">
+  <section class="w-50 mx-auto text-center pt-5" id="intro">
 
+    <h1 class="p-3 fs-2 border-top border-3">Bienvenidos a <span class="text-primary ">RosarioCelu</span>, tu destino
+      online para la última
+      tecnología en
+      comunicación. Nos enorgullece ofrecer una amplia gama de los smartphones más avanzados y accesorios de alta
+      calidad.
+    </h1>
+    <p class="p-3 fs-4">Nos
+      dedicamos a proporcionar a nuestros clientes una experiencia de compra conveniente, segura y emocionante, donde la
+      innovación y la excelencia se encuentran en cada dispositivo que ofrecemos. Descubre la libertad de elegir entre
+      las
+      marcas más reconocidas y las últimas tendencias en telefonía móvil, todo desde la comodidad de tu hogar.
+      ¡Conéctate con
+      el futuro en <span class="text-primary ">RosarioCelu!</span></p>
+  </section>
+</div>
 
-  <a *ngIf="!login" class="login" type="submit" (click)="singIn()"><img
-      src="../../../assets/img/esquema-del-boton-de-flecha-cuadrada-de-inicio-de-sesion.png"></a>
-
-
-</header>
 
 <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true" class="cart_panel">
   <div class="well ">

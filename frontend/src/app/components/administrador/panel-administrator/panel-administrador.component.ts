@@ -9,16 +9,17 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './panel-administrador.component.html',
   styleUrls: ['./panel-administrador.component.scss']
 })
-export class PanelAdministradorComponent implements OnInit{
+export class PanelAdministradorComponent implements OnInit {
   admin!: user;
+  component = 'admin';
   constructor(private router: Router, private toastr: ToastrService, private userService: UserService) {
   }
-  ngOnInit(){
+  ngOnInit() {
     //this.admin = this.userService.getThisUserWithSignal()
-    this.userService.getThisUserBehaviour().subscribe((value)=> this.admin = value);
-    setTimeout(()=>{
+    this.userService.getThisUserBehaviour().subscribe((value) => this.admin = value);
+    setTimeout(() => {
       this.isAdmin();
-    },500)
+    }, 500)
   }
 
   isAdmin() {

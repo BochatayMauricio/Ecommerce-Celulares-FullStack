@@ -1,32 +1,30 @@
 <app-navbar></app-navbar>
+<h3 class="text-start px-5 my-3" style="text-decoration: overline;">
+  Productos Relacionados: "{{this.search.name}}"
+</h3>
+<div class="card" style=" width: 18rem; margin-left: 15px;" *ngFor="let item of productList">
+  <img [src]=getUrl(item.image) width="180" height="120" alt="ImagenCelular">
+  <div class="card-body">
+    <h5 class="card-title">{{item.model}}</h5>
+    <p class="card-text">{{item.description}}
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <h3 class=" fs-6">{{item.brand}}</h3>
+    </li>
+    <li class="list-group-item" *ngIf="item.stock>0">
+      <p class="text-success d-inline mr-2">Disponible</p>
 
-<div class="fondo">
-  <div class="container success" *ngIf="productList.length >0">
-    <div class="card" style="display: block;width: auto;padding: 15px; ">
-      <h2>Productos Encontrados con "{{this.search.name}}"</h2>
-    </div>
-
-    <div class="card" style="margin-right: 10px;" *ngFor="let item of productList">
-      <img [src]=getUrl(item.image) class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{item.model}}</h5>
-        <p class="card-text">{{item.brand}}
-        </p>
-        <div class="card" style="padding: 10px; margin: 0; width: 253px; background-color: rgba(255, 255, 255, 0.453);">
-          <button class="btn btn-success" (click)="findProduct(item)">Comprar</button>
-          <div style="display: inline-block; margin-left: 23%;">
-            Precio: ${{item.price}}
-          </div>
-        </div>
-      </div>
+    </li>
+  </ul>
+  <div class="card-body">
+    <div class="d-grid gap-2">
+      <button class="btn btn-success" type="button" (click)="findProduct(item)">Comprar</button>
     </div>
   </div>
-  <div class="container fail" *ngIf="productList.length ==0">
-    <div class="card" style="display: block;width: auto;padding: 15px; ">
-      <h2>No se Encontraron Productos</h2>
-      <button class="btn btn-success" routerLink="../">Volver al Pagina Principal</button>
-    </div>
-  </div>
-
 </div>
+<p *ngIf="productList.length <1" class="text-center pt-5 fs-3 h-75">
+  Parece que no tenemos produtos relacionados
+</p>
 <app-footer></app-footer>

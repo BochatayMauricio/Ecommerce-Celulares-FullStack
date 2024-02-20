@@ -21,9 +21,9 @@ export class CartComponent {
   buttonDisable: boolean = false;
   productsCart: any[] = [];
   cartSales: sales[] = [];
-  user?:user;
-  constructor(private modalService: BsModalService, private cartService: CartService, private sellService: SalesService, private alertService: ToastrService, private router: Router,private userService: UserService) {
-    
+  user?: user;
+  constructor(private modalService: BsModalService, private cartService: CartService, private sellService: SalesService, private alertService: ToastrService, private router: Router, private userService: UserService) {
+
   }
   ngOnInit() {
     this.cartService.products.subscribe((products) => {
