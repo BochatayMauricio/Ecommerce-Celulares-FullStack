@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, ViewChild , AfterViewInit, NgZone, Output, EventEmitter} from '@angular/core';
-import { timeout } from 'rxjs';
 import { sales } from 'src/app/interfaces/sales';
 import { PaymentService } from 'src/app/services/payment.service';
 declare global {
@@ -32,7 +31,6 @@ export class PaymentComponent implements AfterViewInit{
     this.card = this.elements.create('card');
     this.card.mount(this.cardInfo.nativeElement); // porque no es el elemento del dom realmente (el native si)
     this.card.addEventListener('change',this.onChange.bind(this))
-    console.log(this.card)
   }
 
   onChange({error}:any){
@@ -47,7 +45,7 @@ export class PaymentComponent implements AfterViewInit{
       })
     }
   }
-  progress_bar = false; //bardera para mostrar barra de progreso mediante la transacción
+  progress_bar = false;
   async onClick(){
     this.progress_bar = true;
    const {token, error} = await this.STRIPE.createToken(this.card);
@@ -55,7 +53,6 @@ export class PaymentComponent implements AfterViewInit{
        this.payment.chargePayment(this.cartSell!,token.id).subscribe((data)=>{
         this.objectCharge.emit(data);
        });
-       
     }else{
       this.ngZone.run(()=>{
         this.cardError = error.message

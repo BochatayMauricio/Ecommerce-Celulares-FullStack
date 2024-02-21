@@ -9,18 +9,22 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './produc-list.component.html',
   styleUrls: ['./produc-list.component.scss']
 })
-export class ProducListComponent implements OnInit {
-  productosRegistrados: product[] = [];
-  product: any;
+export class ProducListComponent implements OnInit{
+  productsRegister: product[] = [];
+  product?: product;
+
+
+
   constructor(private productoS: ProductService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
-    this.productoS.retraiveProducts().subscribe(respuesta => this.productosRegistrados = respuesta);
+    this.productoS.retraiveProducts().subscribe(response => this.productsRegister = response);
   }
+
 
   deleteProducto(indice: number) {
 
-    const produ = this.productosRegistrados[indice];
+    const produ = this.productsRegister[indice];
     this.productoS.deleteProducto(produ).subscribe({
       complete: () => { this.productoS.retraiveProducts() },
       error: (error) => console.log(error)
@@ -32,7 +36,7 @@ export class ProducListComponent implements OnInit {
 
   modalRef?: BsModalRef;
   openModal(template: TemplateRef<any>, index: number) {
-    this.product = this.productosRegistrados[index];
+    this.product = this.productsRegister[index];
     this.modalRef = this.modalService.show(template);
   }
 

@@ -37,7 +37,7 @@ export class ProductService {
     return this.productInfo.asObservable();
   }
 
-
+  
   @Output() triggerProductInfo: EventEmitter<any> = new EventEmitter();
   private myAppUrl: string;
   private myApiUrl: string;

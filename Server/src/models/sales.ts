@@ -6,13 +6,18 @@ import { Product } from "./product";
 
 
 export const Sales = sequelize.define('sales', {
+  idSell:{
+    type:DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement:true
+  },
   idCustomer: {
     type: DataTypes.INTEGER,
-    primaryKey: true
+    allowNull: false
   },
   idProduct: {
     type: DataTypes.INTEGER,
-    primaryKey: true
+    allowNull: false
   },
   quantity: {
     type: DataTypes.INTEGER,

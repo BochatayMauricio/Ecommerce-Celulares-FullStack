@@ -79,10 +79,16 @@ body {
     font-size: medium !important;
   }
 
-  .icono-wrap img {
-    width: auto !important;
-    height: auto;
+  .icono-wrap {
+    display: grid; 
   }
+
+  .icono-wrap img {
+    
+    width: 250px !important;
+    height: 250px;
+  }
+
 }
 
 @media(max-width: 576px) {
@@ -90,4 +96,18 @@ body {
     font-size: small !important;
   }
 
+  .icono-wrap {
+    display: grid; 
+  }
+
+  .icono-wrap img {
+    margin-top: 40%;
+    width: 150px;
+    height: 150px;
+  }
+
+}
+
+.data{
+  margin-left: 10%;
 }

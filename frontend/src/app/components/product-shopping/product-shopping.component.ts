@@ -2,6 +2,7 @@ import { Component, OnInit, afterNextRender } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
+import { environment } from 'src/app/environments/environments';
 import { product } from 'src/app/interfaces/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -73,7 +74,7 @@ export class ProductShoppingComponent implements OnInit {
   }
 
   getUrl(image: string | undefined) {
-    return `http://localhost:3001/static/${image}`
+    return `${environment.endpoint}static/${image}`
   }
 
   increaseAmount() {

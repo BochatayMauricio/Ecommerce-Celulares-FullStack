@@ -18,6 +18,7 @@ export const checkout = async (req:Request,res:Response)=> { // la request tiene
     amount = amount + (Number(product?.dataValues.price) * Number(sales[i].quantity));
   }
   const customer = await User.findOne({where:{id:idCustomer}})
+  console.log('desde el controlador: ',customer)
   const responseObject = await stripe.charges.create({
     amount: Number(amount),
     currency: "usd",

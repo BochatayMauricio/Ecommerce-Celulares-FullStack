@@ -34,7 +34,6 @@ export class DashboardComponent implements OnInit {
     let list: product[] = []
     this.productService.getProducts().subscribe((data: product[]) => {
       list = data;
-      console.log(list) // Muestra todos los productos
     });
     setTimeout(() => {
       for (let i = 0; i < list.length; i++) {

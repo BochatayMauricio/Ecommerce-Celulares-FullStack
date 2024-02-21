@@ -28,6 +28,7 @@ const checkout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             amount = amount + (Number(product === null || product === void 0 ? void 0 : product.dataValues.price) * Number(sales[i].quantity));
         }
         const customer = yield user_1.User.findOne({ where: { id: idCustomer } });
+        console.log('desde el controlador: ', customer);
         const responseObject = yield stripe.charges.create({
             amount: Number(amount),
             currency: "usd",

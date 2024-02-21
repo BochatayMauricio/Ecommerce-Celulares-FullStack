@@ -9,13 +9,18 @@ const connection_1 = __importDefault(require("../db/connection"));
 const user_1 = require("./user");
 const product_1 = require("./product");
 exports.Sales = connection_1.default.define('sales', {
+    idSell: {
+        type: sequelize_1.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     idCustomer: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        allowNull: false
     },
     idProduct: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        allowNull: false
     },
     quantity: {
         type: sequelize_1.DataTypes.INTEGER,

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid" id="menu">
-    <a class="navbar-brand" href="/dashboard">
+    <a class="navbar-brand" routerLink="/dashboard">
       <img src="../../../assets/img/casa.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,11 +8,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+        
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" (click)="isCollapsed=!isCollapsed"
             [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"><img
-              src="../../../assets/img/carrito-de-compras.png" alt=""></a>
+              src="../../../assets/img/carrito-de-compras.png" alt=""></a> 
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" *ngIf="!login" type="submit" (click)="singIn()"><img

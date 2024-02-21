@@ -13,13 +13,13 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody *ngFor="let productos of productosRegistrados; let indice=index ">
+          <tbody *ngFor="let products of productsRegister; let indice=index ">
             <tr>
-              <td>{{productos.id}}</td>
-              <td>{{productos.brand}}</td>
-              <td>{{productos.model}}</td>
-              <td>{{productos.stock}}</td>
-              <td>{{productos.price}}</td>
+              <td>{{products.id}}</td>
+              <td>{{products.brand}}</td>
+              <td>{{products.model}}</td>
+              <td>{{products.stock}}</td>
+              <td>{{products.price}}</td>
               <td>
                 <div class="text-center">
                   <div class="btn-group">
@@ -35,7 +35,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p>Estas seguro de eliminar {{productos.brand}} {{productos.model}}</p>
+                        <p>Estas seguro de eliminar {{products.brand}} {{products.model}}</p>
                         <div class="btn-group">
                           <button class="btn btn-danger" (click)="deleteProducto(indice)">Eliminar</button>
                           <button style="margin-left: 50%;" class="btn btn-success"
@@ -57,6 +57,8 @@
     </div>
   </div>
 </div>
+
+
 
 <ng-template #template>
   <div class="modal-header">

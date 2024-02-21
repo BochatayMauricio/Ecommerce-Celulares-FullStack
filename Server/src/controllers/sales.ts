@@ -36,16 +36,17 @@ export const getOneSales = async (request: Request, response: Response) => {
 export const postSell = async (request: Request, response: Response) => {
   // recibimos un arreglo de ventas, que hace referencia a una compra por cada producto del carrito
   const { body } = request;
-  console.log(body);
   for (let j = 0; j < body.length; j++) {
     try {
       const produc = await Product.findOne({ where: { id: body[j].idProduct } })
-      await Product.update({ stock: produc?.dataValues.stock - body[j].quantity }, { where: { id: body[j].idProduct } });
       await Sales.create({
         idCustomer: body[j].idCustomer,
         idProduct: body[j].idProduct,
         quantity: body[j].quantity
       })
+      
+      await Product.update({ stock: produc?.dataValues.stock - body[j].quantity }, { where: { id: body[j].idProduct } });
+     
     } catch (error) {
       return response.status(400).send({ msg: 'No se pudo cargar' })
     }

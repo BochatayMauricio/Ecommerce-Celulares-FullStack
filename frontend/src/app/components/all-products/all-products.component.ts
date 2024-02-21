@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 import { Route, Router } from '@angular/router';
+import { environment } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-all-products',
@@ -16,11 +17,11 @@ export class AllProductsComponent {
     this.getProducts();
   }
   getUrl(image: string) {
-    return `http://localhost:3001/static/${image}`
+    return `${environment.endpoint}static/${image}`
   }
 
   findProduct(item: product) {
-    this.productService.setProduct(item);
+   this.productService.setProduct(item);
     this.router.navigate([`dashboard/shopping/${item.id}`])
   }
 

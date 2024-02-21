@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { product } from '../interfaces/product';
 
 
 @Injectable({
@@ -9,16 +10,15 @@ export class CartService {
 
   private cartProducts: any[] = [];
   private countSubject: BehaviorSubject<number>;
-  private productsSubject: BehaviorSubject<any[]>;
+  private productsSubject: BehaviorSubject<product[]>;
 
   constructor() {
     this.productsSubject = new BehaviorSubject<any[]>([]);
     this.countSubject = new BehaviorSubject<number>(this.cartProducts.length);
   }
 
-  addProduct(product: any) {
+  addProduct(product: product) {
     const index = this.cartProducts.findIndex(element => element.id == product.id);
-    console.log(index);
     if (index == -1) {
       this.cartProducts.push(product);
     } else {

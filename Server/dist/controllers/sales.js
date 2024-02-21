@@ -45,16 +45,15 @@ exports.getOneSales = getOneSales;
 const postSell = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     // recibimos un arreglo de ventas, que hace referencia a una compra por cada producto del carrito
     const { body } = request;
-    console.log(body);
     for (let j = 0; j < body.length; j++) {
         try {
             const produc = yield product_1.Product.findOne({ where: { id: body[j].idProduct } });
-            yield product_1.Product.update({ stock: (produc === null || produc === void 0 ? void 0 : produc.dataValues.stock) - body[j].quantity }, { where: { id: body[j].idProduct } });
             yield sales_1.Sales.create({
                 idCustomer: body[j].idCustomer,
                 idProduct: body[j].idProduct,
                 quantity: body[j].quantity
             });
+            yield product_1.Product.update({ stock: (produc === null || produc === void 0 ? void 0 : produc.dataValues.stock) - body[j].quantity }, { where: { id: body[j].idProduct } });
         }
         catch (error) {
             return response.status(400).send({ msg: 'No se pudo cargar' });
