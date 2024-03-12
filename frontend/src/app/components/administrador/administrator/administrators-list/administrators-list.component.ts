@@ -14,6 +14,7 @@ export class AdministratorsListComponent {
   administrator: any;
   user!: user;
   index: number | undefined;
+  currentPage: number = 1;
 
   constructor(private adminService: AdministratorsService, private modalService: BsModalService, private userService: UserService) {
     this.findAdministrator()

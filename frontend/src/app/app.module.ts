@@ -25,7 +25,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import {NgxPaginationModule} from 'ngx-pagination';
 // Componentes 
 import { LoginComponent } from './components/login/login.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -152,7 +152,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     MatExpansionModule,
     MatProgressBarModule,
     MatButtonModule,
-    MatPaginatorModule
+    NgxPaginationModule
 
   ],
   providers: [

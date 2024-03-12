@@ -13,7 +13,7 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody *ngFor="let products of productsRegister; let indice=index ">
+          <tbody *ngFor="let products of productsRegister | paginate:{itemsPerPage: 10, currentPage: currentPage }; let indice=index ">
             <tr>
               <td>{{products.id}}</td>
               <td>{{products.brand}}</td>
@@ -53,6 +53,7 @@
             </tr>
           </tbody>
         </table>
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
       </div>
     </div>
   </div>

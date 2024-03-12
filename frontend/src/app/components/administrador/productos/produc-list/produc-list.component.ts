@@ -12,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProducListComponent implements OnInit{
   productsRegister: product[] = [];
   product?: product;
-
+  currentPage: number = 1;
 
 
   constructor(private productoS: ProductService, private modalService: BsModalService) { }

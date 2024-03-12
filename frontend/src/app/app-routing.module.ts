@@ -19,6 +19,7 @@ import { UserPurchasesComponent } from './components/user-purchases/user-purchas
 import { CartComponent } from './components/cart/cart.component';
 import { PublicationsListComponent } from './components/administrador/publications-list/publications-list.component';
 import { AllProductsComponent } from './components/all-products/all-products.component';
+import { roleGuard } from './utils/role.guard';
 
 
 
@@ -31,11 +32,11 @@ const routes: Routes = [
   { path: 'signin', component: SignInComponent },
 
 
-  { path: 'admin', component: PanelAdministradorComponent },
-  { path: 'admin/products', component: ProductosComponent },
-  { path: 'admin/customers', component: AdministratorComponent },
-  { path: 'admin/sales', component: VentasComponent },
-  { path: 'admin/publications/:id', component: PublicationsListComponent },
+  { path: 'admin' ,canActivate:[roleGuard],component: PanelAdministradorComponent },
+  { path: 'admin/products',canActivate:[roleGuard], component: ProductosComponent },
+  { path: 'admin/customers', canActivate:[roleGuard],component: AdministratorComponent },
+  { path: 'admin/sales',canActivate:[roleGuard], component: VentasComponent },
+  { path: 'admin/publications/:id',canActivate:[roleGuard], component: PublicationsListComponent },
 
   { path: 'dashboard', component: DashboardComponent },
   { path: 'dashboard/all-products', component: AllProductsComponent },
