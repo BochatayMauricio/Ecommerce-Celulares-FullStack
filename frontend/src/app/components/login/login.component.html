@@ -17,27 +17,27 @@
 
 
 
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
 
     <div class="form-floating mt-3 mb-3">
-      <input type="text" [(ngModel)]="email" class="form-control" placeholder="Ingrese Mail">
+      <input type="text" formControlName="email" class="form-control" placeholder="Ingrese Mail">
       <label>Email</label>
     </div>
+
     <div class="form-floating mb-3">
-      <input type="password" [(ngModel)]="password" id="password" #pass class="form-control"
+      <input type="password" formControlName="password" id="password" #pass class="form-control"
         placeholder="Ingrese Password" maxlength="12">
       <label>Password</label>
       <i class="bx bx-show" *ngIf="show" (click)="showPassword(pass); show=!show"></i>
       <i class="bx bx-hide" *ngIf="!show" (click)="showPassword(pass); show=!show"></i>
-      <!-- <i>
-        <p class="retrieve"><a>Recuperar Contraseña</a></p>
-      </i> -->
-
-
-
     </div>
+
     <div class="d-grid gap-2">
-      <button class="btn btn-primary btn-lg" (click)="login()">Aceptar</button>
+      <button class="btn btn-primary btn-lg" [disabled]="!loginForm.valid">Aceptar</button>
     </div>
+
+  </form>
+
     <p class="mt-3">No tienes Cuenta? <a routerLink="/signin">Registrar</a></p>
     <p class="mt-3"><a routerLink="/dashboard">Seguir Observando sin Ingresar</a></p>
 

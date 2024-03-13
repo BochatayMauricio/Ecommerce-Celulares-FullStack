@@ -1,10 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Token } from '@angular/compiler';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ErrorService } from 'src/app/services/error.service';
 import { UserService } from 'src/app/services/user.service';
+
+type loginUser = {
+  email:string,
+  password:string,
+  isAdmin:boolean
+}
 
 @Component({
   selector: 'app-login',
@@ -12,45 +17,37 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  password: string = '';
-  email: string = '';
-  isAdmin: boolean = false;
   adminLogin: boolean = false;
   loading: boolean = false;
   type = 'password'
   show: boolean = false;
 
+  loginForm:FormGroup;
 
-  constructor(private toastr: ToastrService,
+  constructor(
     private userService: UserService,
     private router: Router,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    public fb:FormBuilder
   ) {
     localStorage.clear();
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required,Validators.email]],
+      password: ['', [Validators.required]],
+      isAdmin: [this.adminLogin]
+    });
   }
 
-  login() {
-    //Validar que el usuario ingrese datos
-    if (this.email == '' || this.password == '') {
-      this.toastr.error('Todos los Campos son Obligatorios', 'Error');
-      return;
+  onSubmit(){
+
+    const body:loginUser = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+      isAdmin: this.adminLogin
     }
 
-
-    //Crear el body
-    let user: any = {
-      password: this.password,
-      email: this.email,
-      adminLogin: this.adminLogin
-    }
-
-    this.loading = true;
-
-    if (this.adminLogin) {
-
-    }
-
-    this.userService.login(user).subscribe({
+    console.log(body)
+    this.userService.login(body).subscribe({
       next: (res: any) => {
         const { tok, us } = res
         this.userService.setThisUser(us);
@@ -66,11 +63,9 @@ export class LoginComponent {
         this.loading = false;
       }
     });
-
-
   }
 
-  showPassword(pass: any) {
+  showPassword(pass: HTMLInputElement) {
 
     if (pass.type == 'password') {
       pass.type = 'text'

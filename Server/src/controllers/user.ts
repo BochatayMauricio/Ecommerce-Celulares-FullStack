@@ -48,7 +48,7 @@ export const newUser = async (req: Request, res: Response) => {
 }
 
 export const loginUser = async (req: Request, res: Response) => {
-  const { email, password, adminLogin } = req.body;
+  const { email, password, isAdmin } = req.body;
 
   //Validamos si el usuario existe en la bd
   const user: any = await User.findOne({ where: { email: email } })
@@ -67,7 +67,7 @@ export const loginUser = async (req: Request, res: Response) => {
     })
   }
 
-  if (user.isAdmin != adminLogin) {
+  if (user.isAdmin != isAdmin) {
     if (user.isAdmin) {
       return res.status(400).json({
         msg: "No es Cliente"

@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -18,53 +19,87 @@ export class SignInComponent {
   name: string = '';
   surname: string = '';
   isAdmin: boolean = false;
-  confirmPassword: string = '';
   loading: boolean = false;
+
+  userForm: FormGroup;
+  
 
   constructor(private toastr: ToastrService,
     private userService: UserService,
     private router: Router,
-    private errorService: ErrorService) {
+    private errorService: ErrorService,
+    public fb: FormBuilder) {
+
+      this.userForm = this.fb.group({
+        email: ['', [Validators.required,Validators.email]],
+        dni: ['', [Validators.required]],
+        name: ['', [Validators.required]],
+        surname: ['', [Validators.required]],
+        isAdmin: [false],
+        password: ['', [Validators.required]]
+      });
 
   }
 
-  addUser() {
-    //Validar que los campos no sean vacio
-    if (this.password == '' || this.confirmPassword == '' || this.email == '') {
-      this.toastr.error('Todos los Campos son Obligatorios', 'Error');
-      return;
-    }
-
-    //Validar si las password sean iguales
-    if (this.password != this.confirmPassword) {
+  onSubmit(passwordConfirm:HTMLInputElement){
+    console.log(this.userForm)
+    if (this.userForm.value.password != passwordConfirm.value) {
       this.toastr.error('Las Password Ingresadas son Distintas', 'Error');
       return;
     }
-
-    //Crear el usuario
-    const user: any = {
-      dni: this.dni,
-      email: this.email,
-      password: this.password,
-      name: this.name,
-      surname: this.surname,
-      isAdmin: this.isAdmin
-    }
-
     this.loading = true;
-    this.userService.signIn(user).subscribe({
-      next: (v) => {
-        this.loading = false;
-        this.toastr.success(`Registrado Exitosamente`, 'Usuario Registrado');
-        this.router.navigate(['/login']);
-      },
-      error: (e: HttpErrorResponse) => {
-        this.errorService.msjError(e);
-        this.loading = false;
-      }
-    })
 
+    this.userService.signIn(this.userForm.value).subscribe({
+        next: (v) => {
+          this.loading = false;
+          this.toastr.success(`Registrado Exitosamente`, 'Usuario Registrado');
+          this.router.navigate(['/login']);
+        },
+        error: (e: HttpErrorResponse) => {
+          this.errorService.msjError(e);
+          this.loading = false;
+        }
+        
+    })
   }
+
+  // addUser() {
+  //   //Validar que los campos no sean vacio
+  //   if (this.password == '' || this.confirmPassword == '' || this.email == '') {
+  //     this.toastr.error('Todos los Campos son Obligatorios', 'Error');
+  //     return;
+  //   }
+
+  //   //Validar si las password sean iguales
+  //   if (this.password != this.confirmPassword) {
+  //     this.toastr.error('Las Password Ingresadas son Distintas', 'Error');
+  //     return;
+  //   }
+
+  //   //Crear el usuario
+  //   const user: any = {
+  //     dni: this.dni,
+  //     email: this.email,
+  //     password: this.password,
+  //     name: this.name,
+  //     surname: this.surname,
+  //     isAdmin: this.isAdmin
+  //   }
+
+  //   this.loading = true;
+  // //   this.userService.signIn(user).subscribe({
+  // //     next: (v) => {
+  // //       this.loading = false;
+  // //       this.toastr.success(`Registrado Exitosamente`, 'Usuario Registrado');
+  // //       this.router.navigate(['/login']);
+  // //     },
+  // //     error: (e: HttpErrorResponse) => {
+  // //       this.errorService.msjError(e);
+  // //       this.loading = false;
+  // //     }
+  // //   })
+
+  // }
 
 
 }

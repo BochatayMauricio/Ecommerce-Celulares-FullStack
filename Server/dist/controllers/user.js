@@ -55,7 +55,7 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.newUser = newUser;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password, adminLogin } = req.body;
+    const { email, password, isAdmin } = req.body;
     //Validamos si el usuario existe en la bd
     const user = yield user_1.User.findOne({ where: { email: email } });
     if (!user) {
@@ -70,7 +70,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             msg: "Password Incorrecto"
         });
     }
-    if (user.isAdmin != adminLogin) {
+    if (user.isAdmin != isAdmin) {
         if (user.isAdmin) {
             return res.status(400).json({
                 msg: "No es Cliente"

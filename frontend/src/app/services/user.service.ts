@@ -5,6 +5,11 @@ import { user } from '../interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
+type loginUser = {
+  email:string,
+  password:string,
+  isAdmin:boolean
+}
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +52,7 @@ export class UserService{
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}`, user);
   }
 
-  login(user: user): Observable<string> {
+  login(user: loginUser): Observable<string> {
     return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user);
   }
 
