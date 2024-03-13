@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +16,8 @@ import { __param } from 'tslib';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit /*,AfterViewChecked*/ {
+export class NavbarComponent implements OnInit {
+
   countProduct = 0;
   pay: boolean = false;
   user!: user;
@@ -27,9 +28,13 @@ export class NavbarComponent implements OnInit /*,AfterViewChecked*/ {
   productString: string = '';
   search: any = '';
   showSearchBar: boolean = false;
+
+
   constructor(private router: Router, private cartService: CartService, private toastr: ToastrService, private userService: UserService) {
     this.showSearch();
   }
+
+  @Output() seachEvent = new EventEmitter<boolean>(false);
 
   ngOnInit(): void {
     let token = this.userService.getToken();
@@ -41,16 +46,6 @@ export class NavbarComponent implements OnInit /*,AfterViewChecked*/ {
       this.countProduct = data
     });
   }
-
-  // ngAfterViewChecked(): void {
-  //   if(this.user.id == 0){
-  //     this.user = this.userService.getThisUserWithSignal();
-  //     if (this.user.id > 0) {
-  //       this.login = true
-  //     }
-  //   }
-  //   console.log(this.user)
-  // }
 
   logOut() {
     this.userService.removeToken();
@@ -67,26 +62,39 @@ export class NavbarComponent implements OnInit /*,AfterViewChecked*/ {
     this.router.navigate(['/login'])
   }
 
-  getProductByName(newSearch: any) {
+  // getProductByName(newSearch: any) {
+  //   if (newSearch != '') {
+      
+  //     let oldSearch = localStorage.getItem('Search');
+
+  //     if (location.pathname == `/dashboard/products-search/${oldSearch}`) {
+  //       this.router.navigate([`/dashboard/products-search/${newSearch}`])
+  //       setTimeout(() => {
+  //         location.reload();
+  //       }, 500);
+
+  //     } else {
+  //       this.router.navigate([`/dashboard/products-search/${newSearch}`])
+  //     }
+
+
+  //   } else {
+  //     this.toastr.error('Debe llenar el cuadro de busqueda');
+  //   };
+  // }
+
+  getProductByName(newSearch: string) {
     if (newSearch != '') {
-      let oldSearch = localStorage.getItem('Search');
-
-      if (location.pathname == `/dashboard/products-search/${oldSearch}`) {
+      if(!location.pathname.includes(newSearch)){
         this.router.navigate([`/dashboard/products-search/${newSearch}`])
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-
-      } else {
-        this.router.navigate([`/dashboard/products-search/${newSearch}`])
+        this.seachEvent.emit(true);
       }
-    } else {
+    }
+    else{
       this.toastr.error('Debe llenar el cuadro de busqueda');
     }
-    ;
-
-
   }
+  
   userPurchases() {
     this.router.navigate([`dashboard/user-purchases/${this.user.id}`])
   }
@@ -96,8 +104,7 @@ export class NavbarComponent implements OnInit /*,AfterViewChecked*/ {
   }
 
   showSearch() {
-    let search = localStorage.getItem('Search');
-    if (location.pathname == '/dashboard/all-products' || location.pathname == `/dashboard/products-search/${search}`) {
+    if (location.pathname == '/dashboard/all-products' || location.pathname == `/dashboard/products-search/${this.search}`) {
       this.showSearchBar = true;
     }
   }
