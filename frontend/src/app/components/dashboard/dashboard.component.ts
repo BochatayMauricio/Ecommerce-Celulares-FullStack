@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   public oneProduct: product | undefined;
   modalRef: BsModalRef | undefined;
   errorService: any;
-
+  currentPage:number = 1;
 
 
   constructor(private productService: ProductService,
