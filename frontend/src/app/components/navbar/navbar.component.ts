@@ -21,17 +21,16 @@ export class NavbarComponent implements OnInit {
   countProduct = 0;
   pay: boolean = false;
   user!: user;
-  login: any;
+  login: boolean = false;
   isCollapsed = true;
   isCollapsed2 = true;
   productList: product[] = [];
   productString: string = '';
-  search: any = '';
-  showSearchBar: boolean = false;
+  search: string = '';
 
 
   constructor(private router: Router, private cartService: CartService, private toastr: ToastrService, private userService: UserService) {
-    this.showSearch();
+    
   }
 
   @Output() seachEvent = new EventEmitter<boolean>(false);
@@ -62,27 +61,6 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  // getProductByName(newSearch: any) {
-  //   if (newSearch != '') {
-      
-  //     let oldSearch = localStorage.getItem('Search');
-
-  //     if (location.pathname == `/dashboard/products-search/${oldSearch}`) {
-  //       this.router.navigate([`/dashboard/products-search/${newSearch}`])
-  //       setTimeout(() => {
-  //         location.reload();
-  //       }, 500);
-
-  //     } else {
-  //       this.router.navigate([`/dashboard/products-search/${newSearch}`])
-  //     }
-
-
-  //   } else {
-  //     this.toastr.error('Debe llenar el cuadro de busqueda');
-  //   };
-  // }
-
   getProductByName(newSearch: string) {
     if (newSearch != '') {
       if(!location.pathname.includes(newSearch)){
@@ -103,9 +81,4 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([`dashboard/user-profile/${this.user.dni}`])
   }
 
-  showSearch() {
-    if (location.pathname == '/dashboard/all-products' || location.pathname == `/dashboard/products-search/${this.search}`) {
-      this.showSearchBar = true;
-    }
-  }
 }
