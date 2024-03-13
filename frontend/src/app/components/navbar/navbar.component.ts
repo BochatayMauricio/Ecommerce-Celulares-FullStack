@@ -1,12 +1,9 @@
-import { AfterViewChecked, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
+import {  Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { timeout } from 'rxjs';
 import { product } from 'src/app/interfaces/product';
 import { user } from 'src/app/interfaces/user';
 import { CartService } from 'src/app/services/cart.service';
-import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
 import { __param } from 'tslib';
 
@@ -49,12 +46,7 @@ export class NavbarComponent implements OnInit {
   logOut() {
     this.userService.removeToken();
     this.cartService.clearCart();
-    console.log(location.pathname)
-    if (location.pathname == '/dashboard') {
-      location.reload();
-    } else {
-      this.router.navigate(['/dashboard']);
-    }
+    location.reload()
 
   }
   singIn() {
