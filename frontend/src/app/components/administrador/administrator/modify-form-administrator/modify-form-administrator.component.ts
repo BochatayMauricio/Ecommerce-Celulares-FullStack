@@ -12,10 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 export class ModifyFormAdministratorComponent {
   hide = true;
   @Output() hideModal = new EventEmitter<boolean>();
-  @Input() administratorReceived: any;
+  @Input() administratorReceived!: user;
   constructor(private adminService: AdministratorsService, private toaster: ToastrService) { }
 
-  updateAdministrator(email: any, password: any) {
+  updateAdministrator(email: HTMLInputElement, password: HTMLInputElement) {
 
     const administratorModify: user = {
       id: this.administratorReceived.id,
