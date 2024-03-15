@@ -22,6 +22,7 @@ h2 {
   min-width: 18rem;
   min-height: 18rem;
   text-align: center;
+  transition: all 300ms ease;
 }
 
 .card img {
@@ -30,7 +31,27 @@ h2 {
   background-position: center;
 }
 
+.stock-informative{
+  display: none;
+}
 
+.text-success {
+  display: block;
+}
+
+.card:hover{
+  box-shadow: 5px 5px 20px rgba(0,0,0,0.8);
+  transform: translateY(-2%);
+}
+
+.card:hover .stock-informative{
+  display: block;
+  color:rgb(88, 88, 88);
+}
+
+.card:hover .list-group .list-group-item .text-success{
+  display: none;
+}
 
 .modal-body {
   display: flex;

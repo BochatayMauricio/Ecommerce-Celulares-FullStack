@@ -1,13 +1,13 @@
-import { Component, TemplateRef, Output } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { sales } from 'src/app/interfaces/sales';
 import { SalesService } from '../../services/sales.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { PaymentService } from 'src/app/services/payment.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { user } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-cart',
@@ -22,6 +22,8 @@ export class CartComponent {
   productsCart: any[] = [];
   cartSales: sales[] = [];
   user?: user;
+
+  private myAppUrl: string = environment.endpoint;
   constructor(private modalService: BsModalService, private cartService: CartService, private sellService: SalesService, private alertService: ToastrService, private router: Router, private userService: UserService) {
 
   }
@@ -29,7 +31,6 @@ export class CartComponent {
     this.cartService.products.subscribe((products) => {
       this.productsCart = products
     });
-    //this.user = this.userService.getThisUserWithSignal()
     this.userService.getThisUserBehaviour().subscribe(value => this.user = value)
   }
 
@@ -63,7 +64,7 @@ export class CartComponent {
 
   doSell($event: any) {
     if ($event.status == "succeeded") {
-      this.modalRef?.hide(); //para que el modal se cierre solo
+      this.modalRef?.hide();
       if (this.cartSales.length > 0) {
         if (this.cartSales.length < this.productsCart.length) {
           this.alertService.info('Hay productos que no cumplen con el stock, por lo tanto no concretarán la compra').onAction
@@ -93,7 +94,7 @@ export class CartComponent {
   }
 
   getUrl(image: string) {
-    return `http://localhost:3001/static/${image}`
+    return `${this.myAppUrl}/static/${image}`
   }
 
 }

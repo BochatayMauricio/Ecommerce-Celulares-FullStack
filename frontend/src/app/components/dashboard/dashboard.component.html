@@ -18,9 +18,9 @@
       <h3 class=" fs-6">{{item.brand}}</h3>
     </li>
     <li class="list-group-item" *ngIf="item.stock>0">
-      <p class="text-success d-inline mr-2">Disponible</p>
-
-    </li>
+      <span class="text-success">Disponible</span>
+      <span class="stock-informative">Quedan {{item.stock}} unidades disponibles</span>
+    </li> 
   </ul>
   <div class="card-body">
     <div class="d-grid gap-2">

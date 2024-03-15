@@ -1,4 +1,4 @@
-import { Injectable, OnChanges, OnInit, SimpleChanges, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from '../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user } from '../interfaces/user';
@@ -18,7 +18,6 @@ export class UserService{
   private myAppUrl: string;
   private myApiUrl: string;
 
-  //currentUser = signal<user>({id:0,name:'',dni:'0',surname:'',email:'',password:'',isAdmin:false});
   currentUser$ = new BehaviorSubject<user>({id:0,name:'',dni:'0',surname:'',email:'',password:'',isAdmin:false}); //opcion 2
 
   constructor(private http: HttpClient,private toastr: ToastrService) {
@@ -28,7 +27,6 @@ export class UserService{
   }
 
   setThisUser(user: user) {
-    //this.currentUser.set(user);
     this.currentUser$.next(user);
   }
 
