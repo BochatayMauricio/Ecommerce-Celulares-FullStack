@@ -8,6 +8,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { user } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/app/environments/environments';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -28,17 +29,22 @@ export class CartComponent {
 
   }
   ngOnInit() {
+    console.log(this.user)
     this.cartService.products.subscribe((products) => {
       this.productsCart = products
     });
     this.userService.getThisUserBehaviour().subscribe(value => this.user = value)
+    console.log(this.user)
   }
+
 
   deleteProduct(id: number) {
     this.cartService.deleteProduct(id);
   }
-  async chargeCart() {
-    if (this.user) {
+
+  async chargeCart(template: any) {
+    console.log(this.user?.id)
+    if (this.user?.id) {
       const cartSell: sales[] = [];
       for (let i = 0; i < this.productsCart.length; i++) {
         const newSale: sales = {
@@ -54,11 +60,13 @@ export class CartComponent {
         }
       }
       this.cartSales = cartSell;
+      this.openModal(template);
     } else {
-      let confirmar = this.alertService.info('Antes de Comprar debe Loguearse. Quiere que lo redireccionemos al LogIn?').onAction;
+      let confirmar = confirm('Antes de Comprar debe Loguearse. Quiere que lo redireccionemos al LogIn?');
       if (confirmar) {
         this.router.navigate(['/login'])
       }
+
     }
   }
 
@@ -75,7 +83,7 @@ export class CartComponent {
             this.cartService.clearCart();
             this.alertService.success('Compra registrada con exito!')
           }),
-          error: (() => console.log('Ocurrio un error'))
+          error: (() => this.alertService.error('Ocurrio un error'))
         });
       }
       else {
@@ -94,7 +102,7 @@ export class CartComponent {
   }
 
   getUrl(image: string) {
-    return `${this.myAppUrl}/static/${image}`
+    return `${this.myAppUrl}static/${image}`
   }
 
 }

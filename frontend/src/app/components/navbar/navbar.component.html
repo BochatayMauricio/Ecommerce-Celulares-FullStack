@@ -41,8 +41,8 @@
             alt=""></a>
       </ul>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="text" placeholder="Ingrese Marca" aria-label="text" #search>
-        <button class="btn btn-primary" type="button" (click)="getProductByName(search.value)">Buscar</button>
+        <input class="form-control me-2" type="text" placeholder="Ingrese Marca" aria-label="text" #search (keyup.enter)="getProductByName(search.value)">
+        <button class="btn btn-primary" type="button" (click)="getProductByName(search.value)" >Buscar</button>
       </form>
 
     </div>

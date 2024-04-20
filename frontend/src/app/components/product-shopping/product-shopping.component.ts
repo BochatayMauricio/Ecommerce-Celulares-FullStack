@@ -21,6 +21,7 @@ export class ProductShoppingComponent implements OnInit {
   listOfProducts: product[] = [];
   amount: any = 0;
   stock: any;
+  private myAppUrl: string = environment.endpoint;
 
   constructor(private _productService: ProductService,
     private activateRouter: ActivatedRoute, private cartService: CartService, private toast: ToastrService) {
@@ -74,7 +75,7 @@ export class ProductShoppingComponent implements OnInit {
   }
 
   getUrl(image: string | undefined) {
-    return `${environment.endpoint}static/${image}`
+    return `${this.myAppUrl}static/${image}`
   }
 
   increaseAmount() {

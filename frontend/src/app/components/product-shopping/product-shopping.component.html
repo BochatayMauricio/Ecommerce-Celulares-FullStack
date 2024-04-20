@@ -1,14 +1,13 @@
 <app-navbar></app-navbar>
-<section class="container-fluid">
+<div class="container">
   <div class="row w-100 mx-auto servicio-fila">
 
     <div class="col-12 my-5 d-flex icono-wrap">
       <img [src]=getUrl(newProduct?.image) alt="Celular">
       <div class="data">
-        <h3 class="mt-5 fs-3 px-4 pb-1 text-center">{{newProduct?.brand}} {{newProduct?.model}}</h3>
-        <p class="px-4 mt-5 fs-3 text-center">{{newProduct?.description}}</p>
-        <p class="px-4 mt-5 fs-3 text-center">{{newProduct?.createdAt}}</p>
-        <p class="px-4 mt-5 fs-3 text-center"><span class="text-success" *ngIf="newProduct?.stock != 0">
+        <h3 class="mx-0 fs-1 pb-1 text-center">{{newProduct?.brand}} {{newProduct?.model}}</h3>
+        <p class="px-1 mt-2 fs-4 text-center">{{newProduct?.description}}</p>
+        <p class="px-1 mt-5 fs-3 text-center"><span class="text-success" *ngIf="newProduct?.stock != 0">
             Disponible a
           </span>${{newProduct?.price}}</p>
         <div class="d-grid gap-2">
@@ -21,6 +20,8 @@
           <button [disabled]="newProduct?.stock==0 || amount==0" class="btn btn-outline-success "
             (click)="addCart(newProduct!,amount)">Agregar al Carrito</button>
         </div>
+        <p class="ventasegura"><span>✓✓</span> Nuestra plataforma ofrece una experiencia de compra segura y confiable. Protegemos tus datos personales y de pago. Además, trabajamos con vendedores de confianza y ofrecemos opciones de pago seguras para garantizar que tu experiencia de compra sea siempre segura y sin preocupaciones.</p>
+        
 
 
 
@@ -30,7 +31,8 @@
       </div>
     </div>
   </div>
-</section>
+</div>
+
 
 
 

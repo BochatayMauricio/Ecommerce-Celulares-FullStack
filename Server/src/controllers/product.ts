@@ -5,10 +5,24 @@ import { Sales } from "../models/sales";
 import sequelize from "../db/connection";
 import { QueryTypes } from "sequelize";
 
-export const getProducts = async (req: Request, res: Response) => {
-  const listProducts = await Product.findAll();
-  res.json(listProducts)
+export const getAllProducts = async (req: Request, res: Response) => {
+  const page = parseInt(req.params.page);
+  const size= 3
+  let option = {
+    limit: +size,
+    offset: (+page * (+size))
+  }
+  const {count, rows} = await Product.findAndCountAll(option);
+  res.json({
+    total: count,
+    products: rows
+  })
 };
+
+export const getProducts  = async (req:Request, res:Response) => {
+  const productList = await Product.findAll();
+  res.json(productList);
+}
 
 export const newProduct = async (request: Request, response: Response) => {
   const { body, file } = request;

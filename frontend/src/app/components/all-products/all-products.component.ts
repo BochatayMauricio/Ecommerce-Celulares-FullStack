@@ -10,14 +10,15 @@ import { environment } from 'src/app/environments/environments';
   styleUrls: ['./all-products.component.css']
 })
 export class AllProductsComponent {
-
+  private myAppUrl: string = environment.endpoint;
   listProducts: product[] = []
 
   constructor(private productService: ProductService, private router: Router) {
     this.getProducts();
   }
+ 
   getUrl(image: string) {
-    return `${environment.endpoint}static/${image}`
+    return `${this.myAppUrl}static/${image}`
   }
 
   findProduct(item: product) {

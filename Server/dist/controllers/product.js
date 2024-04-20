@@ -12,15 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductsByName = exports.getOneProduct = exports.deleteProduct = exports.updateProduct = exports.newProduct = exports.getProducts = void 0;
+exports.getProductsByName = exports.getOneProduct = exports.deleteProduct = exports.updateProduct = exports.newProduct = exports.getProducts = exports.getAllProducts = void 0;
 const product_1 = require("../models/product");
 const publication_1 = require("../models/publication");
 const sales_1 = require("../models/sales");
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
+const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const page = parseInt(req.params.page);
+    const size = 3;
+    let option = {
+        limit: +size,
+        offset: (+page * (+size))
+    };
+    const { count, rows } = yield product_1.Product.findAndCountAll(option);
+    res.json({
+        total: count,
+        products: rows
+    });
+});
+exports.getAllProducts = getAllProducts;
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const listProducts = yield product_1.Product.findAll();
-    res.json(listProducts);
+    const productList = yield product_1.Product.findAll();
+    res.json(productList);
 });
 exports.getProducts = getProducts;
 const newProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {

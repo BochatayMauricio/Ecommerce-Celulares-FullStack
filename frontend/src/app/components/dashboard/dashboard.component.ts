@@ -1,12 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { product } from 'src/app/interfaces/product';
-import { user } from 'src/app/interfaces/user';
 import { ProductService } from 'src/app/services/product.service';
-import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { timeout } from 'rxjs';
+import { Router } from '@angular/router';
+import { environment } from 'src/app/environments/environments';
 
 
 @Component({
@@ -15,11 +12,17 @@ import { timeout } from 'rxjs';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  private myAppUrl: string = environment.endpoint;
   listProducts: product[] = [];
   public oneProduct: product | undefined;
   modalRef: BsModalRef | undefined;
   errorService: any;
   currentPage:number = 1;
+  page:number=0;
+  totalPages = [];
+  active: string ='active';
+  disabledNext:string = '';
+  disabledBack: string='';
 
 
   constructor(private productService: ProductService,
@@ -27,10 +30,12 @@ export class DashboardComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getProductByPage(this.page);
   }
 
   getProducts() {
+    this.page=-1;
+    this.listProducts = [];
     let list: product[] = []
     this.productService.getProducts().subscribe((data: product[]) => {
       list = data;
@@ -54,8 +59,56 @@ export class DashboardComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+
   getUrl(image: string) {
-    return `http://localhost:3001/static/${image}`
+    return `${this.myAppUrl}static/${image}`
+  }
+
+ 
+  getProductByPage(page:number){
+    this.page=page
+    let object: any;
+    this.listProducts = [];
+    this.productService.getProductsByPage(page).subscribe((data: any) => {
+      object = data
+    });
+    
+    setTimeout(() => {
+      const {total, products} = object
+      this.disabledBack='';
+      this.disabledNext='';
+      let pagesArray:any = [];
+      let i;
+      for(i=1; i< total/3; i++){
+        pagesArray.push(i);
+        
+      }
+      if(total%3 != 0){
+        pagesArray.push(i)
+      }
+      this.totalPages = pagesArray
+      if(page == this.totalPages.length-1){
+        this.disabledNext = 'disabled'
+      }
+      if(page == 0){
+        this.disabledBack = 'disabled'
+      }
+      for (let i = 0; i < products.length; i++) {
+        if (products[i].stock > 0) {
+          this.listProducts.push(products[i]) //Agregar el producto con stock >0 al arreglo
+        }
+       
+      }
+      console.log(this.totalPages)
+      console.log(this.listProducts)
+    }, 500);
+   
+    
+  }
+
+  sendPage(page:number){
+    this.getProductByPage(page);
+    console.log(this.listProducts)
   }
 
 

@@ -16,7 +16,7 @@ type paramsProduct = {
 })
 
 export class ProductInformationComponent{
-  private myApi = environment.endpoint;
+  private myAppUrl: string = environment.endpoint;
   productList: product[] = [];
   search!:Params | paramsProduct;
 
@@ -42,9 +42,9 @@ export class ProductInformationComponent{
     this.productService.setProduct(item);
     this.router.navigate([`dashboard/shopping/${item.id}`])
   }
-
+  
   getUrl(image: string) {
-    return `${this.myApi}static/${image}`
+    return `${this.myAppUrl}static/${image}`
   }
 
   async getProductList() {

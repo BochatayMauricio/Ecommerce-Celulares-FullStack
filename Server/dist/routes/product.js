@@ -11,6 +11,7 @@ const storage = require('../db/multer');
 const uploader = (0, multer_1.default)({ storage });
 const router = (0, express_1.Router)();
 router.get('/', product_1.getProducts); //SEQUELIZE;
+router.get('/page/:page', product_1.getAllProducts); //SEQUELIZE;
 router.put('/:id', validate_token_1.default, product_1.updateProduct); //SEQUELIZE;
 router.delete('/:id', validate_token_1.default, product_1.deleteProduct); //SEQUELIZE;
 router.post('/:idAdmin', validate_token_1.default, uploader.single('file'), product_1.newProduct); //SEQUELIZE;

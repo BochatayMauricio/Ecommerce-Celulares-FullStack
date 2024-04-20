@@ -29,36 +29,16 @@
     </tbody>
   </table>
 
-  <button class="btn btn-outline-success" *ngIf=" productsCart.length > 0 && !user" (click)="openModal2(template2)">
-    Comprar Todo
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
-
-
-  <ng-template #template2>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Loguearse Para Comprar</h4>
-      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-        <span aria-hidden="true" class="visually-hidden">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Debe Loguearse antes de Realizar una Compra</p>
-      <div>
-        <button class="btn btn-danger" routerLink="/login" style="margin: 0;"
-          (click)="modalRef?.hide()">Loguearse</button>
-        <button class="btn btn-success" (click)="modalRef?.hide()" style="margin: 0 0 0   10px;">Seguir Mirando</button>
-      </div>
-
-    </div>
-  </ng-template>
 
 
 
 
-  <button class="btn btn-outline-success" *ngIf="productsCart.length > 0 && user" (click)="chargeCart()"
-    (click)="openModal(template)">
+  <button class="btn btn-outline-success" *ngIf="productsCart.length > 0 && user" (click)="chargeCart(template)"
+    >
     Comprar Todo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png">
   </button>
+
+  
 </header>
 
 <ng-template #template>

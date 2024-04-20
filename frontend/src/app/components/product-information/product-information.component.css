@@ -2,33 +2,31 @@
   background-image: url(https://wallpapercave.com/wp/wp6994803.jpg);
   background-size: cover;
   background-attachment: scroll;
-
 }
 
 h2 {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-style: oblique;
   color: rgb(0, 0, 0);
-
 }
 
-
 .card {
-  border: 2px solid rgb(101, 101, 101);
+  width: 18rem;
+  border: 2px solid white;
   display: inline-block;
   background-color: rgba(240, 237, 233, 0.592);
-  margin: 0px 10px 15px 15px;
-  width: 18rem;
-  height: 28rem;
+  margin: 0px 10px 15px 5px;
+  min-width: 18rem;
+  min-height: 18rem;
+  text-align: center;
+  transition: all 300ms ease;
 }
 
 .card img {
-  height: auto;
+  min-height: 160px;
   background-size: contain;
   background-position: center;
 }
-
-
 
 .modal-body {
   display: flex;
@@ -43,5 +41,5 @@ h2 {
   text-align: Left;
   justify-content: left;
   align-items: left;
-  min-height: 50rem;
+  min-height: 75%;
 }

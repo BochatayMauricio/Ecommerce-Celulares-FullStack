@@ -1,7 +1,7 @@
 Front 
 npm install
 npm install -g @angular/cli
-npm i bootstrap@5.3.2
+npm install bootstrap@5.3.2
 npm install jquery @popperjs/core
 npm install ngx-toastr --save
 npm install @angular/animations --save
@@ -9,7 +9,7 @@ npm install @angular/animations --save
 Back
 npm install express sequelize mysql2 
 npm install -D nodemon
-
+npm install tsc-watch --save-dev
 
 No se guarda el carrito cuando volvemos a la pagina principal
 Ver como traer la informacion del usuario para Modificar Perfil y Mis Compras

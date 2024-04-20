@@ -1,30 +1,33 @@
 <app-navbar (seachEvent)="updateSearch($event)"></app-navbar>
-<h3 class="text-start px-5 my-3" style="text-decoration: overline;">
-  Productos Relacionados: "{{this.search.name}}"
-</h3>
-<div class="card" style=" width: 18rem; margin-left: 15px;" *ngFor="let item of productList">
-  <img [src]=getUrl(item.image) width="180" height="120" alt="ImagenCelular">
-  <div class="card-body">
-    <h5 class="card-title">{{item.model}}</h5>
-    <p class="card-text">{{item.description}}
-    </p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <h3 class=" fs-6">{{item.brand}}</h3>
-    </li>
-    <li class="list-group-item" *ngIf="item.stock>0">
-      <p class="text-success d-inline mr-2">Disponible</p>
-
-    </li>
-  </ul>
-  <div class="card-body">
-    <div class="d-grid gap-2">
-      <button class="btn btn-success" type="button" (click)="findProduct(item)">Comprar</button>
+<div class="container">
+  <h3 class="text-start px-5 my-3" style="text-decoration: overline;">
+    Productos Relacionados: "{{this.search.name}}"
+  </h3>
+  <div class="card" style=" width: 18rem; margin-left: 15px;" *ngFor="let item of productList">
+    <img [src]=getUrl(item.image) width="180" height="120" alt="ImagenCelular">
+    <div class="card-body">
+      <h5 class="card-title">{{item.model}}</h5>
+      <p class="card-text">{{item.description}}
+      </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <h3 class=" fs-6">{{item.brand}}</h3>
+      </li>
+      <li class="list-group-item" *ngIf="item.stock>0">
+        <p class="text-success d-inline mr-2">Disponible</p>
+  
+      </li>
+    </ul>
+    <div class="card-body">
+      <div class="d-grid gap-2">
+        <button class="btn btn-success" type="button" (click)="findProduct(item)">Comprar</button>
+      </div>
     </div>
   </div>
+  <p *ngIf="productList.length <1" class="text-center pt-5 fs-3 h-75">
+    Parece que no tenemos produtos relacionados
+  </p>
 </div>
-<p *ngIf="productList.length <1" class="text-center pt-5 fs-3 h-75">
-  Parece que no tenemos produtos relacionados
-</p>
+
 <app-footer></app-footer>

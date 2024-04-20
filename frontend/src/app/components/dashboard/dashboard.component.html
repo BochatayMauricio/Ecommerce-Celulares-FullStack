@@ -1,32 +1,67 @@
 <app-navbar></app-navbar>
 <app-products-carousel></app-products-carousel>
-<h3 class="text-center px-5 my-5" style="text-decoration:overline;">
-  Productos
+<h3 *ngIf="page!=-1" class="text-center px-5 my-5" style="text-decoration:overline;">
+  Productos - Pagina {{page+1}}
+</h3>
+<h3 *ngIf="page==-1" class="text-center px-5 my-5" style="text-decoration:overline;">
+  Productos - Todos
 </h3>
 
 
 
-<div class="card" *ngFor="let item of listProducts | paginate:{itemsPerPage: 10, currentPage: currentPage }">
-  <img [src]=getUrl(item.image) width="180" height="120" alt="ImagenCelular">
-  <div class="card-body">
-    <h5 class="card-title">{{item.model}}</h5>
-    <p class="card-text">{{item.description}}
-    </p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <h3 class=" fs-6">{{item.brand}}</h3>
-    </li>
-    <li class="list-group-item" *ngIf="item.stock>0">
-      <span class="text-success">Disponible</span>
-      <span class="stock-informative">Quedan {{item.stock}} unidades disponibles</span>
-    </li> 
-  </ul>
-  <div class="card-body">
-    <div class="d-grid gap-2">
-      <button class="btn btn-success" type="button" (click)="findProduct(item)">Comprar</button>
+<div class="container">
+  <div class="card" *ngFor="let item of listProducts | paginate:{itemsPerPage: 10, currentPage: currentPage }">
+    <img [src]=getUrl(item.image) width="180" height="120" alt="ImagenCelular">
+    <div class="card-body">
+      <h5 class="card-title">{{item.model}}</h5>
+      <p class="card-text">{{item.description}}
+      </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <h3 class=" fs-6">{{item.brand}}</h3>
+      </li>
+      <li class="list-group-item" *ngIf="item.stock>0">
+        <span class="text-success">Disponible</span>
+        <span class="stock-informative">Quedan {{item.stock}} unidades disponibles</span>
+      </li> 
+    </ul>
+    <div class="card-body">
+      <div class="d-grid gap-2">
+        <!-- <button class="btn btn-outline-success" type="button" (click)="findProduct(item)">
+          <span class="text-success">Comprar</span>
+          <span class="stock-informative">Precio: ${{item.price}}</span>
+          </button> -->
+          <button class="botonC btn btn-outline-success">Comprar</button>
+          <button class="botonP btn btn-success" type="button" (click)="findProduct(item)">Precio: ${{item.price}}</button>
+  
+  
+      </div>
     </div>
   </div>
 </div>
-<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link {{disabledBack}}" aria-label="Previous" (click)="getProductByPage(page-1)">
+        <span aria-hidden="true">Back</span>
+      </a>
+    </li>
+
+      <li  class="page-item"><a class="page-link" (click)="getProductByPage(0)">1</a></li>
+      <li class="page-item"><a class="page-link" (click)="getProductByPage(1)">2</a></li>
+      <li class="page-item"><a class="page-link" (click)="getProductByPage(2)">3</a></li>
+    <li class="page-item">
+      <a  class="page-link {{disabledNext}}" aria-label="Next">
+        <span aria-hidden="true" (click)="getProductByPage(page+1)">Next</span>
+      </a>
+    </li>
+    <li class="page-item px-5"><a class="page-link" (click)="getProducts()">Mostrar todos</a> </li>
+  </ul>
+</nav>
+
+
+<!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
 <app-footer></app-footer>

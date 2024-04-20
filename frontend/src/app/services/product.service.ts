@@ -51,6 +51,10 @@ export class ProductService {
     return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`)
   }
 
+  getProductsByPage(page:number): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`)
+  }
+
   getProductsByName(name: string): Observable<product[]> {
     return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}/pbn/${name}`)
   }
