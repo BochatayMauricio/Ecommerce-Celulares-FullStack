@@ -30,7 +30,7 @@ const checkout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const customer = yield user_1.User.findOne({ where: { id: idCustomer } });
         console.log('desde el controlador: ', customer);
         const responseObject = yield stripe.charges.create({
-            amount: Number(amount),
+            amount: Number(amount) * 100,
             currency: "usd",
             source: tokenID,
             capture: false,

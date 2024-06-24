@@ -12,12 +12,12 @@
         <th scope="col">Precio</th>
         <th scope="col">Cantidad</th>
         <th scope="col">Subtotal</th>
-        <th scope="col"></th>
+        <th scope="col"><button class="btn btn-outline-danger" *ngIf="productsCart.length > 0" (click)="clearCart()">Limpiar</button></th>
       </tr>
     </thead>
     <tbody *ngFor="let products of productsCart">
       <tr>
-        <th scope="row"><img [src]=getUrl(products.image) width="80px" height="80px" alt="imagen"></th>
+        <th scope="row"><img [src]=getUrl(products.image) class="image-product" alt="imagen"></th>
         <td class="col">{{products.model}}</td>
         <td class="col">{{products.brand}}</td>
         <td class="col">{{products.price}}</td>
@@ -28,10 +28,10 @@
       </tr>
     </tbody>
   </table>
-
   <button class="btn btn-outline-success" *ngIf=" productsCart.length > 0 && !user" (click)="openModal2(template2)">
     Comprar Todo
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
+  
 
 
   <ng-template #template2>

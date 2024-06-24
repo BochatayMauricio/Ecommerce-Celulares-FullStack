@@ -5,26 +5,27 @@
 </h3>
 
 
-
-<div class="card" *ngFor="let item of listProducts | paginate:{itemsPerPage: 10, currentPage: currentPage }">
-  <img [src]=getUrl(item.image) width="180" height="120" alt="ImagenCelular">
-  <div class="card-body">
-    <h5 class="card-title">{{item.model}}</h5>
-    <p class="card-text">{{item.description}}
-    </p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <h3 class=" fs-6">{{item.brand}}</h3>
-    </li>
-    <li class="list-group-item" *ngIf="item.stock>0">
-      <span class="text-success">Disponible</span>
-      <span class="stock-informative">Quedan {{item.stock}} unidades disponibles</span>
-    </li> 
-  </ul>
-  <div class="card-body">
-    <div class="d-grid gap-2">
-      <button class="btn btn-success" type="button" (click)="findProduct(item)">Comprar</button>
+<div class="container-cards">
+  <div class="card" *ngFor="let item of listProducts | paginate:{itemsPerPage: 10, currentPage: currentPage }">
+    <img [src]=getUrl(item.image) alt="ImagenCelular">
+    <div class="card-body">
+      <h5 class="card-title">{{item.model}}</h5>
+      <p class="card-text">{{item.description}}
+      </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <h3 class=" fs-6">{{item.brand}}</h3>
+      </li>
+      <li class="list-group-item" *ngIf="item.stock>0">
+        <span class="text-success">Disponible</span>
+        <span class="stock-informative">Quedan {{item.stock}} unidades disponibles</span>
+      </li> 
+    </ul>
+    <div class="card-body">
+      <div class="d-grid gap-2">
+        <button class="btn btn-success" type="button" (click)="findProduct(item)">Comprar</button>
+      </div>
     </div>
   </div>
 </div>
