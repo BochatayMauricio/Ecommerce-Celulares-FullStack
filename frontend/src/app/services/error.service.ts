@@ -16,4 +16,11 @@ export class ErrorService {
       this.toastr.error('Ocurrio un Error')
     }
   }
+
+  msjLogin(){
+    this.toastr.warning('Usted ya está logueado');
+  }
+  msjCurrent(){
+    this.toastr.warning('Url incorrecta');
+  }
 }

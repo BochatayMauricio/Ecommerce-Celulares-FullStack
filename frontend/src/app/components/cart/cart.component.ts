@@ -105,4 +105,8 @@ export class CartComponent {
     return `${this.myAppUrl}static/${image}`
   }
 
+  clearCart(){
+    this.cartService.clearCart()
+  }
+
 }

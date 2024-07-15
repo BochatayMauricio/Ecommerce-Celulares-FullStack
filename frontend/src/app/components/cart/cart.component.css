@@ -25,10 +25,22 @@
   margin-left: 40%;
   margin-bottom: 1rem;
 }
+.btn.btn-outline-danger{
+  height: 30px;
+  width: 100px;
+  font-size: medium;
+  margin:0px 0px 0px 0px;
+}
 
 .button {
   border: none;
   background-color: white;
   /*padding: 0.3rem;*/
   margin-top: 1.5rem;
+}
+
+.image-product{
+  height: 80px;
+  width: 80px;
+  
 }
