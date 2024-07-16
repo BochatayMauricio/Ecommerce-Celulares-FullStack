@@ -9,6 +9,7 @@ router.get('/:dni', administrator_1.getOneAdministrator); //SEQUELIZE;
 router.delete('/:dni', administrator_1.deleteAdministrator); //SEQUELIZE;
 router.put('/:dni', customers_1.updateCustomer); //SEQUELIZE
 router.post('/login', user_1.loginUser); // SEQUELIZE;
+router.get('/page/:page', administrator_1.getAdministratorsPaginate); //SEQUELIZE;
 router.get('/', administrator_1.getAdministrators); //SEQUELIZE;
 router.post('/', user_1.newUser); // SEQUELIZE;
 exports.default = router;

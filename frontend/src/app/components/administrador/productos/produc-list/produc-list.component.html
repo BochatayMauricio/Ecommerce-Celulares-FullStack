@@ -1,4 +1,10 @@
 <div class="container">
+  <h3 *ngIf="page!=-1" class="text-center px-5 my-5" style="text-decoration:overline;">
+    Productos - Pagina {{page+1}}
+  </h3>
+  <h3 *ngIf="page==-1" class="text-center px-5 my-5" style="text-decoration:overline;">
+    Productos - Todos
+  </h3>
   <div class="row">
     <div class="col-lg-12">
       <div class="table-responsive">
@@ -13,7 +19,7 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody *ngFor="let products of productsRegister | paginate:{itemsPerPage: 10, currentPage: currentPage }; let indice=index ">
+          <tbody *ngFor="let products of listProducts; let indice=index ">
             <tr>
               <td>{{products.id}}</td>
               <td>{{products.brand}}</td>
@@ -53,7 +59,27 @@
             </tr>
           </tbody>
         </table>
-        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link {{disabledBack}}" aria-label="Previous" (click)="getProductByPage(page-1)">
+                <span aria-hidden="true">Back</span>
+              </a>
+            </li>
+        
+              <li  class="page-item {{active}}"><a class="page-link" (click)="getProductByPage(0)">1</a></li>
+              <li class="page-item"><a class="page-link" (click)="getProductByPage(1)">2</a></li>
+              <li class="page-item"><a class="page-link" (click)="getProductByPage(2)">3</a></li>
+            <li class="page-item">
+              <a  class="page-link {{disabledNext}}" aria-label="Next">
+                <span aria-hidden="true" (click)="getProductByPage(page+1)">Next</span>
+              </a>
+            </li>
+            <li class="page-item px-5"><a class="page-link" (click)="getProducts()">Mostrar todos</a> </li>
+          </ul>
+        </nav>
+
       </div>
     </div>
   </div>
@@ -72,3 +98,4 @@
     <app-formulario-modificar [productReceived]="product" (hideModal)="modalRef?.hide()"></app-formulario-modificar>
   </div>
 </ng-template>
+

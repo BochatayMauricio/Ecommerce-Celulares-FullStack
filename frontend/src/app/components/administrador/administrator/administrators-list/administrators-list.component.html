@@ -1,4 +1,10 @@
 <div class="container">
+  <h3 *ngIf="page!=-1" class="text-center px-5 my-5" style="text-decoration:overline;">
+    Administradores - Pagina {{page+1}}
+  </h3>
+  <h3 *ngIf="page==-1" class="text-center px-5 my-5" style="text-decoration:overline;">
+    Administradores - Todos
+  </h3>
   <div class="row">
     <div class="col-lg-12">
       <div class="table-responsive">
@@ -13,7 +19,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let administrator of administratorResgisted | paginate: {itemsPerPage: 10, currentPage: currentPage}; let indice=index">
+            <tr *ngFor="let administrator of adminList; let indice=index">
               <td>{{administrator.dni}}</td>
               <td>{{administrator.name}}</td>
               <td>{{administrator.surname}}</td>
@@ -54,7 +60,16 @@
           </tbody>
 
         </table>
-        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+           
+        
+              <li  class="page-item"><a class="page-link" (click)="getAdministrators(0)">1</a></li>
+              <li class="page-item"><a class="page-link" (click)="getAdministrators(1)">2</a></li>
+            
+            <li class="page-item px-5"><a class="page-link" (click)="getAllAdministrators()">Mostrar todos</a> </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

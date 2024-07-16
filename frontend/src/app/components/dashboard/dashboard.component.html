@@ -9,7 +9,7 @@
 
 
 <div class="container-cards">
-  <div class="card" *ngFor="let item of listProducts | paginate:{itemsPerPage: 10, currentPage: currentPage }">
+  <div class="card" *ngFor="let item of listProducts">
     <img [src]=getUrl(item.image) alt="ImagenCelular">
     <div class="card-body">
       <h5 class="card-title">{{item.model}}</h5>
@@ -54,6 +54,4 @@
   </ul>
 </nav>
 
-
-<!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
 <app-footer></app-footer>

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneAdministrator = exports.deleteAdministrator = exports.getAdministrators = void 0;
+exports.getOneAdministrator = exports.deleteAdministrator = exports.getAdministratorsPaginate = exports.getAdministrators = void 0;
 const user_1 = require("../models/user");
 const sales_1 = require("../models/sales");
 const getAdministrators = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,6 +27,20 @@ const getAdministrators = (request, response) => __awaiter(void 0, void 0, void 
     }
 });
 exports.getAdministrators = getAdministrators;
+const getAdministratorsPaginate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const page = parseInt(req.params.page);
+    const size = 2;
+    const { count, rows } = yield user_1.User.findAndCountAll({
+        where: { isAdmin: true },
+        limit: +size,
+        offset: (+page * (+size)),
+    });
+    res.json({
+        total: count,
+        administrators: rows
+    });
+});
+exports.getAdministratorsPaginate = getAdministratorsPaginate;
 const deleteAdministrator = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const { dni } = request.params;
     const admin = yield user_1.User.findOne({

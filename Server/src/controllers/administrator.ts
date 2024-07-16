@@ -3,6 +3,7 @@ import { User } from '../models/user';
 import { Sales } from '../models/sales';
 
 
+
 export const getAdministrators = async (request: Request, response: Response) => {
   let administratorsList: any[] = [];
   try {
@@ -16,6 +17,20 @@ export const getAdministrators = async (request: Request, response: Response) =>
     }
   }
 };
+
+export const getAdministratorsPaginate = async(req:Request, res:Response)=>{
+  const page = parseInt(req.params.page);
+  const size= 2
+  const {count, rows} = await User.findAndCountAll({ 
+    where: { isAdmin: true },
+    limit: +size,
+    offset: (+page * (+size)),
+  });
+  res.json({
+    total: count,
+    administrators: rows
+  })
+}
 
 export const deleteAdministrator = async (request: Request, response: Response) => {
   const { dni } = request.params;
