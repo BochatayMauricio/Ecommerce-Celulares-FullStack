@@ -17,8 +17,6 @@ export class AdministratorsListComponent {
   currentPage: number = 1;
   page:number=0;
   totalPages = [];
-  disabledNext='';
-  disabledBack='';
 
   constructor(private adminService: AdministratorsService, private modalService: BsModalService, private userService: UserService) {
     this.findAdministrator()
@@ -67,8 +65,6 @@ export class AdministratorsListComponent {
 
     setTimeout(() => {
       const {total, administrators} = object
-      this.disabledBack='';
-      this.disabledNext='';
       let pagesArray:any = [];
       let i;
       for(i=1; i< total/3; i++){
@@ -78,12 +74,6 @@ export class AdministratorsListComponent {
         pagesArray.push(i)
       }
       this.totalPages = pagesArray
-      if(page == this.totalPages.length-1){
-        this.disabledNext = 'disabled'
-      }
-      if(page == 0){
-        this.disabledBack = 'disabled'
-      }
       for (let i = 0; i < administrators.length; i++) {
           this.adminList.push(administrators[i]) //Agregar el producto con stock >0 al arreglo
         }
