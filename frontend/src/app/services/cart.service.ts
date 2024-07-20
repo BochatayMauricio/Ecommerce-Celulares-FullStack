@@ -8,12 +8,18 @@ import { product } from '../interfaces/product';
 })
 export class CartService {
 
-  private cartProducts: any[] = [];
+  private cartProducts: product[] = [];
   private countSubject: BehaviorSubject<number>;
   private productsSubject: BehaviorSubject<product[]>;
 
   constructor() {
-    this.productsSubject = new BehaviorSubject<any[]>([]);
+    this.getStoradgeCart()
+    if(!this.cartProducts){
+      this.productsSubject = new BehaviorSubject<product[]>([]);
+    }
+    else{
+      this.productsSubject = new BehaviorSubject<product[]>(this.cartProducts);
+    }
     this.countSubject = new BehaviorSubject<number>(this.cartProducts.length);
   }
 
@@ -29,10 +35,11 @@ export class CartService {
     }
     this.productsSubject.next(this.cartProducts);
     this.countSubject.next(this.cartProducts.length);
+    this.storadgeCart(this.cartProducts)
   }
 
   get products() {
-    return this.productsSubject.asObservable(); // para poder subscribirse desde fuera
+    return this.productsSubject.asObservable(); 
   }
 
   get countProd() {
@@ -44,6 +51,7 @@ export class CartService {
     if (index > -1) {
       this.cartProducts.splice(index, 1);
       this.productsSubject.next(this.cartProducts);
+      this.storadgeCart(this.cartProducts);
     }
     this.countSubject.next(this.cartProducts.length);
   }
@@ -52,5 +60,17 @@ export class CartService {
     this.cartProducts = [];
     this.productsSubject.next(this.cartProducts);
     this.countSubject.next(this.cartProducts.length);
+    localStorage.removeItem("cart")
+  }
+
+  storadgeCart(products:product[]){
+    localStorage.setItem("cart",JSON.stringify(products))
+  }
+
+  getStoradgeCart(){
+    let storadge = localStorage.getItem("cart")
+    if(storadge != null){
+      this.cartProducts = JSON.parse(storadge)
+    }
   }
 }

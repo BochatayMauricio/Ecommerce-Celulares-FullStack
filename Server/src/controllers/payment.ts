@@ -20,7 +20,7 @@ export const checkout = async (req:Request,res:Response)=> { // la request tiene
   const customer = await User.findOne({where:{id:idCustomer}})
   console.log('desde el controlador: ',customer)
   const responseObject = await stripe.charges.create({
-    amount: Number(amount),
+    amount: Number(amount)*100,
     currency: "usd",
     source: tokenID,
     capture:false,

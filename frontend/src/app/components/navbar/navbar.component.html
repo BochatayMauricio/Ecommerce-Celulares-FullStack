@@ -27,7 +27,7 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" (click)="userProfileModifier()">Modificar Perfil</a></li>
               <li><a class="dropdown-item" (click)="userPurchases()">Mis Compras</a></li>
-              <li><a class="dropdown-item" *ngIf="user.isAdmin" routerLink="/admin">Admin</a></li>
+              <li><a class="dropdown-item" *ngIf="user.isAdmin" routerLink="/admin">Panel Administrador</a></li>
               <li><a class="dropdown-item" (click)="logOut()">Salir</a></li>
             </ul>
           </div>

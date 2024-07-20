@@ -11,6 +11,9 @@ h2 {
   color: rgb(0, 0, 0);
 
 }
+.container-cards{
+  text-align: center;
+}
 
 .container{
   text-align: center;
@@ -21,7 +24,11 @@ h2 {
   border: 2px solid white;
   display: inline-block;
   background-color: rgba(240, 237, 233, 0.592);
+<<<<<<< HEAD
   margin: 0px 10px 15px 5px;
+=======
+  margin: 0px 20px 15px 0px;
+>>>>>>> 4f038488e83c1796e90e43737e07a94ea8fdd025
   min-width: 18rem;
   min-height: 18rem;
   text-align: center;
@@ -29,7 +36,12 @@ h2 {
 }
 
 .card img {
+<<<<<<< HEAD
   min-height: 160px;
+=======
+  height: 200px;
+  width: 250px;
+>>>>>>> 4f038488e83c1796e90e43737e07a94ea8fdd025
   background-size: contain;
   background-position: center;
 }

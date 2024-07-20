@@ -8,10 +8,9 @@
 </h3>
 
 
-
-<div class="container">
+<div class="container-cards">
   <div class="card" *ngFor="let item of listProducts | paginate:{itemsPerPage: 10, currentPage: currentPage }">
-    <img [src]=getUrl(item.image) width="180" height="120" alt="ImagenCelular">
+    <img [src]=getUrl(item.image) alt="ImagenCelular">
     <div class="card-body">
       <h5 class="card-title">{{item.model}}</h5>
       <p class="card-text">{{item.description}}
@@ -28,14 +27,7 @@
     </ul>
     <div class="card-body">
       <div class="d-grid gap-2">
-        <!-- <button class="btn btn-outline-success" type="button" (click)="findProduct(item)">
-          <span class="text-success">Comprar</span>
-          <span class="stock-informative">Precio: ${{item.price}}</span>
-          </button> -->
-          <button class="botonC btn btn-outline-success">Comprar</button>
-          <button class="botonP btn btn-success" type="button" (click)="findProduct(item)">Precio: ${{item.price}}</button>
-  
-  
+        <button class="btn btn-success" type="button" (click)="findProduct(item)">Comprar</button>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user } from '../interfaces/user';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 type loginUser = {
@@ -18,7 +18,7 @@ export class UserService{
   private myAppUrl: string;
   private myApiUrl: string;
 
-  currentUser$ = new BehaviorSubject<user>({id:0,name:'',dni:'0',surname:'',email:'',password:'',isAdmin:false}); //opcion 2
+  currentUser$ = new BehaviorSubject<user>({id:0,name:'invitado',dni:'0',surname:'invitado',email:'invitado',password:'*****',isAdmin:false}); //opcion 2
 
   constructor(private http: HttpClient,private toastr: ToastrService) {
     this.myAppUrl = environment.endpoint;
@@ -43,6 +43,7 @@ export class UserService{
   }
 
   getThisUserBehaviour(){
+    this.updateUser();
     return this.currentUser$.asObservable()
   }
 
@@ -54,16 +55,17 @@ export class UserService{
     return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user);
   }
 
-  updateUser(){
-    const token = this.getToken();
-    if(token){
-      const headerToken = new HttpHeaders({'Authorization' : token})
-      this.http.post<user>(`${this.myAppUrl}${this.myApiUrl}/user_token`,{headers:headerToken}).subscribe({
-        next: current => {
+   updateUser(){
+     const token = this.getToken();
+     if(token){
+       const headerToken = new HttpHeaders({'Authorization' : token})
+       this.http.post<user>(`${this.myAppUrl}${this.myApiUrl}/user_token`,{headers:headerToken}).subscribe({
+         next: current => {
             this.setThisUser(current);
           },
         error: err => this.toastr.error(err)
       });
     }
   }
+
 }
