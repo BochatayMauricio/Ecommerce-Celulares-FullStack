@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { user } from 'src/app/interfaces/user';
 import { environment } from 'src/app/environments/environments';
@@ -31,6 +31,10 @@ export class AdministratorsService {
     });
     console.log(this.administratorsSubject);
     return this.administratorsSubject.asObservable();
+  }
+
+  getAdministrators(page:number): Observable<any>{
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`);
   }
 
   deleteAdministrator(administrator: user) {

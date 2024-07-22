@@ -1,0 +1,23 @@
+@media (max-width: 30em){
+    table{
+        width: 100%;
+    }
+    table tr{
+        display: flex;
+        flex-direction: column;
+        border: 1px solid grey;
+        margin-bottom: 1em;
+    }
+    table tbody{
+        margin-left: 25px;
+    }
+    table td[data-titulo]::before{
+        content: attr(data-titulo);
+        width: 90px;
+        font: bold;
+    }
+
+    table thead{
+        display: none;
+    }
+}

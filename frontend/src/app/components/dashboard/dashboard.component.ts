@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
   public oneProduct: product | undefined;
   modalRef: BsModalRef | undefined;
   errorService: any;
-  currentPage:number = 1;
   page:number=0;
   totalPages = [];
   active: string ='active';

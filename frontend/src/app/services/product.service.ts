@@ -52,7 +52,7 @@ export class ProductService {
   }
 
   getProductsByPage(page:number): Observable<any> {
-    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`)
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`) //Este es any porque tambien trae el total (Objeto distinto a Product)
   }
 
   getProductsByName(name: string): Observable<product[]> {
