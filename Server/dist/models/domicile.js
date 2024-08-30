@@ -7,16 +7,25 @@ exports.Domicile = void 0;
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 exports.Domicile = connection_1.default.define('domicile', {
+    id: {
+        type: sequelize_1.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     postalCode: {
         type: sequelize_1.DataTypes.STRING,
-        primaryKey: true
     },
     street: {
         type: sequelize_1.DataTypes.STRING,
-        primaryKey: true
     },
     number: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
     }
+}, {
+    indexes: [
+        {
+            unique: true,
+            fields: ['postalCode', 'street', 'number'] // Aquí defines los campos que deben ser únicos en combinación
+        }
+    ]
 });

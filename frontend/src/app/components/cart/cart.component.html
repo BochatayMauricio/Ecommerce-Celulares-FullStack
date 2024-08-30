@@ -1,5 +1,11 @@
-<header class="container">
-  <h2 class="text text-center">Carrito</h2>
+<header class="container text-center"> 
+  <div class="text-start mt-3">
+    <h2>Carrito de Compras</h2>
+   
+  </div>
+
+    <button class="btn btn-success" routerLink="/dashboard/purchase">Purchase</button>
+  
   <div class="alert alert-info" role="alert" *ngIf="productsCart.length === 0">
     No tienes productos en el carrito
   </div>
@@ -65,6 +71,7 @@
 
 <ng-template #template>
   <div class="modal-header">
+   
     <h5 style="margin-left: 10%;">Datos Tarjeta Debito</h5>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>

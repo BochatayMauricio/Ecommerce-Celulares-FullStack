@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 //Modulos
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -68,8 +68,12 @@ import { UserPurchasesComponent } from './components/user-purchases/user-purchas
 import { CartComponent } from './components/cart/cart.component';
 import { PublicationsListComponent } from './components/administrador/publications-list/publications-list.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AllProductsComponent } from './components/all-products/all-products.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { PurchaseComponent } from './components/purchase/purchase.component';
 
 
 
@@ -116,7 +120,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     CartComponent,
     PublicationsListComponent,
     AllProductsComponent,
-    PaymentComponent
+    PaymentComponent,
+    PurchaseComponent
 
   ],
   imports: [
@@ -152,7 +157,9 @@ import { PaymentComponent } from './components/payment/payment.component';
     MatExpansionModule,
     MatProgressBarModule,
     MatButtonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    AccordionModule.forRoot(),
 
   ],
   providers: [

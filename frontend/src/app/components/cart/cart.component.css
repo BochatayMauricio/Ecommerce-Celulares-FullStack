@@ -2,6 +2,9 @@
   display: grid;
   text-align: center;
   width: 80%;
+  background-color: #F8F9FA; 
+  border-radius: 0 0 15px 15px;
+  margin-bottom: 15px;
 }
 
 .table {

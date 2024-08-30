@@ -45,6 +45,7 @@ export class FormularioRegistroComponent  {
   }
 
   registrarForm() {
+    console.log(this.Admin.id)
     const formData = new FormData();
     formData.append('model', this.productForm.get('model')?.value);
     formData.append('brand', this.productForm.get('brand')?.value);
@@ -54,7 +55,8 @@ export class FormularioRegistroComponent  {
     formData.append('file', this.productForm.get('file')?.value);
     this.productoS.postProducto(formData, this.Admin.id).subscribe({
       complete: () => {
-        this.productoS.retraiveProducts();
+        // this.productoS.retraiveProducts();
+        this.productoS.getProductsByPage(0);
         this.alerts.push({
           type: 'info',
           msg: `Producto registrado correctamente (added: ${new Date().toLocaleTimeString()})`,

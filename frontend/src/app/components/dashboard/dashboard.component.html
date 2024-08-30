@@ -34,24 +34,27 @@
 </div>
 
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link {{disabledBack}}" aria-label="Previous" (click)="getProductByPage(page-1)">
-        <span aria-hidden="true">Back</span>
-      </a>
-    </li>
+<div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link {{disabledBack}}" aria-label="Previous" (click)="getProductByPage(page-1)">
+          <span aria-hidden="true">Back</span>
+        </a>
+      </li>
+  
+        <li  class="page-item"><a class="page-link" (click)="getProductByPage(0)">1</a></li>
+        <li class="page-item"><a class="page-link" (click)="getProductByPage(1)">2</a></li>
+        <li class="page-item"><a class="page-link" (click)="getProductByPage(2)">3</a></li>
+      <li class="page-item">
+        <a  class="page-link {{disabledNext}}" aria-label="Next">
+          <span aria-hidden="true" (click)="getProductByPage(page+1)">Next</span>
+        </a>
+      </li>
+      <li class="page-item px-5"><a class="page-link" (click)="getProducts()">Mostrar todos</a> </li>
+    </ul>
+  </nav>
+</div>
 
-      <li  class="page-item"><a class="page-link" (click)="getProductByPage(0)">1</a></li>
-      <li class="page-item"><a class="page-link" (click)="getProductByPage(1)">2</a></li>
-      <li class="page-item"><a class="page-link" (click)="getProductByPage(2)">3</a></li>
-    <li class="page-item">
-      <a  class="page-link {{disabledNext}}" aria-label="Next">
-        <span aria-hidden="true" (click)="getProductByPage(page+1)">Next</span>
-      </a>
-    </li>
-    <li class="page-item px-5"><a class="page-link" (click)="getProducts()">Mostrar todos</a> </li>
-  </ul>
-</nav>
 
 <app-footer></app-footer>

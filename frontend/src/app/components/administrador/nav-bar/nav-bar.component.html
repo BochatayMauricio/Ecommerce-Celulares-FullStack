@@ -34,20 +34,26 @@
 
 
 
+      
       <ul class="nav-item mb-0">
+        <!-- Muestra ícono de Administrador para ver los datos de administrador y Publicaciones en el inicio de la sección -->
         <a class="nav-link active" aria-current="page" aria-controls="collapseBasic2"
-          (click)="openModal(template1)"><img src="../../../assets/img/usuario.png" alt=""
-            *ngIf="component == 'admin'"></a>
-        <button type="button" class="btn btn-secondary" (click)="openModal(template2)"
-          *ngIf="component=='products'">Nuevo
-          Producto</button>
+        (click)="openModal(template1)"><img src="../../../assets/img/usuario.png" alt="" *ngIf="component == 'admin'">
+        
+        </a>
 
-        <!-- Ya podemos Borrar NavBar2 -->
-        <button type="button" class="btn btn-secondary" (click)="staticModal.show()"
-          *ngIf="component=='administrators'">Alta Administrador</button>
+        <!-- Muestra el boton Nuevo Producto para la sección Productos -->
+        <button type="button" class="btn btn-secondary" (click)="openModal(template2)" *ngIf="component=='products'">
+          Nuevo Producto
+        </button>
 
+        <!-- Muestra el boton de Alta Administrador para la sección Administradores -->
+        <button type="button" class="btn btn-secondary" (click)="staticModal.show()" *ngIf="component=='administrators'">
+          Alta Administrador
+        </button>
       </ul>
 
+<!-- YA SE PUEDEN BORRAR LAS DEMAS NAVBAR EXCEPTO LA navbar del cliente -->
 
     </div>
   </div>

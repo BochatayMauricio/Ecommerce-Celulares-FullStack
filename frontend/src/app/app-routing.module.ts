@@ -22,6 +22,7 @@ import { AllProductsComponent } from './components/all-products/all-products.com
 import { roleGuard } from './utils/role.guard';
 import { loginGuard } from './utils/login.guard';
 import { currentUserGuard } from './utils/current-user.guard';
+import { PurchaseComponent } from './components/purchase/purchase.component';
 
 
 const routes: Routes = [
@@ -60,13 +61,10 @@ const routes: Routes = [
   { path: 'dashboard/helps', component: HelpsComponent },
   { path: 'dashboard/products-search/:name', component: ProductInformationComponent },
   { path: 'dashboard/shopping/:id', component: ProductShoppingComponent },
-  { path: 'dashboard/user-purchases/:idUser', 
-    
-    component: UserPurchasesComponent },
-  { path: 'dashboard/user-profile/:dni', 
-
-    component: UserProfileComponent },
+  { path: 'dashboard/user-purchases/:idUser', component: UserPurchasesComponent },
+  { path: 'dashboard/user-profile/:dni', component: UserProfileComponent },
   { path: 'dashboard/cart', component: CartComponent },
+  { path: 'dashboard/purchase', component: PurchaseComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 
 ];

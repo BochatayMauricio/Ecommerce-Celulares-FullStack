@@ -7,6 +7,7 @@ import routesAdministrator from '../routes/administrator';
 import routesSales from '../routes/sales';
 import routesPublications from '../routes/publications';
 import routesPayment from '../routes/payment';
+import routesDomicile from '../routes/domicile';
 import { Product } from './product';
 import { User } from './user';
 import { Domicile } from './domicile';
@@ -41,6 +42,7 @@ class Server {
     this.app.use('/api/sales', routesSales);
     this.app.use('/api/publications', routesPublications);
     this.app.use('/api/payment', routesPayment);
+    this.app.use('/api/domicile', routesDomicile);
   }
 
   midlewares() {
@@ -59,6 +61,7 @@ class Server {
       await Shipping.sync();
       await Publication.sync();
       await Sales.sync();
+      await Domicile.sync();
     } catch (error) {
       console.log('Unable to connect to the database: ', error);
     }

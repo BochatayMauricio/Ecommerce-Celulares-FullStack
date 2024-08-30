@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import connection from '../db/connection';
+import { asignDomicile } from "../controllers/domicile";
 import { Sales } from "../models/sales";
 
 import { Product } from "../models/product";
 import sequelize from "../db/connection";
+import { Domicile } from "../models/domicile";
 
 
 export const getSales = async (request: Request, response: Response) => {
@@ -39,10 +40,12 @@ export const postSell = async (request: Request, response: Response) => {
   for (let j = 0; j < body.length; j++) {
     try {
       const produc = await Product.findOne({ where: { id: body[j].idProduct } })
-      await Sales.create({
+     
+      const sale = await Sales.create({
         idCustomer: body[j].idCustomer,
         idProduct: body[j].idProduct,
-        quantity: body[j].quantity
+        quantity: body[j].quantity,
+        idDomicile:body[j].idDomicile
       })
       
       await Product.update({ stock: produc?.dataValues.stock - body[j].quantity }, { where: { id: body[j].idProduct } });

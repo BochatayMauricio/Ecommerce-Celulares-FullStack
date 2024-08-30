@@ -5,15 +5,15 @@ import { Sales } from "../models/sales";
 import sequelize from "../db/connection";
 import { QueryTypes } from "sequelize";
 
-export const getAllProducts = async (req: Request, res: Response) => {
+export const getAllProducts = async (req: Request, res: Response) => { // Método encargado de traer los productos de la BD
   const page = parseInt(req.params.page);
   const size= 3
-  let option = {
+  let option = { // Configuración del páginado
     limit: +size,
     offset: (+page * (+size))
   }
   const {count, rows} = await Product.findAndCountAll(option);
-  res.json({
+  res.json({ // Se devuelve la lista de productos y la cantidad
     total: count,
     products: rows
   })

@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
-import { Sales } from "./sales";
+
 
 
 export const User = sequelize.define('user', {
@@ -12,7 +12,6 @@ export const User = sequelize.define('user', {
   },
   dni: {
     type: DataTypes.STRING,
-
     allowNull: false,
   },
   email: {
