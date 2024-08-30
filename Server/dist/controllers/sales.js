@@ -48,10 +48,11 @@ const postSell = (request, response) => __awaiter(void 0, void 0, void 0, functi
     for (let j = 0; j < body.length; j++) {
         try {
             const produc = yield product_1.Product.findOne({ where: { id: body[j].idProduct } });
-            yield sales_1.Sales.create({
+            const sale = yield sales_1.Sales.create({
                 idCustomer: body[j].idCustomer,
                 idProduct: body[j].idProduct,
-                quantity: body[j].quantity
+                quantity: body[j].quantity,
+                idDomicile: body[j].idDomicile
             });
             yield product_1.Product.update({ stock: (produc === null || produc === void 0 ? void 0 : produc.dataValues.stock) - body[j].quantity }, { where: { id: body[j].idProduct } });
         }

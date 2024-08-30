@@ -14,7 +14,7 @@ export class ProducListComponent implements OnInit{
   product?: product;
   currentPage: number = 1;
   page:number=0;
-  totalPages = [];
+  totalPages:number[] = [];
   active: string =' ';
   disabledNext:string = '';
   disabledBack: string='';
@@ -25,13 +25,13 @@ export class ProducListComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProductByPage(this.page);
-    console.log(this.totalPages)
+    console.log("Paginas totales",this.totalPages)
   }
 
 
   deleteProducto(indice: number) {
 
-    const produ = this.productsRegister[indice];
+    const produ = this.listProducts[indice];
     this.productoS.deleteProducto(produ).subscribe({
       complete: () => { this.productoS.retraiveProducts() },
       error: (error) => console.log(error)
@@ -43,13 +43,15 @@ export class ProducListComponent implements OnInit{
 
   modalRef?: BsModalRef;
   openModal(template: TemplateRef<any>, index: number) {
-    this.product = this.productsRegister[index];
+    this.product = this.listProducts[index];
     this.modalRef = this.modalService.show(template);
   }
 
   openModal2(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
+
+// Se usa para mostrar todos
   getProducts() {
     this.page=-1;
     this.listProducts = [];
@@ -64,8 +66,8 @@ export class ProducListComponent implements OnInit{
         }
       }
     }, 500);
-
   }
+
 
   getProductByPage(page:number){
     this.page=page
@@ -79,7 +81,7 @@ export class ProducListComponent implements OnInit{
       const {total, products} = object
       this.disabledBack='';
       this.disabledNext='';
-      let pagesArray:any = [];
+      let pagesArray:number[] = [];
       let i;
       for(i=1; i< total/3; i++){
         pagesArray.push(i);
@@ -89,6 +91,7 @@ export class ProducListComponent implements OnInit{
         pagesArray.push(i)
       }
       this.totalPages = pagesArray
+      console.log("pagesArray",pagesArray)
       if(page == this.totalPages.length-1){
         this.disabledNext = 'disabled'
       }

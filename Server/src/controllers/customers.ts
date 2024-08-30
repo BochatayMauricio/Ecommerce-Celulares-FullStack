@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { User } from '../models/user';
-import connection from '../db/connection'
-import { Sales } from '../models/sales';
 import sequelize from '../db/connection';
 
 

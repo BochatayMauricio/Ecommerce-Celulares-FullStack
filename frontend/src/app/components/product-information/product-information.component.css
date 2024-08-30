@@ -43,3 +43,7 @@ h2 {
   align-items: left;
   min-height: 75%;
 }
+
+.card-text{
+  height: 150px;
+}

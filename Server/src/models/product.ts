@@ -10,7 +10,6 @@ export const Product = sequelize.define('product', {
   },
   model: {
     type: DataTypes.STRING,
-
     allowNull: false
   },
   brand: {

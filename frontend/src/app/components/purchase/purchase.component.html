@@ -1,0 +1,117 @@
+
+<app-navbar></app-navbar>
+
+<h2 class="text-center my-5">Finalizar Compra</h2>
+
+<p class="text-center my-5">Aca irian los productos que hay en el carrito</p>
+
+<h4 class="text-center">Elige como recibiras tu producto</h4>
+<!-- Acordeon -->
+<!-- <div class="row row-cols-3 justify-content-center">
+    <accordion [closeOthers]="oneAtATime" [isAnimated]="true">
+        <accordion-group heading="Envío a Domicilio">
+            <form>
+                <div class="mb-3">
+                    <label for="codPos">Codigo Postal</label>
+                    <input id="codPos" type="text" placeholder="Codigo Postal" class="form-control"
+                    formControlName="codPos">
+                </div>
+                <div class="mb-3">
+                    <label for="calle">Calle</label>
+                    <input id="calle" type="text" placeholder="Calle" class="form-control"
+                    formControlName="calle">
+                </div>
+                <div class="mb-3">
+                    <label for="numero">Numero</label>
+                    <input id="numero" type="number" placeholder="Numero" class="form-control"
+                    formControlName="numero">
+                </div>
+            </form>
+        </accordion-group>
+        <accordion-group heading="Retiro en sucursal">
+            <p>
+                Sucursal 1
+            </p>
+            <p>
+                Sucursal 2
+            </p>
+        </accordion-group>
+      </accordion>
+</div> -->
+
+<!-- Desplegable -->
+<div class="text-center">
+    <div class="btn-group text-begin mb-5">
+
+        <button type="button" class="btn btn-success" [disabled]="collapsed" (click)="collapsed = !collapsed"
+        [attr.aria-expanded]="!collapsed" aria-controls="collapseBasic">Envío a Domicilio
+          </button>
+          <button type="button" class="btn btn-primary" [disabled]="!collapsed" (click)="collapsed = !collapsed"
+          [attr.aria-expanded]="collapsed" aria-controls="collapseBasic">Retiro en Sucursal
+            </button>
+    </div>
+    <div class="text-start mx-5 px-5">
+        <!-- Envío a Domicilio -->
+        <div id="collapseBasic" [collapse]="!collapsed" [isAnimated]="true">
+            <h2 class="text-center my-3" id="envio">Envío a Domicilio</h2>
+            <div class="well well-lg card card-block card-header">
+                
+                <form>
+                    <div class="mb-3">
+                        <label for="codPos">Codigo Postal</label>
+                        <input id="codPos" type="text" placeholder="Codigo Postal" class="form-control"
+                        formControlName="codPos">
+                    </div>
+                    <div class="mb-3">
+                        <label for="calle">Calle</label>
+                        <input id="calle" type="text" placeholder="Calle" class="form-control"
+                        formControlName="calle">
+                    </div>
+                    <div class="mb-3">
+                        <label for="numero">Numero</label>
+                        <input id="numero" type="number" placeholder="Numero" class="form-control"
+                        formControlName="numero">
+                    </div>
+                </form>
+
+            </div>
+        <!-- Retiro en sucursal -->
+        </div>
+        
+        <div id="collapseBasic" [collapse]="collapsed" [isAnimated]="true">
+            <h2 class="text-center my-3" id="sucursal">Retiro en Sucursal</h2>
+            <div class="well well-lg card card-block card-header">
+                <p>
+                    Sucursal 1
+                </p>
+                <p>
+                    Sucursal 2
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="my-5 text-center">
+        <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Envío a Domicilio
+          </button>
+      <hr>
+          <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+          <div class="well well-lg card card-block card-header">Some content</div>
+          </div>
+    </div >
+   <div class="my-5 text-center">
+    <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
+    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Toggle collapse
+      </button>
+  <hr>
+      <div id="collapseBasic" [collapse]="!isCollapsed" [isAnimated]="true">
+      <div class="well well-lg card card-block card-header">Some content</div>
+      </div>
+   </div> -->
+      
+</div>
+<div class="text-center">
+    <button class="btn btn-primary" routerLink="">
+        Finaliar Compra
+    </button>   
+</div>
