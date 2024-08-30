@@ -3,7 +3,7 @@
 
 <h2 class="text-center my-5">Finalizar Compra</h2>
 
-<p class="text-center my-5">Aca irian los productos que hay en el carrito</p>
+<app-cart [component]="component"></app-cart>
 
 <h4 class="text-center">Elige como recibiras tu producto</h4>
 <!-- Acordeon -->
@@ -50,13 +50,13 @@
           [attr.aria-expanded]="collapsed" aria-controls="collapseBasic">Retiro en Sucursal
             </button>
     </div>
-    <div class="text-start mx-5 px-5">
+    <div class="text-start m-5 px-5">
         <!-- Envío a Domicilio -->
         <div id="collapseBasic" [collapse]="!collapsed" [isAnimated]="true">
             <h2 class="text-center my-3" id="envio">Envío a Domicilio</h2>
             <div class="well well-lg card card-block card-header">
                 
-                <form>
+                <form [formGroup]="formGroup!" (ngSubmit)="setDomicile()">
                     <div class="mb-3">
                         <label for="codPos">Codigo Postal</label>
                         <input id="codPos" type="text" placeholder="Codigo Postal" class="form-control"
@@ -72,6 +72,9 @@
                         <input id="numero" type="number" placeholder="Numero" class="form-control"
                         formControlName="numero">
                     </div>
+                    <!-- Codigo Auxiliar -->
+                    <button [disabled]="!formGroup!.valid" class="btn btn-outline-success">Registrar Domicilio</button>
+                    <!--  -->
                 </form>
 
             </div>
@@ -81,12 +84,34 @@
         <div id="collapseBasic" [collapse]="collapsed" [isAnimated]="true">
             <h2 class="text-center my-3" id="sucursal">Retiro en Sucursal</h2>
             <div class="well well-lg card card-block card-header">
-                <p>
-                    Sucursal 1
-                </p>
-                <p>
-                    Sucursal 2
-                </p>
+               
+                
+                <form id="sucursales">
+                    <label>
+                        <input type="radio" name="sucursal" value="montevideo">
+                        Montevideo 1343, Rosario
+                    </label><br>
+            
+                    <label>
+                        <input type="radio" name="sucursal" value="oroño">
+                        Oroño 1515, Rosario
+                    </label><br>
+            
+                    <label>
+                        <input type="radio" name="sucursal" value="StaFe">
+                        Santa Fe 2500, Rosario
+                    </label><br>
+            
+                    <label>
+                        <input type="radio" name="sucursal" value="SanJuan">
+                        San Juan 800, Rosario
+                    </label><br>
+            
+                    <button type="button" (click)="setSucursal()">Enviar</button>
+                </form>
+
+
+
             </div>
         </div>
     </div>
@@ -109,9 +134,13 @@
       </div>
    </div> -->
       
+
+
+
+
 </div>
-<div class="text-center">
-    <button class="btn btn-primary" routerLink="">
-        Finaliar Compra
+<div class="text-center my-5">
+    <button class="btn btn-primary" [disabled]="!formGroup!.valid" routerLink="">
+        Finalizar Compra
     </button>   
 </div>

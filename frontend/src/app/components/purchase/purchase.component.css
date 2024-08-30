@@ -12,3 +12,10 @@
     padding: 8px 0;
 }
 
+#sucursales label{
+    display: block;
+    font-size: 25px;
+    margin: 15px 0 10px 0;
+}
+
+

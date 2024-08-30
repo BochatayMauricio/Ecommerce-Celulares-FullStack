@@ -20,10 +20,11 @@ export class NavbarComponent implements OnInit {
   user!: user;
   login: boolean = false;
   isCollapsed = true;
-  isCollapsed2 = true;
+  infoRosarioCelu = true;
   productList: product[] = [];
   productString: string = '';
   search: string = '';
+ 
 
 
   constructor(private router: Router, private cartService: CartService, private toastr: ToastrService, private userService: UserService) {

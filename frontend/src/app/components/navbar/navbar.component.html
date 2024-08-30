@@ -10,8 +10,10 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" (click)="isCollapsed=!isCollapsed"
+          <!-- <a class="nav-link active" aria-current="page" (click)="isCollapsed=!isCollapsed"
             [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"><img
+              src="../../../assets/img/carrito-de-compras.png" alt=""></a>  -->
+              <a class="nav-link active" aria-current="page" routerLink="/dashboard/cart"><img
               src="../../../assets/img/carrito-de-compras.png" alt=""></a> 
         </li>
         <li class="nav-item">
@@ -36,8 +38,8 @@
       </ul>
 
       <ul class="nav-item mb-0">
-        <a class="nav-link active" aria-current="page" (click)="isCollapsed2=!isCollapsed2"
-          [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic2"><img src="../../../assets/img/1176.png"
+        <a class="nav-link active" aria-current="page" (click)="infoRosarioCelu=!infoRosarioCelu"
+          [attr.aria-expanded]="!infoRosarioCelu" aria-controls="collapseBasic2"><img src="../../../assets/img/1176.png"
             alt=""></a>
       </ul>
       <form class="d-flex" role="search">
@@ -49,7 +51,7 @@
   </div>
 </nav>
 
-<div id="collapseBasic2" [collapse]="isCollapsed2" [isAnimated]="true">
+<div id="collapseBasic2" [collapse]="infoRosarioCelu" [isAnimated]="true">
   <section class="w-50 mx-auto text-center pt-5" id="intro">
 
     <h1 class="p-3 fs-2 border-top border-3">Bienvenidos a <span class="text-primary ">RosarioCelu</span>, tu destino
@@ -69,8 +71,8 @@
 </div>
 
 
-<div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true" class="cart_panel">
+<!-- <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true" class="cart_panel">
   <div class="well ">
     <app-cart (eventPay)="pay"></app-cart>
   </div>
-</div>
+</div> -->
