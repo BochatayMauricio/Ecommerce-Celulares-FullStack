@@ -1,10 +1,11 @@
+<app-navbar *ngIf="component!='purchase'"></app-navbar>
 <header class="container text-center"> 
   <div class="text-start mt-3">
-    <h2>Carrito de Compras</h2>
+    <h2 *ngIf="component!='purchase'">Carrito de Compras</h2>
    
   </div>
 
-    <button class="btn btn-success" routerLink="/dashboard/purchase">Purchase</button>
+
   
   <div class="alert alert-info" role="alert" *ngIf="productsCart.length === 0">
     No tienes productos en el carrito
@@ -18,7 +19,7 @@
         <th scope="col">Precio</th>
         <th scope="col">Cantidad</th>
         <th scope="col">Subtotal</th>
-        <th scope="col"><button class="btn btn-outline-danger" *ngIf="productsCart.length > 0" (click)="clearCart()">Limpiar</button></th>
+        <th scope="col" *ngIf="component!='purchase'"><button class="btn btn-outline-danger" *ngIf="productsCart.length > 0" (click)="clearCart()">Limpiar</button></th>
       </tr>
     </thead>
     <tbody *ngFor="let products of productsCart">
@@ -29,16 +30,16 @@
         <td class="col">{{products.price}}</td>
         <td class="col">{{products.quantity}}</td>
         <td class="col">{{products.quantity * products.price}}</td>
-        <td><button class="button" (click)="deleteProduct(products.id)"><img
+        <td *ngIf="component!='purchase'"><button class="button" (click)="deleteProduct(products.id)"><img
               src="../../../assets/img/basura.png"></button></td>
       </tr>
     </tbody>
   </table>
-  <button class="btn btn-outline-success" *ngIf=" productsCart.length > 0 && !user" (click)="openModal2(template2)">
-    Comprar Todo
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
   
-
+    <!-- Fijarse, porque valida segun nombre de usuario = invitado -->
+    <button class="btn btn-success" *ngIf=" productsCart.length > 0 && user?.name!='invitado' && component!='purchase'"  routerLink="/dashboard/purchase">Comprar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
+    <button class="btn btn-success" *ngIf=" productsCart.length > 0 && user?.name=='invitado' && component!='purchase'"  (click)="openModal2(template2)">Comprar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
+    
 
   <ng-template #template2>
     <div class="modal-header">
@@ -59,12 +60,12 @@
   </ng-template>
 
 
+  
 
-
-  <button class="btn btn-outline-success" *ngIf="productsCart.length > 0 && user" (click)="chargeCart(template)"
+  <!-- <button class="btn btn-outline-success" *ngIf="productsCart.length > 0 && user" (click)="chargeCart(template)"
     >
     Comprar Todo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png">
-  </button>
+  </button> -->
 
   
 </header>
@@ -80,4 +81,4 @@
   <div class="modal-body" style="margin-left: 25px; height:auto">
     <app-payment [cartSell]="cartSales" (objectCharge)="doSell($event)"></app-payment>
   </div>
-</ng-template>
+</ng-template> 

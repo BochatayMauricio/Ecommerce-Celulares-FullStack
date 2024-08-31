@@ -1,7 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
-import { Parser } from '@angular/compiler';
 import { user } from 'src/app/interfaces/user';
 
 import { Input } from '@angular/core';
@@ -13,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  @Input() component: any;
+  @Input() component?: string;
 
   administrator!: user;
   constructor(private modalService: BsModalService,

@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { sales } from 'src/app/interfaces/sales';
 import { SalesService } from '../../services/sales.service';
@@ -15,7 +15,9 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent {
+export class CartComponent implements OnInit{
+  @Input() component?: string;
+
   hideModal = false;
   modalRef?: BsModalRef;
   responsePayment: any;
@@ -24,11 +26,13 @@ export class CartComponent {
   cartSales: sales[] = [];
   user?: user;
 
+
   private myAppUrl: string = environment.endpoint;
   constructor(private modalService: BsModalService, private cartService: CartService, private sellService: SalesService, private alertService: ToastrService, private router: Router, private userService: UserService) {
 
   }
   ngOnInit() {
+
     console.log(this.user)
     this.cartService.products.subscribe((products) => {
       this.productsCart = products
@@ -50,6 +54,7 @@ export class CartComponent {
         const newSale: sales = {
           idCustomer: this.user.id,
           idProduct: this.productsCart[i].id,
+          idDomicile:0, //Hay que agregar que te devuelva el domicilio para hacer la venta
           quantity: Number(this.productsCart[i].quantity),
           idShipping: null
         };

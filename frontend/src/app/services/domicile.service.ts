@@ -12,11 +12,11 @@ export class DomicileService {
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
-    this.myApiUrl = 'api/sales'
+    this.myApiUrl = 'api/domicile'
 
    }
 
-   setDomicile(domicile:domicile){
+   setDomicile(domicile:any){
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}`,domicile)
    }
 }
