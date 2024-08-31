@@ -22,12 +22,14 @@ const sales_1 = __importDefault(require("../routes/sales"));
 const publications_1 = __importDefault(require("../routes/publications"));
 const payment_1 = __importDefault(require("../routes/payment"));
 const domicile_1 = __importDefault(require("../routes/domicile"));
+const brand_1 = __importDefault(require("../routes/brand"));
 const product_2 = require("./product");
 const user_2 = require("./user");
 const domicile_2 = require("./domicile");
 const publication_1 = require("./publication");
 const sales_2 = require("./sales");
 const shipping_1 = require("./shipping");
+const brand_2 = require("./brand");
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -51,6 +53,7 @@ class Server {
         this.app.use('/api/publications', publications_1.default);
         this.app.use('/api/payment', payment_1.default);
         this.app.use('/api/domicile', domicile_1.default);
+        this.app.use('/api/brands', brand_1.default);
     }
     midlewares() {
         // Parseo Body
@@ -62,6 +65,7 @@ class Server {
     dbConnect() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                yield brand_2.Brand.sync();
                 yield product_2.Product.sync();
                 yield user_2.User.sync();
                 yield domicile_2.Domicile.sync();

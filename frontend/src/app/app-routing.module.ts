@@ -23,6 +23,8 @@ import { roleGuard } from './utils/role.guard';
 import { loginGuard } from './utils/login.guard';
 import { currentUserGuard } from './utils/current-user.guard';
 import { PurchaseComponent } from './components/purchase/purchase.component';
+import { FormularioRegistroComponent } from './components/administrador/productos/form-register/formulario-registro.component';
+import { FormBrandComponent } from './components/administrador/productos/form-brand/form-brand.component';
 
 
 const routes: Routes = [
@@ -54,6 +56,11 @@ const routes: Routes = [
   { path: 'admin/publications/:id',
     canActivate:[roleGuard,currentUserGuard], 
     component: PublicationsListComponent 
+  },
+  {
+    path:'admin/products/newProduct',
+    canActivate:[roleGuard],
+    component: FormularioRegistroComponent
   },
 
   { path: 'dashboard', component: DashboardComponent },

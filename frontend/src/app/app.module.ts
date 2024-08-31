@@ -26,6 +26,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {MatSelectModule} from '@angular/material/select';
 // Componentes 
 import { LoginComponent } from './components/login/login.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -61,7 +62,6 @@ import { NavBar2Component } from './components/administrador/administrator/nav-b
 import { ModifyFormAdministratorComponent } from './components/administrador/administrator/modify-form-administrator/modify-form-administrator.component';
 
 import { NavBarComponent } from './components/administrador/nav-bar/nav-bar.component';
-import { Navbar2Component } from './components/administrador/productos/navbar2/navbar2.component';
 import { SalesListComponent } from './components/administrador/ventas/sales-list/sales-list.component';
 import { FooterAdminComponent } from './components/administrador/footerAdmin/footer.component';
 import { UserPurchasesComponent } from './components/user-purchases/user-purchases.component';
@@ -74,6 +74,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AllProductsComponent } from './components/all-products/all-products.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PurchaseComponent } from './components/purchase/purchase.component';
+import { FormBrandComponent } from './components/administrador/productos/form-brand/form-brand.component';
 
 
 
@@ -97,7 +98,6 @@ import { PurchaseComponent } from './components/purchase/purchase.component';
     ProductsCarouselComponent,
     ProductShoppingComponent,
     SalesListComponent,
-    Navbar2Component,
     PanelAdministradorComponent,
     ProductosComponent,
     TabsComponent,
@@ -121,7 +121,8 @@ import { PurchaseComponent } from './components/purchase/purchase.component';
     PublicationsListComponent,
     AllProductsComponent,
     PaymentComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    FormBrandComponent
 
   ],
   imports: [
@@ -160,6 +161,7 @@ import { PurchaseComponent } from './components/purchase/purchase.component';
     NgxPaginationModule,
     BrowserAnimationsModule,
     AccordionModule.forRoot(),
+    MatSelectModule
 
   ],
   providers: [

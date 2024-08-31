@@ -19,12 +19,11 @@ export class ProductService {
   nullproduct: product = {
     id: 0,
     model: '',
-    brand: '',
+    idBrand: '',
     description: '',
     price: 0,
     stock: 0,
     image: '',
-    quantity: null,
     createdAt: new Date()
   }
   private productInfo: BehaviorSubject<product> = new BehaviorSubject<product>(this.nullproduct);

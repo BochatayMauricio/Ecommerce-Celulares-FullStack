@@ -4,7 +4,33 @@ import { Publication } from "../models/publication";
 import { Sales } from "../models/sales";
 import sequelize from "../db/connection";
 import { QueryTypes } from "sequelize";
+import { Brand } from "../models/brand";
 
+// export const getAllProducts = async (req: Request, res: Response) => { // Método encargado de traer los productos de la BD
+//   const page = parseInt(req.params.page);
+//   const size= 3
+//   let option = { // Configuración del páginado
+//     limit: +size,
+//     offset: (+page * (+size))
+//   }
+//   try{
+//     const {count, rows} = await Product.findAndCountAll(option);
+//     if(!rows){
+//       return res.status(404).send({
+//         msg: 'No hay productos en la base de datos'
+//       })
+//     }
+//     return res.status(200).json({ // Se devuelve la lista de productos y la cantidad
+//       total: count,
+//       products: rows
+//     });
+//   }catch(error){
+//     return res.status(200).send({
+//       msg: error
+//     })
+//   }
+
+// };
 export const getAllProducts = async (req: Request, res: Response) => { // Método encargado de traer los productos de la BD
   const page = parseInt(req.params.page);
   const size= 3
@@ -12,31 +38,64 @@ export const getAllProducts = async (req: Request, res: Response) => { // Métod
     limit: +size,
     offset: (+page * (+size))
   }
-  const {count, rows} = await Product.findAndCountAll(option);
-  res.json({ // Se devuelve la lista de productos y la cantidad
-    total: count,
-    products: rows
-  })
+  try{
+    const querySQL = 
+    `SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p 
+    INNER JOIN brands b ON b.idBrand = p.idBrand 
+    LIMIT ${option.limit} OFFSET ${option.offset};`;
+    const rows = await sequelize.query(querySQL,{
+      type:QueryTypes.SELECT
+    });
+    if(!rows) {
+      return res.status(200).send({
+        msg:'No hay mas productos'
+      });
+    }
+    const count = rows.length
+    return res.status(200).json({
+      total: count,
+      products: rows
+    })
+  }catch(err){
+    return res.status(200).send({
+      msg:err
+    })
+  }
+
 };
 
 export const getProducts  = async (req:Request, res:Response) => {
-  const productList = await Product.findAll();
-  res.json(productList);
+  try{
+    const productList = await Product.findAll();
+    if(!productList) {
+        return res.status(404).send({
+        msg:'No hay productos cargados'
+        })
+    }
+    return res.status(200).json(productList);
+  }catch(error){
+    return res.status(400).send({
+      msg:error
+    })
+  }
+
 }
 
 export const newProduct = async (request: Request, response: Response) => {
   const { body, file } = request;
   const idAdmin = parseInt(request.params.idAdmin);
-  // console.log('body:', body);
-  // console.log('file:', file);
   //AHORA validamos LA IMAGEN QUE VIENE DE TIPO FILE DESDE EL FRONT 
   if (file != undefined) {
     const url = file.filename;
     //MANDAMOS A LA BD TODO LISTO
     try {
+      const brand = await Brand.findOne({where:{idBrand: Number(body.idBrand)}});
+      if(!brand) {
+        return response.status(404).send('La marca no es reconocida por el sistema');
+      }
       const product = await Product.create({
         model: body.model,
-        brand: body.brand,
+        idBrand: Number(body.idBrand),
         description: body.description,
         image: url,
         price: Number(body.price),
@@ -50,6 +109,8 @@ export const newProduct = async (request: Request, response: Response) => {
     } catch (error) {
       return response.status(400).json({ msg: 'Ocurrio un Error', error });
     }
+  }else{
+    return response.status(400).send('Se debe cargar una imagen')
   }
 };
 

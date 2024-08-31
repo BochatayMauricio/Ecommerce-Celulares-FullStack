@@ -28,12 +28,9 @@ const getSales = (request, response) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.getSales = getSales;
 const getOneSales = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    // Extraemos el id de la ruta
     const id = request.params.idCustomer;
-    // Extraemos metadatos Querytypes y definimos la Query con Querytypes.SELECT
     const { QueryTypes } = require('sequelize');
     const saleList = yield connection_1.default.query(`SELECT * FROM sales INNER JOIN users ON users.id = sales.idCustomer INNER JOIN products ON products.id = sales.idProduct WHERE users.id = ${id}`, { type: QueryTypes.SELECT });
-    //Validamos si saleList contiene valores
     if (saleList.length > 0) {
         response.status(200).json(saleList);
     }
@@ -43,12 +40,11 @@ const getOneSales = (request, response) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.getOneSales = getOneSales;
 const postSell = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    // recibimos un arreglo de ventas, que hace referencia a una compra por cada producto del carrito
     const { body } = request;
     for (let j = 0; j < body.length; j++) {
         try {
             const produc = yield product_1.Product.findOne({ where: { id: body[j].idProduct } });
-            const sale = yield sales_1.Sales.create({
+            yield sales_1.Sales.create({
                 idCustomer: body[j].idCustomer,
                 idProduct: body[j].idProduct,
                 quantity: body[j].quantity,

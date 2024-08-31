@@ -23,7 +23,7 @@ export class FormularioModificarComponent implements OnInit {
       const productModify: product = {
       id: this.productReceived.id,
       model: this.productReceived.model,
-      brand: this.productReceived.brand,
+      idBrand: this.productReceived.idBrand,
       price: price.value || this.productReceived.price,
       stock: stock.value || this.productReceived.stock,
       description: description.value || this.productReceived.description,

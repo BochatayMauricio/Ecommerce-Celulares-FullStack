@@ -1,0 +1,11 @@
+<form [formGroup]="brandForm" (ngSubmit)="registrarForm()" class="form">
+    <mat-form-field>
+      <mat-label>Nombre de marca</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Fabricante</mat-label>
+        <input matInput formControlName="maker">
+    </mat-form-field>
+    <button [disabled]="!brandForm.valid" class="btn btn-success" type="submit">Registrar</button>
+</form>

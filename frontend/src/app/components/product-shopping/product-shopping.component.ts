@@ -61,7 +61,7 @@ export class ProductShoppingComponent implements OnInit {
     const product: product = {
       id: newProduct.id, //PK
       model: newProduct.model,
-      brand: newProduct.brand,
+      idBrand: newProduct.idBrand,
       description: newProduct.description,
       price: newProduct.price,
       stock: newProduct.stock,

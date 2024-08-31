@@ -43,7 +43,10 @@
         </a>
 
         <!-- Muestra el boton Nuevo Producto para la sección Productos -->
-        <button type="button" class="btn btn-secondary" (click)="openModal(template2)" *ngIf="component=='products'">
+        <!-- <button type="button" class="btn btn-secondary" (click)="openModal(template2)" *ngIf="component=='products'">
+          Nuevo Producto
+        </button> -->
+        <button type="button" class="btn btn-secondary" routerLink="newProduct" *ngIf="component=='products'">
           Nuevo Producto
         </button>
 
@@ -93,7 +96,7 @@
   </div>
 </ng-template>
 
-<ng-template #template2>
+<!-- <ng-template #template2>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Registrar Producto</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
@@ -104,7 +107,7 @@
     <app-formulario-registro (hideModal)="modalRef?.hide()"></app-formulario-registro>
     <button aria-label="Close" (click)="modalRef?.hide()" class="btn btn-danger" style="width: 100%;">Cancelar</button>
   </div>
-</ng-template>
+</ng-template> -->
 
 
 <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"

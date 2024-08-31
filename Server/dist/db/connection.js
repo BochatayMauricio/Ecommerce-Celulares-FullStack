@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize('rrhh', 'root', 'vicen', {
+const sequelize = new sequelize_1.Sequelize('rrhh', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql'
 });
