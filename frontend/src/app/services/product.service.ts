@@ -58,17 +58,19 @@ export class ProductService {
     return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}/pbn/${name}`)
   }
 
-  //PART OF ADMINISTRATOR
-
   postProducto(formDataProduct: FormData, idAdmin: number) {
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}/${idAdmin}`, formDataProduct);
   }
 
+  //ver porque no se usa
   retraiveProducts() {
     this.http.get(`${this.myAppUrl}${this.myApiUrl}`).subscribe(products => {
       this.productos = products;
       this.prod.next(this.productos)
     });
+  }
+
+  getProductsObs(){
     return this.prod.asObservable();
   }
 

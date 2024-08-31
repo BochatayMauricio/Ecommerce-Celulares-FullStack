@@ -33,7 +33,7 @@ export class ProducListComponent implements OnInit{
 
     const produ = this.listProducts[indice];
     this.productoS.deleteProducto(produ).subscribe({
-      complete: () => { this.productoS.retraiveProducts() },
+      complete: () => { this.productoS.getProductsByPage(this.page) },
       error: (error) => console.log(error)
     });
     this.modalRef?.hide()
@@ -91,7 +91,7 @@ export class ProducListComponent implements OnInit{
         pagesArray.push(i)
       }
       this.totalPages = pagesArray
-      console.log("pagesArray",pagesArray)
+      
       if(page == this.totalPages.length-1){
         this.disabledNext = 'disabled'
       }
@@ -104,8 +104,7 @@ export class ProducListComponent implements OnInit{
         }
        
       }
-      console.log(this.totalPages)
-      console.log(this.listProducts)
+
     }, 500);
    
     
