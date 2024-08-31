@@ -71,7 +71,7 @@ export class FormularioRegistroComponent  {
     this.productoS.postProducto(formData, this.Admin.id).subscribe({
     complete: () => {
         this.productoS.retraiveProducts();
-         this.productoS.getProductsByPage(0);
+         this.productoS.getProductsByPage(1);
          this.alerts.push({
            type: 'info',
            msg: `Producto registrado correctamente (added: ${new Date().toLocaleTimeString()})`,

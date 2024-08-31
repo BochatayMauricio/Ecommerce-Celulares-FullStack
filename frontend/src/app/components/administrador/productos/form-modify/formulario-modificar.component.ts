@@ -13,7 +13,7 @@ export class FormularioModificarComponent implements OnInit {
   @Input() productReceived: any;
   @Output() hideModal = new EventEmitter<boolean>();
   ngOnInit(): void {
-        
+      this.productoS.getProductsByPage(1);  
   };
 
   updateProducto(price: any, stock: any, description: any) {
@@ -32,7 +32,7 @@ export class FormularioModificarComponent implements OnInit {
       image: this.productReceived.image
     }
     this.productoS.updateProduct(productModify).subscribe({
-      complete: () => {
+      next: () => {
         this.productoS.getProductsByPage(1);
         this.toastr.success('Producto Actualizado');
         this.hideModal.emit(true);

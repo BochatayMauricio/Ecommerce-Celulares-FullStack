@@ -15,7 +15,7 @@ export class ProductService {
 
   productos: any = [];
   private prod: BehaviorSubject<product[]> = new BehaviorSubject<product[]>([]);
-
+  private productsPaginated: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   nullproduct: product = {
     id: 0,
     model: '',
@@ -50,8 +50,14 @@ export class ProductService {
     return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`)
   }
 
-  getProductsByPage(page:number): Observable<any> {
-    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`) //Este es any porque tambien trae el total (Objeto distinto a Product)
+  getProductsByPage(page:number) {
+    this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`).subscribe((value)=>{
+      this.productsPaginated.next(value);
+    }) //Este es any porque tambien trae el total (Objeto distinto a Product)
+  }
+
+  getProductsByPageObs(){
+    return this.productsPaginated.asObservable()
   }
 
   getProductsByName(name: string): Observable<product[]> {
@@ -61,7 +67,7 @@ export class ProductService {
   postProducto(formDataProduct: FormData, idAdmin: number) {
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}/${idAdmin}`, formDataProduct);
   }
-
+  
   //ver porque no se usa
   retraiveProducts() {
     this.http.get(`${this.myAppUrl}${this.myApiUrl}`).subscribe(products => {

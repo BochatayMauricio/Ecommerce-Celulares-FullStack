@@ -19,21 +19,18 @@ export class ProducListComponent implements OnInit{
   disabledNext:string = '';
   disabledBack: string='';
   listProducts: product[] = [];
-
+  object: any;
 
   constructor(private productoS: ProductService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.getProductByPage(this.page);
-    console.log("Paginas totales",this.totalPages)
   }
-
-
   deleteProducto(indice: number) {
 
     const produ = this.listProducts[indice];
     this.productoS.deleteProducto(produ).subscribe({
-      complete: () => { this.productoS.getProductsByPage(this.page) },
+      next: () => { this.getProductByPage(this.page) },
       error: (error) => console.log(error)
     });
     this.modalRef?.hide()
@@ -68,17 +65,16 @@ export class ProducListComponent implements OnInit{
     }, 500);
   }
 
-
+//dada una pagina
   getProductByPage(page:number){
     this.page=page
-    let object: any;
     this.listProducts = [];
-    this.productoS.getProductsByPage(page).subscribe((data: any) => {
-      object = data
+    this.productoS.getProductsByPage(page);
+    this.productoS.getProductsByPageObs().subscribe((data: any) => {
+      this.object = data
     });
-    
     setTimeout(() => {
-      const {total, products} = object
+      const {total, products} = this.object
       this.disabledBack='';
       this.disabledNext='';
       let pagesArray:number[] = [];
@@ -102,12 +98,8 @@ export class ProducListComponent implements OnInit{
         if (products[i].stock > 0) {
           this.listProducts.push(products[i]) //Agregar el producto con stock >0 al arreglo
         }
-       
       }
-
-    }, 500);
-   
-    
+    }, 500);    
   }
 
   sendPage(page:number){
