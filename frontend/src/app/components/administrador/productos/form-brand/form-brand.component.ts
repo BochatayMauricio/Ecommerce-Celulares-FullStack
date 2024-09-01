@@ -47,7 +47,7 @@ export class FormBrandComponent {
          this.nowRegister.emit(true);
        },
        error:(err) => {
-         this.toastr.error('Ocurrio un erro en el servidor');
+         this.toastr.error(err);
          this.hideModal.emit(true);
        } 
      })

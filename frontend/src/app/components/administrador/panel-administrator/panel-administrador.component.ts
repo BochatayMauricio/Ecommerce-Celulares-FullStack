@@ -15,11 +15,10 @@ export class PanelAdministradorComponent implements OnInit {
   constructor(private router: Router, private toastr: ToastrService, private userService: UserService) {
   }
   ngOnInit() {
-    //this.admin = this.userService.getThisUserWithSignal()
-    this.userService.getThisUserBehaviour().subscribe((value) => this.admin = value);
-    setTimeout(() => {
+    this.userService.getThisUserBehaviour().subscribe((value) => {
+      this.admin = value
       this.isAdmin();
-    }, 500)
+    });
   }
 
   isAdmin() {

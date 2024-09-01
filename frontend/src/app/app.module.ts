@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 
 //Modulos
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterPipe } from './components/administrador/ventas/pipes/filter.pipe';
@@ -75,6 +75,7 @@ import { AllProductsComponent } from './components/all-products/all-products.com
 import { PaymentComponent } from './components/payment/payment.component';
 import { PurchaseComponent } from './components/purchase/purchase.component';
 import { FormBrandComponent } from './components/administrador/productos/form-brand/form-brand.component';
+import { HandleErrorInterceptor } from './interceptors/handle-error.interceptor';
 
 
 
@@ -165,7 +166,9 @@ import { FormBrandComponent } from './components/administrador/productos/form-br
 
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
+    {provide:HTTP_INTERCEPTORS,useClass: HandleErrorInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 
 })

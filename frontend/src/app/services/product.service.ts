@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, of } from 'rxjs';
 import { environment } from '../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -35,11 +35,12 @@ export class ProductService {
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
-    this.myApiUrl = 'api/products'
+    this.myApiUrl = 'api/products';
   }
 
   getProductsByPage(page:number) {
-    this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`).subscribe((value)=>{
+    this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`)
+    .subscribe((value)=>{
       this.productsPaginated.next(value);
     })
   }
@@ -58,7 +59,8 @@ export class ProductService {
   
   //ver porque no se usa
   retraiveProducts() {
-    this.http.get(`${this.myAppUrl}${this.myApiUrl}`).subscribe(products => {
+    this.http.get(`${this.myAppUrl}${this.myApiUrl}`)
+    .subscribe(products => {
       this.productos = products;
       this.prod.next(this.productos)
     });

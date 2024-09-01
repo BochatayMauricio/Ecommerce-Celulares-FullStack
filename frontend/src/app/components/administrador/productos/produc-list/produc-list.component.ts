@@ -19,7 +19,7 @@ export class ProducListComponent implements OnInit{
   disabledNext:string = '';
   disabledBack: string='';
   listProducts: product[] = [];
-  object: any;
+  object:any;
 
   constructor(private productoS: ProductService, private modalService: BsModalService) { }
 
@@ -71,7 +71,7 @@ export class ProducListComponent implements OnInit{
     this.page=page
     this.listProducts = [];
     this.productoS.getProductsByPage(page);
-    this.productoS.getProductsByPageObs().subscribe((data: any) => {
+    this.productoS.getProductsByPageObs().subscribe((data:any) => {
       this.object = data
     });
     setTimeout(() => {
