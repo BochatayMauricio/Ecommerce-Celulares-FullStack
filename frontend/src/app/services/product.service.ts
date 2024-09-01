@@ -14,19 +14,11 @@ export class ProductService {
 
 
   productos: any = [];
-  private prod: BehaviorSubject<product[]> = new BehaviorSubject<product[]>([]);
+  private prod: BehaviorSubject<product[]> = new BehaviorSubject<product[]>([]); //el que estaba antes de paginar
   private productsPaginated: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  nullproduct: product = {
-    id: 0,
-    model: '',
-    idBrand: '',
-    description: '',
-    price: 0,
-    stock: 0,
-    image: '',
-    createdAt: new Date()
-  }
-  private productInfo: BehaviorSubject<product> = new BehaviorSubject<product>(this.nullproduct);
+
+  nullproduct?: product
+  private productInfo: BehaviorSubject<product> = new BehaviorSubject<product>(this.nullproduct!);
 
   setProduct(newProduct: product) {
     this.productInfo.next(newProduct);
@@ -46,14 +38,10 @@ export class ProductService {
     this.myApiUrl = 'api/products'
   }
 
-  getProducts(): Observable<product[]> {
-    return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`)
-  }
-
   getProductsByPage(page:number) {
     this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`).subscribe((value)=>{
       this.productsPaginated.next(value);
-    }) //Este es any porque tambien trae el total (Objeto distinto a Product)
+    })
   }
 
   getProductsByPageObs(){

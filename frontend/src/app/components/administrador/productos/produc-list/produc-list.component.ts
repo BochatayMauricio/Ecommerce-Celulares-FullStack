@@ -50,10 +50,11 @@ export class ProducListComponent implements OnInit{
 
 // Se usa para mostrar todos
   getProducts() {
+    this.productoS.retraiveProducts();
     this.page=-1;
     this.listProducts = [];
-    let list: product[] = []
-    this.productoS.getProducts().subscribe((data: product[]) => {
+    let list: product[] = [];
+    this.productoS.getProductsObs().subscribe((data: product[]) => {
       list = data;
     });
     setTimeout(() => {
@@ -81,7 +82,6 @@ export class ProducListComponent implements OnInit{
       let i;
       for(i=1; i< total/3; i++){
         pagesArray.push(i);
-        
       }
       if(total%3 != 0){
         pagesArray.push(i)
@@ -107,5 +107,8 @@ export class ProducListComponent implements OnInit{
     console.log(this.listProducts)
   }
 
+  updateList(page:number){
+    this.getProductByPage(page);
+  }
 
 }

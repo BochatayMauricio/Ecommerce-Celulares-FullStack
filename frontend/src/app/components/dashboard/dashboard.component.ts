@@ -38,8 +38,9 @@ export class DashboardComponent implements OnInit {
   getProducts() {
     this.page=-1;
     this.listProducts = [];
-    let list: product[] = []
-    this.productService.getProducts().subscribe((data: product[]) => {
+    let list: product[] = [];
+    this.productService.retraiveProducts();
+    this.productService.getProductsObs().subscribe((data: product[]) => {
       list = data;
     });
     setTimeout(() => {

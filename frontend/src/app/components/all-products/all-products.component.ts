@@ -14,6 +14,7 @@ export class AllProductsComponent {
   listProducts: product[] = []
 
   constructor(private productService: ProductService, private router: Router) {
+    this.productService.retraiveProducts();
     this.getProducts();
   }
  
@@ -27,7 +28,7 @@ export class AllProductsComponent {
   }
 
   getProducts() {
-    this.productService.getProducts().subscribe(data => {
+    this.productService.getProductsObs().subscribe(data => {
       this.listProducts = data;
     })
   }
