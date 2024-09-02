@@ -3,6 +3,8 @@ import { AdministratorsService } from '../../../../services/administrators.servi
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { user } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-administrators-list',
@@ -18,7 +20,11 @@ export class AdministratorsListComponent {
   page:number=0;
   totalPages = [];
 
-  constructor(private adminService: AdministratorsService, private modalService: BsModalService, private userService: UserService) {
+  constructor(
+    private adminService: AdministratorsService, 
+    private modalService: BsModalService, 
+    private userService: UserService,
+    private toastr: ToastrService) {
     this.findAdministrator()
   }
 
@@ -34,8 +40,8 @@ export class AdministratorsListComponent {
 
 
     this.adminService.deleteAdministrator(administrator).subscribe({
-      complete: () => this.adminService.getAdministrators(this.page),
-      error: (error) => console.log(error)
+      next: () => this.adminService.getAdministrators(this.page),
+      error: (error) => this.toastr.error(error)
     });
 
     this.modalRef?.hide()
@@ -49,7 +55,6 @@ export class AdministratorsListComponent {
   }
 
   findAdministrator() {
-    //this.user = this.userService.getThisUserWithSignal();
     this.userService.getThisUserBehaviour().subscribe(value => this.user = value)
   }
 
@@ -59,7 +64,8 @@ export class AdministratorsListComponent {
     this.page=page
     let object: any;
     this.adminList = [];
-    this.adminService.getAdministrators(this.page).subscribe((data: any) => {
+    this.adminService.getAdministrators(this.page)
+    .subscribe((data: any) => {
       object = data
     });
 
@@ -84,8 +90,11 @@ export class AdministratorsListComponent {
 
   getAllAdministrators(){
     this.page=-1;
-    this.adminService.retraiveAdministrator().subscribe((data: any) => {
-      this.adminList = data
+    this.adminService.retraiveAdministrator().subscribe({
+      next:(data: any) => {
+        this.adminList = data
+      },
+      error:(error)=> this.toastr.error(error)
     })
   }
 
