@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   active: string ='active';
   disabledNext:string = '';
   disabledBack: string='';
-
+  object: any;
 
   constructor(private productService: ProductService,
     private modalService: BsModalService,
@@ -30,13 +30,17 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductByPage(this.page);
+    this.productService.getProductsByPageObs().subscribe((data: any) => {
+      this.object = data
+    });
   }
 
   getProducts() {
     this.page=-1;
     this.listProducts = [];
-    let list: product[] = []
-    this.productService.getProducts().subscribe((data: product[]) => {
+    let list: product[] = [];
+    this.productService.retraiveProducts();
+    this.productService.getProductsObs().subscribe((data: product[]) => {
       list = data;
     });
     setTimeout(() => {
@@ -66,14 +70,13 @@ export class DashboardComponent implements OnInit {
  
   getProductByPage(page:number){
     this.page=page
-    let object: any;
+
     this.listProducts = [];
-    this.productService.getProductsByPage(page).subscribe((data: any) => {
-      object = data
-    });
+    this.productService.getProductsByPage(page);
+
     
     setTimeout(() => {
-      const {total, products} = object
+      const {total, products} = this.object
       this.disabledBack='';
       this.disabledNext='';
       let pagesArray:any = [];

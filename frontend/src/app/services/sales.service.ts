@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environments';
 import { sales } from '../interfaces/sales';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,8 @@ export class SalesService {
   }
 
   getSales() {
-    this.http.get(`${this.myAppUrl}${this.myApiUrl}`).subscribe(sales => {
+    this.http.get(`${this.myAppUrl}${this.myApiUrl}`)
+    .subscribe(sales => {
       this.sales = sales;
       this.sell.next(this.sales)
     });

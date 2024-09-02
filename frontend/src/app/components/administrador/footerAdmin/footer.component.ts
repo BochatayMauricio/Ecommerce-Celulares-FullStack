@@ -15,8 +15,8 @@ export class FooterAdminComponent implements OnInit {
   fecha: string = new Date().toLocaleDateString('en-GB');
   constructor(private productoS: ProductService, private customers: CustomerService, private sales: SalesService) { }
   ngOnInit(): void {
-
-    this.productoS.retraiveProducts().subscribe(response => this.countProducts = response.length);
+    this.productoS.retraiveProducts();
+    this.productoS.getProductsObs().subscribe(response => this.countProducts = response.length);
     this.customers.getCustomers().subscribe(response => this.countCustomers = response.length);
     this.sales.getSales().subscribe((resp) => this.countSales = resp.length);
   }

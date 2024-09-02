@@ -23,14 +23,14 @@ export class ProductShoppingComponent implements OnInit {
   stock: any;
   private myAppUrl: string = environment.endpoint;
 
-  constructor(private _productService: ProductService,
+  constructor(private productService: ProductService,
     private activateRouter: ActivatedRoute, private cartService: CartService, private toast: ToastrService) {
 
 
   }
 
   async ngOnInit() {
-    this._productService.getProduct().subscribe((data) => {
+    this.productService.getProduct().subscribe((data) => {
       this.newProduct = data;
     });
 
@@ -48,7 +48,8 @@ export class ProductShoppingComponent implements OnInit {
 
 
   findProduct() {
-    this._productService.getProducts().subscribe((value) => {
+    this.productService.retraiveProducts();
+    this.productService.getProductsObs().subscribe((value) => {
       this.listOfProducts = value
       console.log(this.listOfProducts)
       let index = this.listOfProducts.findIndex((product) => product.id == this.product.id)
@@ -61,7 +62,7 @@ export class ProductShoppingComponent implements OnInit {
     const product: product = {
       id: newProduct.id, //PK
       model: newProduct.model,
-      brand: newProduct.brand,
+      idBrand: newProduct.idBrand,
       description: newProduct.description,
       price: newProduct.price,
       stock: newProduct.stock,

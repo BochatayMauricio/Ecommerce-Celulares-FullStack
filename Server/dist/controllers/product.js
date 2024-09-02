@@ -18,6 +18,31 @@ const publication_1 = require("../models/publication");
 const sales_1 = require("../models/sales");
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
+const brand_1 = require("../models/brand");
+// export const getAllProducts = async (req: Request, res: Response) => { // Método encargado de traer los productos de la BD
+//   const page = parseInt(req.params.page);
+//   const size= 3
+//   let option = { // Configuración del páginado
+//     limit: +size,
+//     offset: (+page * (+size))
+//   }
+//   try{
+//     const {count, rows} = await Product.findAndCountAll(option);
+//     if(!rows){
+//       return res.status(404).send({
+//         msg: 'No hay productos en la base de datos'
+//       })
+//     }
+//     return res.status(200).json({ // Se devuelve la lista de productos y la cantidad
+//       total: count,
+//       products: rows
+//     });
+//   }catch(error){
+//     return res.status(200).send({
+//       msg: error
+//     })
+//   }
+// };
 const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const page = parseInt(req.params.page);
     const size = 3;
@@ -25,31 +50,63 @@ const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
         limit: +size,
         offset: (+page * (+size))
     };
-    const { count, rows } = yield product_1.Product.findAndCountAll(option);
-    res.json({
-        total: count,
-        products: rows
-    });
+    try {
+        const querySQL = `SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p 
+    INNER JOIN brands b ON b.idBrand = p.idBrand 
+    LIMIT ${option.limit} OFFSET ${option.offset};`;
+        const rows = yield connection_1.default.query(querySQL, {
+            type: sequelize_1.QueryTypes.SELECT
+        });
+        if (!rows) {
+            return res.status(200).send({
+                msg: 'No hay mas productos'
+            });
+        }
+        const count = rows.length;
+        return res.status(200).json({
+            total: count,
+            products: rows
+        });
+    }
+    catch (err) {
+        return res.status(200).send({
+            msg: err
+        });
+    }
 });
 exports.getAllProducts = getAllProducts;
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const productList = yield product_1.Product.findAll();
-    res.json(productList);
+    try {
+        const productList = yield product_1.Product.findAll();
+        if (!productList) {
+            return res.status(404).send({
+                msg: 'No hay productos cargados'
+            });
+        }
+        return res.status(200).json(productList);
+    }
+    catch (error) {
+        return res.status(400).send({
+            msg: error
+        });
+    }
 });
 exports.getProducts = getProducts;
 const newProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const { body, file } = request;
     const idAdmin = parseInt(request.params.idAdmin);
-    // console.log('body:', body);
-    // console.log('file:', file);
     //AHORA validamos LA IMAGEN QUE VIENE DE TIPO FILE DESDE EL FRONT 
     if (file != undefined) {
         const url = file.filename;
         //MANDAMOS A LA BD TODO LISTO
         try {
+            const brand = yield brand_1.Brand.findOne({ where: { idBrand: Number(body.idBrand) } });
+            if (!brand) {
+                return response.status(404).send('La marca no es reconocida por el sistema');
+            }
             const product = yield product_1.Product.create({
                 model: body.model,
-                brand: body.brand,
+                idBrand: Number(body.idBrand),
                 description: body.description,
                 image: url,
                 price: Number(body.price),
@@ -64,6 +121,9 @@ const newProduct = (request, response) => __awaiter(void 0, void 0, void 0, func
         catch (error) {
             return response.status(400).json({ msg: 'Ocurrio un Error', error });
         }
+    }
+    else {
+        return response.status(400).send('Se debe cargar una imagen');
     }
 });
 exports.newProduct = newProduct;

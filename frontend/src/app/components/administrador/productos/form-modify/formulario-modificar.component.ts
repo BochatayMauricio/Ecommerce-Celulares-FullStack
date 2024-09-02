@@ -12,9 +12,8 @@ export class FormularioModificarComponent implements OnInit {
   constructor(private productoS: ProductService, private toastr: ToastrService) { }
   @Input() productReceived: any;
   @Output() hideModal = new EventEmitter<boolean>();
-  ngOnInit(): void {
-
-  };
+  @Output() updatedSuccess = new EventEmitter<boolean>();
+  ngOnInit(): void {  };
 
   updateProducto(price: any, stock: any, description: any) {
     if(price.value == '' && stock.value == '' && description.value == ''){
@@ -23,7 +22,7 @@ export class FormularioModificarComponent implements OnInit {
       const productModify: product = {
       id: this.productReceived.id,
       model: this.productReceived.model,
-      brand: this.productReceived.brand,
+      idBrand: this.productReceived.idBrand,
       price: price.value || this.productReceived.price,
       stock: stock.value || this.productReceived.stock,
       description: description.value || this.productReceived.description,
@@ -32,8 +31,8 @@ export class FormularioModificarComponent implements OnInit {
       image: this.productReceived.image
     }
     this.productoS.updateProduct(productModify).subscribe({
-      complete: () => {
-        this.productoS.retraiveProducts();
+      next: () => {
+        this.updatedSuccess.emit(true);
         this.toastr.success('Producto Actualizado');
         this.hideModal.emit(true);
       },

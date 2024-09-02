@@ -8,12 +8,14 @@ import routesSales from '../routes/sales';
 import routesPublications from '../routes/publications';
 import routesPayment from '../routes/payment';
 import routesDomicile from '../routes/domicile';
+import routesBrand from '../routes/brand';
 import { Product } from './product';
 import { User } from './user';
 import { Domicile } from './domicile';
 import { Publication } from './publication';
 import { Sales } from './sales';
 import { Shipping } from './shipping';
+import { Brand } from './brand';
 
 class Server {
   private app: express.Application;
@@ -43,6 +45,7 @@ class Server {
     this.app.use('/api/publications', routesPublications);
     this.app.use('/api/payment', routesPayment);
     this.app.use('/api/domicile', routesDomicile);
+    this.app.use('/api/brands',routesBrand);
   }
 
   midlewares() {
@@ -55,6 +58,7 @@ class Server {
 
   async dbConnect() {
     try {
+      await Brand.sync();
       await Product.sync();
       await User.sync();
       await Domicile.sync();
@@ -62,6 +66,7 @@ class Server {
       await Publication.sync();
       await Sales.sync();
       await Domicile.sync();
+      
     } catch (error) {
       console.log('Unable to connect to the database: ', error);
     }

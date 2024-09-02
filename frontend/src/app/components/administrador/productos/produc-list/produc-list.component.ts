@@ -19,21 +19,18 @@ export class ProducListComponent implements OnInit{
   disabledNext:string = '';
   disabledBack: string='';
   listProducts: product[] = [];
-
+  object:any;
 
   constructor(private productoS: ProductService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.getProductByPage(this.page);
-    console.log("Paginas totales",this.totalPages)
   }
-
-
   deleteProducto(indice: number) {
 
     const produ = this.listProducts[indice];
     this.productoS.deleteProducto(produ).subscribe({
-      complete: () => { this.productoS.retraiveProducts() },
+      next: () => { this.getProductByPage(this.page) },
       error: (error) => console.log(error)
     });
     this.modalRef?.hide()
@@ -53,10 +50,11 @@ export class ProducListComponent implements OnInit{
 
 // Se usa para mostrar todos
   getProducts() {
+    this.productoS.retraiveProducts();
     this.page=-1;
     this.listProducts = [];
-    let list: product[] = []
-    this.productoS.getProducts().subscribe((data: product[]) => {
+    let list: product[] = [];
+    this.productoS.getProductsObs().subscribe((data: product[]) => {
       list = data;
     });
     setTimeout(() => {
@@ -68,30 +66,28 @@ export class ProducListComponent implements OnInit{
     }, 500);
   }
 
-
+//dada una pagina
   getProductByPage(page:number){
     this.page=page
-    let object: any;
     this.listProducts = [];
-    this.productoS.getProductsByPage(page).subscribe((data: any) => {
-      object = data
+    this.productoS.getProductsByPage(page);
+    this.productoS.getProductsByPageObs().subscribe((data:any) => {
+      this.object = data
     });
-    
     setTimeout(() => {
-      const {total, products} = object
+      const {total, products} = this.object
       this.disabledBack='';
       this.disabledNext='';
       let pagesArray:number[] = [];
       let i;
       for(i=1; i< total/3; i++){
         pagesArray.push(i);
-        
       }
       if(total%3 != 0){
         pagesArray.push(i)
       }
       this.totalPages = pagesArray
-      console.log("pagesArray",pagesArray)
+      
       if(page == this.totalPages.length-1){
         this.disabledNext = 'disabled'
       }
@@ -102,13 +98,8 @@ export class ProducListComponent implements OnInit{
         if (products[i].stock > 0) {
           this.listProducts.push(products[i]) //Agregar el producto con stock >0 al arreglo
         }
-       
       }
-      console.log(this.totalPages)
-      console.log(this.listProducts)
-    }, 500);
-   
-    
+    }, 500);    
   }
 
   sendPage(page:number){
@@ -116,5 +107,8 @@ export class ProducListComponent implements OnInit{
     console.log(this.listProducts)
   }
 
+  updateList(page:number){
+    this.getProductByPage(page);
+  }
 
 }

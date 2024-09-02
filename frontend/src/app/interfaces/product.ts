@@ -1,11 +1,12 @@
 export interface product {
-  id: number, //PK
-  model: string,
-  brand: string
-  description: string,
+  id: number; //PK
+  model: string;
+  idBrand: string;
+  description: string;
   price: number;
   stock: number;
   createdAt: Date;
-  quantity: number | null;
+  quantity?:number;
   image: string;
+  brand?:string;
 }

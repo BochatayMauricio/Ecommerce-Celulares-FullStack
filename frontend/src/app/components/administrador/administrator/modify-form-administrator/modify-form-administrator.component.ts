@@ -31,7 +31,7 @@ export class ModifyFormAdministratorComponent {
         this.adminService.retraiveAdministrator();
         this.toaster.success('Administrador actulizado!');
       },
-      error: (err) => this.toaster.error('No se realizo correctamente la modificacion')
+      error: (err) => this.toaster.error(err)
     });
     this.hideModal.emit(true);
   }

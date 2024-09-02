@@ -1,33 +1,82 @@
-<form [formGroup]="productForm" (ngSubmit)="registrarForm()" class="form">
-  <mat-form-field>
-    <mat-label>Marca</mat-label>
-    <input matInput formControlName="brand">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Modelo</mat-label>
-    <input matInput formControlName="model">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Precio</mat-label>
-    <input matInput formControlName="price">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Stock</mat-label>
-    <input matInput formControlName="stock">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Descripcion</mat-label>
-    <textarea matInput formControlName="description"></textarea>
-  </mat-form-field>
-
-  <div class="form-floating mb-3">
-    <input type="file" name="file" class="form-control" placeholder="imagen" #fileInput (change)="onFileUpload()">
-    <label>Imagen</label>
+<app-nav-bar></app-nav-bar>
+<div>
+  <div class="container">
+    <form [formGroup]="productForm" (ngSubmit)="registrarForm()" class="form">
+      <mat-form-field>
+        <mat-label>Seleccione marca</mat-label> 
+        <mat-select formControlName="idBrand" [(ngModel)]="brand">
+          <mat-option [value]="brand.idBrand" *ngFor="let brand of brands; track brand">{{brand.name}}</mat-option>
+        </mat-select>  
+      </mat-form-field>
+      <a class="link" (click)="openModal(template)">Registrar nueva marca</a>
+      <mat-form-field>
+        <mat-label>Modelo</mat-label>
+        <input matInput formControlName="model" [(ngModel)]="model">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Precio</mat-label>
+        <input matInput formControlName="price" [(ngModel)]="price">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Stock</mat-label>
+        <input matInput formControlName="stock" [(ngModel)]="stock">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Descripcion</mat-label>
+        <textarea matInput formControlName="description" [(ngModel)]="description"></textarea>
+      </mat-form-field>
+    
+      <div class="form-floating mb-3">
+        <input type="file" name="file" class="form-control" placeholder="imagen" #fileInput (change)="onFileUpload()">
+        <label>Imagen</label>
+      </div>
+      <button [disabled]="!productForm.valid" class="btn btn-success">Registrar</button>
+    </form>
+  
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+    </div>
+  </div> 
+  <div class="demo">
+    <h5 class="text-demo">Previsualización</h5>
+    <div class="container-cards">
+      <div class="card">
+        <img alt="ImagenCelular" src="https://st.depositphotos.com/1435425/2972/v/600/depositphotos_29729633-stock-illustration-vector-cell-mobile-illustration.jpg">
+        <div class="card-body">
+          <h5 class="card-title">{{model}}</h5>
+          <p class="card-text">{{description}}
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h3 class=" fs-6">{{getNameBrand(brand)}}</h3>
+          </li>
+            <li class="list-group-item" *ngIf="stock>0">
+              <span class="text-success">Disponible</span>
+              <span class="stock-informative">Quedan {{stock}} unidades disponibles</span>
+            </li>
+        </ul>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <button class="btn btn-success" type="button">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <button [disabled]="!productForm.valid" class="btn btn-success">Registrar</button>
-</form>
-
-
-<div *ngFor="let alert of alerts">
-  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
 </div>
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Registrar nueva marca</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-form-brand (hideModal)="modalRef?.hide()" (nowRegister)="retriveBrands()"></app-form-brand>
+  </div>
+</ng-template>
+

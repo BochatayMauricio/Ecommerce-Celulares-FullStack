@@ -56,7 +56,6 @@
                             (click)="modalRef?.hide()">Cerrar</button>
                         </div>
                       </div>
-
                     </ng-template>
                     <button mat-mini-fab color="primary" (click)="openModal(template,indice)">
                       <mat-icon>edit</mat-icon>
@@ -74,7 +73,6 @@
                 <span aria-hidden="true">Back</span>
               </a>
             </li>
-        
               <li  class="page-item {{active}}"><a class="page-link" (click)="getProductByPage(0)">1</a></li>
               <li class="page-item"><a class="page-link" (click)="getProductByPage(1)">2</a></li>
               <li class="page-item"><a class="page-link" (click)="getProductByPage(2)">3</a></li>
@@ -86,7 +84,6 @@
             <li class="page-item px-5"><a class="page-link" (click)="getProducts()">Mostrar todos</a> </li>
           </ul>
         </nav>
-
       </div>
     </div>
   </div>
@@ -102,7 +99,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-formulario-modificar [productReceived]="product" (hideModal)="modalRef?.hide()"></app-formulario-modificar>
+    <app-formulario-modificar (updatedSuccess)="updateList(page)" [productReceived]="product" (hideModal)="modalRef?.hide()"></app-formulario-modificar>
   </div>
 </ng-template>
 

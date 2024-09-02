@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, of } from 'rxjs';
 import { environment } from '../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -14,20 +14,11 @@ export class ProductService {
 
 
   productos: any = [];
-  private prod: BehaviorSubject<product[]> = new BehaviorSubject<product[]>([]);
+  private prod: BehaviorSubject<product[]> = new BehaviorSubject<product[]>([]); //el que estaba antes de paginar
+  private productsPaginated: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-  nullproduct: product = {
-    id: 0,
-    model: '',
-    brand: '',
-    description: '',
-    price: 0,
-    stock: 0,
-    image: '',
-    quantity: null,
-    createdAt: new Date()
-  }
-  private productInfo: BehaviorSubject<product> = new BehaviorSubject<product>(this.nullproduct);
+  nullproduct?: product
+  private productInfo: BehaviorSubject<product> = new BehaviorSubject<product>(this.nullproduct!);
 
   setProduct(newProduct: product) {
     this.productInfo.next(newProduct);
@@ -44,32 +35,38 @@ export class ProductService {
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
-    this.myApiUrl = 'api/products'
+    this.myApiUrl = 'api/products';
   }
 
-  getProducts(): Observable<product[]> {
-    return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`)
+  getProductsByPage(page:number) {
+    this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`)
+    .subscribe((value)=>{
+      this.productsPaginated.next(value);
+    })
   }
 
-  getProductsByPage(page:number): Observable<any> {
-    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`) //Este es any porque tambien trae el total (Objeto distinto a Product)
+  getProductsByPageObs(){
+    return this.productsPaginated.asObservable()
   }
 
   getProductsByName(name: string): Observable<product[]> {
     return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}/pbn/${name}`)
   }
 
-  //PART OF ADMINISTRATOR
-
   postProducto(formDataProduct: FormData, idAdmin: number) {
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}/${idAdmin}`, formDataProduct);
   }
-
+  
+  //ver porque no se usa
   retraiveProducts() {
-    this.http.get(`${this.myAppUrl}${this.myApiUrl}`).subscribe(products => {
+    this.http.get(`${this.myAppUrl}${this.myApiUrl}`)
+    .subscribe(products => {
       this.productos = products;
       this.prod.next(this.productos)
     });
+  }
+
+  getProductsObs(){
     return this.prod.asObservable();
   }
 

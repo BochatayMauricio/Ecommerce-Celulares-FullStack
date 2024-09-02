@@ -19,13 +19,10 @@ export const getSales = async (request: Request, response: Response) => {
 }
 
 export const getOneSales = async (request: Request, response: Response) => {
-  // Extraemos el id de la ruta
   const id = request.params.idCustomer;
-  // Extraemos metadatos Querytypes y definimos la Query con Querytypes.SELECT
   const { QueryTypes } = require('sequelize');
   const saleList = await sequelize.query(`SELECT * FROM sales INNER JOIN users ON users.id = sales.idCustomer INNER JOIN products ON products.id = sales.idProduct WHERE users.id = ${id}`, 
   { type: QueryTypes.SELECT });
-  //Validamos si saleList contiene valores
   if (saleList.length > 0) {
     response.status(200).json(saleList)
   } else {
@@ -35,13 +32,13 @@ export const getOneSales = async (request: Request, response: Response) => {
 
 
 export const postSell = async (request: Request, response: Response) => {
-  // recibimos un arreglo de ventas, que hace referencia a una compra por cada producto del carrito
+
   const { body } = request;
   for (let j = 0; j < body.length; j++) {
     try {
       const produc = await Product.findOne({ where: { id: body[j].idProduct } })
      
-      const sale = await Sales.create({
+      await Sales.create({
         idCustomer: body[j].idCustomer,
         idProduct: body[j].idProduct,
         quantity: body[j].quantity,

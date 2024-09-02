@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
+import { Brand } from "./brand";
 
 
 export const Product = sequelize.define('product', {
@@ -12,8 +13,8 @@ export const Product = sequelize.define('product', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  brand: {
-    type: DataTypes.STRING,
+  idBrand: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   description: {
@@ -34,3 +35,6 @@ export const Product = sequelize.define('product', {
   }
 })
 
+
+Brand.hasMany(Product, {foreignKey:'idBrand', });
+Product.belongsTo(Brand, { foreignKey: 'idBrand'});
