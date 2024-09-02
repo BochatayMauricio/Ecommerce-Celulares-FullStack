@@ -13,28 +13,35 @@ exports.getDomiciles = exports.asignDomicile = void 0;
 const domicile_1 = require("../models/domicile");
 const asignDomicile = (Req, Res) => __awaiter(void 0, void 0, void 0, function* () {
     const { postalCode, street, number } = Req.body;
-    var domicileExist = yield domicile_1.Domicile.findOne({
-        where: {
-            postalCode: postalCode,
-            street: street,
-            number: number
-        }
-    });
-    if (domicileExist) {
-        return Res.status(200).json(domicileExist);
-    }
-    else {
-        try {
-            domicileExist = yield domicile_1.Domicile.create({
+    try {
+        var domicileExist = yield domicile_1.Domicile.findOne({
+            where: {
                 postalCode: postalCode,
                 street: street,
                 number: number
-            });
-            return Res.status(201).json(domicileExist);
+            }
+        });
+        if (domicileExist) {
+            return Res.status(200).json(domicileExist);
         }
-        catch (error) {
-            return Res.status(400).json({ msg: 'Ocurrio un Error', error });
+        else {
+            try {
+                domicileExist = yield domicile_1.Domicile.create({
+                    postalCode: postalCode,
+                    street: street,
+                    number: number
+                });
+                return Res.status(201).json(domicileExist);
+            }
+            catch (error) {
+                return Res.status(400).send({ msg: 'No se pudo crear el domicilio' });
+            }
         }
+    }
+    catch (error) {
+        return Res.status(400).send({
+            msg: error
+        });
     }
 });
 exports.asignDomicile = asignDomicile;

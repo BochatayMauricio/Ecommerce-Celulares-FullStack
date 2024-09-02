@@ -12,31 +12,30 @@ export const checkout = async (req:Request,res:Response)=> { // la request tiene
   let amount = 0;
   const idCustomer = sales[0].idCustomer;
   if(sales.length > 0){
-
-  for(let i=0;i<sales.length;i++){
-    const product = await Product.findOne({where:{id : sales[i].idProduct}});
-    amount = amount + (Number(product?.dataValues.price) * Number(sales[i].quantity));
-  }
-  const customer = await User.findOne({where:{id:idCustomer}})
-  console.log('desde el controlador: ',customer)
-  const responseObject = await stripe.charges.create({
-    amount: Number(amount)*100,
-    currency: "usd",
-    source: tokenID,
-    capture:false,
-    description: `Celulares comprados por : ${customer?.dataValues.name} ${customer?.dataValues.surname}`,
-    receipt_email: customer?.dataValues.email
-  })
-  try{
-    await stripe.charges.capture(responseObject.id);
-      return res.json(responseObject);
-  }
-  catch(err){
-    await stripe.refunds.create({charge: responseObject.id })
-      return res.status(400).json(responseObject);
-    }
+      for(let i=0;i<sales.length;i++){
+        const product = await Product.findOne({where:{id : sales[i].idProduct}});
+        amount = amount + (Number(product?.dataValues.price) * Number(sales[i].quantity));
+      }
+      const customer = await User.findOne({where:{id:idCustomer}})
+      console.log('desde el controlador: ',customer)
+      const responseObject = await stripe.charges.create({
+        amount: Number(amount)*100,
+        currency: "usd",
+        source: tokenID,
+        capture:false,
+        description: `Celulares comprados por : ${customer?.dataValues.name} ${customer?.dataValues.surname}`,
+        receipt_email: customer?.dataValues.email
+      })
+      try{
+        await stripe.charges.capture(responseObject.id);
+          return res.status(200).json(responseObject);
+      }
+      catch(err){
+        await stripe.refunds.create({charge: responseObject.id })
+          return res.status(400).send({msg:err});
+        }
   }else{
-      return res.status(400).json('No hay productos')
+      return res.status(400).send({msg:'No hay productos'})
   }
 }
 

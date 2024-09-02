@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SalesService } from '../../../services/sales.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ProductService } from 'src/app/services/product.service';
+import { catchError, map } from 'rxjs';
 
 @Component({
   selector: 'app-footerAdmin',
@@ -18,6 +19,12 @@ export class FooterAdminComponent implements OnInit {
     this.productoS.retraiveProducts();
     this.productoS.getProductsObs().subscribe(response => this.countProducts = response.length);
     this.customers.getCustomers().subscribe(response => this.countCustomers = response.length);
-    this.sales.getSales().subscribe((resp) => this.countSales = resp.length);
+    // this.sales.getSales().subscribe({
+    //   next:(resp) => this.countSales = resp.length}
+    // );
+    this.sales.getSales()
+      .subscribe({
+       next:(value)=> this.countSales = value.length
+      })
   }
 }

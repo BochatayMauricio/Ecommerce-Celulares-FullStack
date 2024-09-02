@@ -12,7 +12,7 @@ export const getBrandById = async(req:Request,res:Response) =>{
         }
         return res.status(200).send(brand);
     }catch (error) {
-        return res.status(400).json({ msg: 'ocurrio un error', error });
+        return res.status(400).send({msg:error});
     }
     
 }
@@ -32,9 +32,7 @@ export const newBrand = async(req:Request, res:Response) => {
             msg: 'Marca registrada correctamente!'
          });
      }catch(error){
-         return res.status(404).send({
-            msg: error
-         })
+         return res.status(400).send({msg:error})
      }
 }
 
@@ -46,6 +44,6 @@ export const getAllBrands = async (req:Request,res:Response) => {
         }
         return res.status(200).json(brands)
     }catch(err){
-        return res.status(400).send(err);
+        return res.status(400).send({msg:err});
     }
 }

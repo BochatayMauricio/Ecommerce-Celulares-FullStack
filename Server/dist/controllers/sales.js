@@ -18,12 +18,17 @@ const product_1 = require("../models/product");
 const connection_1 = __importDefault(require("../db/connection"));
 const getSales = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const { QueryTypes } = require('sequelize');
-    const saleList = yield connection_1.default.query("SELECT * FROM sales INNER JOIN users ON users.id = sales.idCustomer INNER JOIN products ON products.id = sales.idProduct", { type: QueryTypes.SELECT });
-    if (saleList.length > 0) {
-        response.status(200).json(saleList);
+    try {
+        const saleList = yield connection_1.default.query("SELECT * FROM sales INNER JOIN users ON users.id = sales.idCustomer INNER JOIN products ON products.id = sales.idProduct", { type: QueryTypes.SELECT });
+        if (saleList.length > 0) {
+            response.status(200).json(saleList);
+        }
+        else {
+            response.status(404).send({ msg: 'No hay ventas registradas' });
+        }
     }
-    else {
-        response.status(404).send({ msg: 'No hay ventas registradas' });
+    catch (error) {
+        return response.status(400).send({ msg: error });
     }
 });
 exports.getSales = getSales;
@@ -50,10 +55,15 @@ const postSell = (request, response) => __awaiter(void 0, void 0, void 0, functi
                 quantity: body[j].quantity,
                 idDomicile: body[j].idDomicile
             });
-            yield product_1.Product.update({ stock: (produc === null || produc === void 0 ? void 0 : produc.dataValues.stock) - body[j].quantity }, { where: { id: body[j].idProduct } });
+            try {
+                yield product_1.Product.update({ stock: (produc === null || produc === void 0 ? void 0 : produc.dataValues.stock) - body[j].quantity }, { where: { id: body[j].idProduct } });
+            }
+            catch (error) {
+                return response.status(400).send({ msg: error });
+            }
         }
         catch (error) {
-            return response.status(400).send({ msg: 'No se pudo cargar' });
+            return response.status(400).send({ msg: error });
         }
     }
     return response.status(200).send({ msg: 'Correcto' });

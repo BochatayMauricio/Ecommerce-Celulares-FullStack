@@ -69,7 +69,7 @@ const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
     catch (err) {
-        return res.status(200).send({
+        return res.status(400).send({
             msg: err
         });
     }
@@ -102,7 +102,7 @@ const newProduct = (request, response) => __awaiter(void 0, void 0, void 0, func
         try {
             const brand = yield brand_1.Brand.findOne({ where: { idBrand: Number(body.idBrand) } });
             if (!brand) {
-                return response.status(404).send('La marca no es reconocida por el sistema');
+                return response.status(400).send({ msg: 'La marca no es reconocida por el sistema' });
             }
             const product = yield product_1.Product.create({
                 model: body.model,
@@ -119,11 +119,11 @@ const newProduct = (request, response) => __awaiter(void 0, void 0, void 0, func
             return response.status(200).send({ msg: "Producto Creado Correctamente", body: product, publication });
         }
         catch (error) {
-            return response.status(400).json({ msg: 'Ocurrio un Error', error });
+            return response.status(400).send({ msg: error });
         }
     }
     else {
-        return response.status(400).send('Se debe cargar una imagen');
+        return response.status(400).send({ msg: 'Se debe cargar una imagen' });
     }
 });
 exports.newProduct = newProduct;
@@ -140,7 +140,7 @@ const updateProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
         }
     }
     catch (error) {
-        return response.status(400).json({ msg: 'Ocurrio un Error', error });
+        return response.status(400).json({ msg: error });
     }
 });
 exports.updateProduct = updateProduct;
@@ -160,13 +160,13 @@ const deleteProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
                     return response.status(200).send({ msg: 'Producto eliminado correctamente' });
                 }
                 catch (error) {
-                    return response.status(400).send({ msg: 'Producto no encontrado', error });
+                    return response.status(400).send({ msg: 'Producto no encontrado' });
                 }
             }
         }
     }
-    catch (_a) {
-        return response.status(400);
+    catch (error) {
+        return response.status(400).send({ msg: error });
     }
 });
 exports.deleteProduct = deleteProduct;
@@ -182,7 +182,7 @@ const getOneProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
         }
     }
     catch (error) {
-        return response.status(400).json({ msg: 'ocurrio un error', error });
+        return response.status(400).send({ msg: error });
     }
 });
 exports.getOneProduct = getOneProduct;
@@ -201,15 +201,20 @@ exports.getOneProduct = getOneProduct;
 }*/
 const getProductsByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
-    const productsByName = yield connection_1.default.query('SELECT * FROM products WHERE brand like :search_brand ', {
-        replacements: { search_brand: `%${name}%` },
-        type: sequelize_1.QueryTypes.SELECT
-    });
-    if (productsByName) {
-        return res.status(200).json(productsByName);
+    try {
+        const productsByName = yield connection_1.default.query('SELECT * FROM products WHERE brand like :search_brand ', {
+            replacements: { search_brand: `%${name}%` },
+            type: sequelize_1.QueryTypes.SELECT
+        });
+        if (productsByName) {
+            return res.status(200).json(productsByName);
+        }
+        else {
+            return res.status(404).send({ msg: 'No se encontró el producto' });
+        }
     }
-    else {
-        return res.status(400).json({ msg: 'No se ha podido realizar la busqueda' });
+    catch (error) {
+        return res.status(400).send({ msg: error });
     }
 });
 exports.getProductsByName = getProductsByName;

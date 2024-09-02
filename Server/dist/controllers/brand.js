@@ -23,7 +23,7 @@ const getBrandById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return res.status(200).send(brand);
     }
     catch (error) {
-        return res.status(400).json({ msg: 'ocurrio un error', error });
+        return res.status(400).send({ msg: error });
     }
 });
 exports.getBrandById = getBrandById;
@@ -43,9 +43,7 @@ const newBrand = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        return res.status(404).send({
-            msg: error
-        });
+        return res.status(400).send({ msg: error });
     }
 });
 exports.newBrand = newBrand;
@@ -58,7 +56,7 @@ const getAllBrands = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return res.status(200).json(brands);
     }
     catch (err) {
-        return res.status(400).send(err);
+        return res.status(400).send({ msg: err });
     }
 });
 exports.getAllBrands = getAllBrands;
