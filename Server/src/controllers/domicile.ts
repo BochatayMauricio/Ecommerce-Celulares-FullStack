@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { Domicile } from "../models/domicile";
 import { Request, Response } from "express"
 
@@ -30,7 +31,18 @@ export const asignDomicile = async(Req:Request, Res:Response) => {
 
 export const getDomiciles = async(Req:Request, Res:Response) => {
     const domiciles = await Domicile.findAll();
-    Res.json(domiciles);
+    try{
+        Res.status(200).json(domiciles);
+    } catch (e){
+        Res.status(400).json(e)
+    }
+
+}
+
+export const getOneDomicile = async(Req:Request, Res:Response) => {
+    const {id} = Req.params;
+    const domicile = await Domicile.findByPk(id)
+    Res.status(200).json(domicile);
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { sales } from 'src/app/interfaces/sales';
 import { SalesService } from '../../services/sales.service';
@@ -9,6 +9,7 @@ import { user } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/app/environments/environments';
 import { HttpClient } from '@angular/common/http';
+import { product } from 'src/app/interfaces/product';
 
 @Component({
   selector: 'app-cart',
@@ -17,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CartComponent implements OnInit{
   @Input() component?: string;
+  @Output() products: EventEmitter<product[]> = new EventEmitter<product[]>();;
 
   hideModal = false;
   modalRef?: BsModalRef;
@@ -32,13 +34,13 @@ export class CartComponent implements OnInit{
 
   }
   ngOnInit() {
-
     console.log(this.user)
     this.cartService.products.subscribe((products) => {
-      this.productsCart = products
+      this.productsCart = products;
+      console.log(this.productsCart)
     });
     this.userService.getThisUserBehaviour().subscribe(value => this.user = value)
-    console.log(this.user)
+  
   }
 
 

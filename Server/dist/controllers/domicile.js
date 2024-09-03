@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDomiciles = exports.asignDomicile = void 0;
+exports.getOneDomicile = exports.getDomiciles = exports.asignDomicile = void 0;
 const domicile_1 = require("../models/domicile");
 const asignDomicile = (Req, Res) => __awaiter(void 0, void 0, void 0, function* () {
     const { postalCode, street, number } = Req.body;
@@ -40,7 +40,18 @@ const asignDomicile = (Req, Res) => __awaiter(void 0, void 0, void 0, function* 
 exports.asignDomicile = asignDomicile;
 const getDomiciles = (Req, Res) => __awaiter(void 0, void 0, void 0, function* () {
     const domiciles = yield domicile_1.Domicile.findAll();
-    Res.json(domiciles);
+    try {
+        Res.status(200).json(domiciles);
+    }
+    catch (e) {
+        Res.status(400).json(e);
+    }
 });
 exports.getDomiciles = getDomiciles;
+const getOneDomicile = (Req, Res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = Req.params;
+    const domicile = yield domicile_1.Domicile.findByPk(id);
+    Res.status(200).json(domicile);
+});
+exports.getOneDomicile = getOneDomicile;
 exports.default = exports.asignDomicile;

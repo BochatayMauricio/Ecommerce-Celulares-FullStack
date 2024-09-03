@@ -3,7 +3,7 @@
 
 <h2 class="text-center my-5">Finalizar Compra</h2>
 
-<app-cart [component]="component"></app-cart>
+<app-cart [component]="component" (products)="productsCart"></app-cart>
 
 <h4 class="text-center">Elige como recibiras tu producto</h4>
 <!-- Acordeon -->
@@ -73,10 +73,15 @@
                         formControlName="numero">
                     </div>
                     <!-- Codigo Auxiliar -->
-                    <button [disabled]="!formGroup!.valid" class="btn btn-outline-success">Registrar Domicilio</button>
+                    <button [disabled]="!formGroup!.valid" class="btn btn-outline-success" (click)="setDomicile()">Registrar Domicilio</button>
                     <!--  -->
                 </form>
-
+                <div class="text-center my-5">
+                    <button class="btn btn-primary" [disabled]="idDomicile==0" (click)="endCollapsed = !endCollapsed" (click)="chargeCart()"
+                    [attr.aria-expanded]="!endCollapsed" aria-controls="collapseBasic">
+                        Finalizar Compra
+                    </button>   
+                </div>
             </div>
         <!-- Retiro en sucursal -->
         </div>
@@ -88,34 +93,43 @@
                 
                 <form id="sucursales">
                     <label>
-                        <input type="radio" name="sucursal" value="montevideo">
+                        <input type="radio" name="sucursal" value="1">
                         Montevideo 1343, Rosario
                     </label><br>
             
                     <label>
-                        <input type="radio" name="sucursal" value="oroño">
+                        <input type="radio" name="sucursal" value="2">
                         Oroño 1515, Rosario
                     </label><br>
             
                     <label>
-                        <input type="radio" name="sucursal" value="StaFe">
+                        <input type="radio" name="sucursal" value="3">
                         Santa Fe 2500, Rosario
                     </label><br>
             
                     <label>
-                        <input type="radio" name="sucursal" value="SanJuan">
+                        <input type="radio" name="sucursal" value="4">
                         San Juan 800, Rosario
                     </label><br>
-            
-                    <button type="button" (click)="setSucursal()">Enviar</button>
                 </form>
-
-
-
+                <div class="text-center my-2">
+                    <button class="btn btn-primary" (click)="setSucursal()"
+                    [attr.aria-expanded]="!endCollapsed" aria-controls="collapseBasic">
+                        Finalizar Compra
+                    </button>   
+                </div>
             </div>
         </div>
+        <div class="text-center mt-2" id="collapseBasic" [collapse]="endCollapsed" [isAnimated]="true">
+            <div class="well well-lg card card-block card-header">
+                <h2>Datos de la Tarjeta</h2>
+                <div class="modal-body" style="margin-left: 25px; height:auto">
+                    <app-payment [cartSell]="cartSales" (objectCharge)="doSell($event)"></app-payment>
+                  </div>
+            </div>
+          </div>
     </div>
-    <!-- <div class="my-5 text-center">
+    <!-- <div class="my-5 tex   t-center">
         <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
         [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Envío a Domicilio
           </button>
@@ -134,13 +148,9 @@
       </div>
    </div> -->
       
-
+  
 
 
 
 </div>
-<div class="text-center my-5">
-    <button class="btn btn-primary" [disabled]="!formGroup!.valid" routerLink="">
-        Finalizar Compra
-    </button>   
-</div>
+

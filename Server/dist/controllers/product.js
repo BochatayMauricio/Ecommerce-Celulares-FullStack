@@ -19,30 +19,6 @@ const sales_1 = require("../models/sales");
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 const brand_1 = require("../models/brand");
-// export const getAllProducts = async (req: Request, res: Response) => { // Método encargado de traer los productos de la BD
-//   const page = parseInt(req.params.page);
-//   const size= 3
-//   let option = { // Configuración del páginado
-//     limit: +size,
-//     offset: (+page * (+size))
-//   }
-//   try{
-//     const {count, rows} = await Product.findAndCountAll(option);
-//     if(!rows){
-//       return res.status(404).send({
-//         msg: 'No hay productos en la base de datos'
-//       })
-//     }
-//     return res.status(200).json({ // Se devuelve la lista de productos y la cantidad
-//       total: count,
-//       products: rows
-//     });
-//   }catch(error){
-//     return res.status(200).send({
-//       msg: error
-//     })
-//   }
-// };
 const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const page = parseInt(req.params.page);
     const size = 3;
@@ -77,7 +53,8 @@ const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.getAllProducts = getAllProducts;
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const productList = yield product_1.Product.findAll();
+        const productList = yield connection_1.default.query("SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand");
+        // const productList = await Product.findAll();
         if (!productList) {
             return res.status(404).send({
                 msg: 'No hay productos cargados'
@@ -186,22 +163,9 @@ const getOneProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.getOneProduct = getOneProduct;
-/*export const getProductsByName = async (req: Request, res: Response) => {
-  const { name } = req.params;
-  const productsByName = await Product.findAll({
-    where: {
-      brand:name
-    }
-  });
-  if (productsByName) {
-    return res.status(200).json(productsByName);
-  } else {
-    return res.status(400).json({ msg: 'No se ha podido realizar la busqueda' });
-  }
-}*/
 const getProductsByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
-    const productsByName = yield connection_1.default.query('SELECT * FROM products WHERE brand like :search_brand ', {
+    const productsByName = yield connection_1.default.query('SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand WHERE name like :search_brand ', {
         replacements: { search_brand: `%${name}%` },
         type: sequelize_1.QueryTypes.SELECT
     });

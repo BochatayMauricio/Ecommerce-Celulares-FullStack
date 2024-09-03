@@ -29,7 +29,7 @@ export const checkout = async (req:Request,res:Response)=> { // la request tiene
   })
   try{
     await stripe.charges.capture(responseObject.id);
-      return res.json(responseObject);
+      return res.status(200).json(responseObject);
   }
   catch(err){
     await stripe.refunds.create({charge: responseObject.id })

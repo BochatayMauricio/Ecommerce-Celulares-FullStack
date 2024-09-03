@@ -6,31 +6,7 @@ import sequelize from "../db/connection";
 import { QueryTypes } from "sequelize";
 import { Brand } from "../models/brand";
 
-// export const getAllProducts = async (req: Request, res: Response) => { // Método encargado de traer los productos de la BD
-//   const page = parseInt(req.params.page);
-//   const size= 3
-//   let option = { // Configuración del páginado
-//     limit: +size,
-//     offset: (+page * (+size))
-//   }
-//   try{
-//     const {count, rows} = await Product.findAndCountAll(option);
-//     if(!rows){
-//       return res.status(404).send({
-//         msg: 'No hay productos en la base de datos'
-//       })
-//     }
-//     return res.status(200).json({ // Se devuelve la lista de productos y la cantidad
-//       total: count,
-//       products: rows
-//     });
-//   }catch(error){
-//     return res.status(200).send({
-//       msg: error
-//     })
-//   }
 
-// };
 export const getAllProducts = async (req: Request, res: Response) => { // Método encargado de traer los productos de la BD
   const page = parseInt(req.params.page);
   const size= 3
@@ -66,7 +42,10 @@ export const getAllProducts = async (req: Request, res: Response) => { // Métod
 
 export const getProducts  = async (req:Request, res:Response) => {
   try{
-    const productList = await Product.findAll();
+    const productList = await sequelize.query(
+      "SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand"
+    )
+    // const productList = await Product.findAll();
     if(!productList) {
         return res.status(404).send({
         msg:'No hay productos cargados'
@@ -167,23 +146,11 @@ export const getOneProduct = async (request: Request, response: Response) => {
     return response.status(400).json({ msg: 'ocurrio un error', error });
   }
 }
-/*export const getProductsByName = async (req: Request, res: Response) => {
-  const { name } = req.params;
-  const productsByName = await Product.findAll({
-    where: {
-      brand:name
-    }
-  });
-  if (productsByName) {
-    return res.status(200).json(productsByName);
-  } else {
-    return res.status(400).json({ msg: 'No se ha podido realizar la busqueda' });
-  }
-}*/
+
 
 export const getProductsByName = async (req: Request, res: Response) => {
   const { name } = req.params;
-  const productsByName = await sequelize.query( 'SELECT * FROM products WHERE brand like :search_brand ',
+  const productsByName = await sequelize.query( 'SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand WHERE name like :search_brand ',
   {
     replacements: { search_brand: `%${name}%` },
     type:QueryTypes.SELECT

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SalesService } from '../../../../services/sales.service';
 import { sales } from 'src/app/interfaces/sales';
 
+
 @Component({
   selector: 'app-sales-list',
   templateUrl: './sales-list.component.html',
@@ -14,6 +15,7 @@ export class SalesListComponent implements OnInit{
   ngOnInit():void{
     this.salesS.getSales().subscribe((response)=>{
       this.salesList = response;
+      console.log(this.salesList )
     });
   }
   

@@ -39,7 +39,7 @@ const checkout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         try {
             yield stripe.charges.capture(responseObject.id);
-            return res.json(responseObject);
+            return res.status(200).json(responseObject);
         }
         catch (err) {
             yield stripe.refunds.create({ charge: responseObject.id });
