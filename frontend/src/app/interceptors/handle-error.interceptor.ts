@@ -20,8 +20,10 @@ export class HandleErrorInterceptor implements HttpInterceptor {
         if(error.error instanceof ErrorEvent){
           errorMessage = `Error: ${error.error.message}`;
         }else{
-          if(error.status == 404) return EMPTY;
-          errorMessage = `Server Error: ${error.status}, message: ${error.error.msg}`
+          if(error.status == 404) {
+            return EMPTY
+          }
+          errorMessage = `Server Error: ${error.status}, message: ${error.error.msg}`;
         }
         return throwError(()=> errorMessage);
       })

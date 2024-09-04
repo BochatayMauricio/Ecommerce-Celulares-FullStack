@@ -53,7 +53,7 @@ const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.getAllProducts = getAllProducts;
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const productList = yield connection_1.default.query("SELECT p.id, p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand", {
+        const productList = yield connection_1.default.query("SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand", {
             type: sequelize_1.QueryTypes.SELECT
         });
         // const productList = await Product.findAll();

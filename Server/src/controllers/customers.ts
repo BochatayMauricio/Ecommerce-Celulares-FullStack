@@ -7,16 +7,21 @@ import sequelize from '../db/connection';
 
 
 export const getCustomers = async (req: Request, res: Response) => {
-  const customerList: any[] = await User.findAll({
-    where: {
-      isAdmin: false
+  try{
+    const customerList: any[] = await User.findAll({
+      where: {
+        isAdmin: false
+      }
+    })
+    if (customerList.length > 0) {
+      res.status(200).json(customerList);
+    } else {
+      res.status(404).send({ msg: 'No hay clientes cargados' })
     }
-  })
-  if (customerList.length > 0) {
-    res.status(200).json(customerList);
-  } else {
-    res.status(404).send({ msg: 'No hay clientes cargados' })
+  }catch(error){
+    return res.status(400).send({msg:error})
   }
+  
 };
 
 
@@ -37,11 +42,10 @@ export const updateCustomer = async (req: Request, res: Response) => {
       return res.status(200).json({
         msg: 'Password Actualizada',
         body: hashedPassword, password, User
-      })
-        ;
+      });
     } catch (error) {
       return res.status(400).json({
-        msg: "No se pudo Actualizar"
+        msg: "No se encontro el usuario"
       });
     }
   } else {
@@ -69,7 +73,9 @@ export const updateCustomer = async (req: Request, res: Response) => {
         msg: "Actualizado"
       });
     } catch (error) {
-      return res.status(400)
+      return res.status(400).send({
+        msg:`No se encontro el usuario`
+      })
     }
   };
 }
@@ -77,21 +83,39 @@ export const updateCustomer = async (req: Request, res: Response) => {
 
 export const deleteCustomer = async (req: Request, res: Response) => {
   const { dni } = req.params;
-  const customer = await User.destroy({
-    where: {
-      dni: dni,
-      isAdmin: false
+  try{
+    const customer = await User.destroy({
+      where: {
+        dni: dni,
+        isAdmin: false
+      }
+    });
+    if (customer) {
+      return res.status(200).send({ msg: 'Cliente Eliminado' })
     }
-  })
-  if (customer) {
-    res.status(200).send({ msg: 'Cliente Eliminado' })  //HAY QUE VER COMO HACER PARA RETORNAR 404, AUNQUE SE SUPONE QUE SIEMPRE VA A ESTAR LA TUPLA, YA QUE LA ELIMINA DE UN LISTADO
+    return res.status(402).send({
+      msg:'No se encontró el cliente'
+    })
+  }catch(error){
+    return res.status(400).send({msg:error})
   }
+  
 };
 
 export const getCustomer = async (req: Request, res: Response) => {
   const { email } = req.params;
-  const oneUser = await User.findOne({ where: { email: email } });
-  res.json(oneUser);
+  try{
+    const oneUser = await User.findOne({ where: { email: email } });
+    if(!oneUser) {
+      return res.status(402).send({
+      msg:'No se encontro este usuario!'
+      });
+    }
+    return res.status(200).json(oneUser);
+  }catch(error){
+    return res.status(400).send({msg:error})
+  }
+
 }
 
 export const getSalesUser = async (request: Request, response: Response) => {
@@ -99,12 +123,17 @@ export const getSalesUser = async (request: Request, response: Response) => {
   const id = request.params.id;
   // Extraemos metadatos Querytypes y definimos la Query con Querytypes.SELECT
   const { QueryTypes } = require('sequelize');
-  const saleList = await sequelize.query(`SELECT u.dni, u.name, p.model, p.image, p.price, p.description, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile WHERE u.id=${id}`, 
-  { type: QueryTypes.SELECT });
-
-  if (saleList.length > 0) {
-    response.status(200).json(saleList)
-  } else {
-    response.status(404).send({ msg: 'No hay ventas registradas al cliente' })
+  try{
+    const saleList = await sequelize.query(`SELECT u.dni, u.name, p.model, p.image, p.price, p.description, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile WHERE u.id=${id}`, 
+      { type: QueryTypes.SELECT });
+    
+      if (saleList.length > 0) {
+        return response.status(200).json(saleList)
+      } else {
+        return response.status(404).send({ msg: 'No hay ventas registradas al cliente' })
+      }
+  }catch(error){
+    return response.status(400).send({msg:error});
   }
+
 }

@@ -17,16 +17,21 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_1 = require("../models/user");
 const connection_1 = __importDefault(require("../db/connection"));
 const getCustomers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const customerList = yield user_1.User.findAll({
-        where: {
-            isAdmin: false
+    try {
+        const customerList = yield user_1.User.findAll({
+            where: {
+                isAdmin: false
+            }
+        });
+        if (customerList.length > 0) {
+            res.status(200).json(customerList);
         }
-    });
-    if (customerList.length > 0) {
-        res.status(200).json(customerList);
+        else {
+            res.status(404).send({ msg: 'No hay clientes cargados' });
+        }
     }
-    else {
-        res.status(404).send({ msg: 'No hay clientes cargados' });
+    catch (error) {
+        return res.status(400).send({ msg: error });
     }
 });
 exports.getCustomers = getCustomers;
@@ -50,7 +55,7 @@ const updateCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
         catch (error) {
             return res.status(400).json({
-                msg: "No se pudo Actualizar"
+                msg: "No se encontro el usuario"
             });
         }
     }
@@ -78,7 +83,9 @@ const updateCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function*
             });
         }
         catch (error) {
-            return res.status(400);
+            return res.status(400).send({
+                msg: `No se encontro el usuario`
+            });
         }
     }
     ;
@@ -86,21 +93,39 @@ const updateCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.updateCustomer = updateCustomer;
 const deleteCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { dni } = req.params;
-    const customer = yield user_1.User.destroy({
-        where: {
-            dni: dni,
-            isAdmin: false
+    try {
+        const customer = yield user_1.User.destroy({
+            where: {
+                dni: dni,
+                isAdmin: false
+            }
+        });
+        if (customer) {
+            return res.status(200).send({ msg: 'Cliente Eliminado' });
         }
-    });
-    if (customer) {
-        res.status(200).send({ msg: 'Cliente Eliminado' }); //HAY QUE VER COMO HACER PARA RETORNAR 404, AUNQUE SE SUPONE QUE SIEMPRE VA A ESTAR LA TUPLA, YA QUE LA ELIMINA DE UN LISTADO
+        return res.status(402).send({
+            msg: 'No se encontró el cliente'
+        });
+    }
+    catch (error) {
+        return res.status(400).send({ msg: error });
     }
 });
 exports.deleteCustomer = deleteCustomer;
 const getCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.params;
-    const oneUser = yield user_1.User.findOne({ where: { email: email } });
-    res.json(oneUser);
+    try {
+        const oneUser = yield user_1.User.findOne({ where: { email: email } });
+        if (!oneUser) {
+            return res.status(402).send({
+                msg: 'No se encontro este usuario!'
+            });
+        }
+        return res.status(200).json(oneUser);
+    }
+    catch (error) {
+        return res.status(400).send({ msg: error });
+    }
 });
 exports.getCustomer = getCustomer;
 const getSalesUser = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -108,12 +133,17 @@ const getSalesUser = (request, response) => __awaiter(void 0, void 0, void 0, fu
     const id = request.params.id;
     // Extraemos metadatos Querytypes y definimos la Query con Querytypes.SELECT
     const { QueryTypes } = require('sequelize');
-    const saleList = yield connection_1.default.query(`SELECT u.dni, u.name, p.model, p.image, p.price, p.description, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile WHERE u.id=${id}`, { type: QueryTypes.SELECT });
-    if (saleList.length > 0) {
-        response.status(200).json(saleList);
+    try {
+        const saleList = yield connection_1.default.query(`SELECT u.dni, u.name, p.model, p.image, p.price, p.description, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile WHERE u.id=${id}`, { type: QueryTypes.SELECT });
+        if (saleList.length > 0) {
+            return response.status(200).json(saleList);
+        }
+        else {
+            return response.status(404).send({ msg: 'No hay ventas registradas al cliente' });
+        }
     }
-    else {
-        response.status(404).send({ msg: 'No hay ventas registradas al cliente' });
+    catch (error) {
+        return response.status(400).send({ msg: error });
     }
 });
 exports.getSalesUser = getSalesUser;

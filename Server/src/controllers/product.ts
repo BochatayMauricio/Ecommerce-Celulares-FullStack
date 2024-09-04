@@ -43,7 +43,7 @@ export const getAllProducts = async (req: Request, res: Response) => { // Métod
 export const getProducts  = async (req:Request, res:Response) => {
   try{
       const productList = await sequelize.query(
-        "SELECT p.id, p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand",
+        "SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand",
         {
           type: QueryTypes.SELECT 
           }

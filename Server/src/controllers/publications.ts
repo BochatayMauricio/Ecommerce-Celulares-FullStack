@@ -15,10 +15,10 @@ export const getPublications = async (request: Request, response: Response) => {
     if (publica.length > 0) {
       return response.status(200).json(publica)
     } else {
-      return response.status(400).send({ msg: 'No hay publicaciones de este administrador' })
+      return response.status(404).send({ msg: 'No hay publicaciones de este administrador' })
     }
   } catch (error) {
-    return response.status(400).send(error)
+    return response.status(400).send({msg: error})
   }
 };
 

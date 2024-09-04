@@ -7,12 +7,16 @@ import sequelize from "../db/connection";
 
 export const getSales = async (request: Request, response: Response) => {
   const { QueryTypes } = require('sequelize');
-  const saleList = await sequelize.query("SELECT u.dni, u.name, p.model, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile;",
+  try{
+    const saleList = await sequelize.query("SELECT u.dni, u.name, p.model, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile;",
      { type: QueryTypes.SELECT });
-  if (saleList.length > 0) {
-    response.status(200).json(saleList)
-  } else {
-    response.status(404).send({ msg: 'No hay ventas registradas' })
+    if (saleList.length > 0) {
+      response.status(200).json(saleList)
+    } else {
+      response.status(404).send({ msg: 'No hay ventas registradas' })
+    }
+  }catch(error){
+    return response.status(400).send({msg:error})
   }
 
 }
@@ -42,11 +46,16 @@ export const postSell = async (request: Request, response: Response) => {
         quantity: body[j].quantity,
         idShipping: null
       })
+      try{
+        await Product.update({ stock: produc?.dataValues.stock - body[j].quantity }, { where: { id: body[j].idProduct } });
+      }catch(error){
+        return response.status(400).send({msg:error})
+      }
       
       await Product.update({ stock: produc?.dataValues.stock - body[j].quantity }, { where: { id: body[j].idProduct } });
       return response.status(200).send({ msg: 'Correcto' })
     } catch (error) {
-      return response.status(400).send({ msg: 'No se pudo cargar' })
+      return response.status(400).send({ msg: error })
     }
   }
   

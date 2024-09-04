@@ -18,12 +18,17 @@ const product_1 = require("../models/product");
 const connection_1 = __importDefault(require("../db/connection"));
 const getSales = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const { QueryTypes } = require('sequelize');
-    const saleList = yield connection_1.default.query("SELECT u.dni, u.name, p.model, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile;", { type: QueryTypes.SELECT });
-    if (saleList.length > 0) {
-        response.status(200).json(saleList);
+    try {
+        const saleList = yield connection_1.default.query("SELECT u.dni, u.name, p.model, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile;", { type: QueryTypes.SELECT });
+        if (saleList.length > 0) {
+            response.status(200).json(saleList);
+        }
+        else {
+            response.status(404).send({ msg: 'No hay ventas registradas' });
+        }
     }
-    else {
-        response.status(404).send({ msg: 'No hay ventas registradas' });
+    catch (error) {
+        return response.status(400).send({ msg: error });
     }
 });
 exports.getSales = getSales;
@@ -51,11 +56,17 @@ const postSell = (request, response) => __awaiter(void 0, void 0, void 0, functi
                 quantity: body[j].quantity,
                 idShipping: null
             });
+            try {
+                yield product_1.Product.update({ stock: (produc === null || produc === void 0 ? void 0 : produc.dataValues.stock) - body[j].quantity }, { where: { id: body[j].idProduct } });
+            }
+            catch (error) {
+                return response.status(400).send({ msg: error });
+            }
             yield product_1.Product.update({ stock: (produc === null || produc === void 0 ? void 0 : produc.dataValues.stock) - body[j].quantity }, { where: { id: body[j].idProduct } });
             return response.status(200).send({ msg: 'Correcto' });
         }
         catch (error) {
-            return response.status(400).send({ msg: 'No se pudo cargar' });
+            return response.status(400).send({ msg: error });
         }
     }
 });
