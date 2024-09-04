@@ -27,7 +27,6 @@ export class SignInComponent {
   constructor(private toastr: ToastrService,
     private userService: UserService,
     private router: Router,
-    private errorService: ErrorService,
     public fb: FormBuilder) {
 
       this.userForm = this.fb.group({
@@ -55,12 +54,10 @@ export class SignInComponent {
           this.toastr.success(`Registrado Exitosamente`, 'Usuario Registrado');
           this.router.navigate(['/login']);
         },
-        error: (e: HttpErrorResponse) => {
-          this.errorService.msjError(e);
+        error: (e) => {
+          this.toastr.error(e);
           this.loading = false;
-        }
-        
-    })
+        }});
   }
 
   // addUser() {

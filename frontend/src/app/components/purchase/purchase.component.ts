@@ -1,7 +1,6 @@
 import { Component, inject,Input,OnInit} from '@angular/core';
 import { DomicileService } from 'src/app/services/domicile.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { domicile } from 'src/app/interfaces/domicile';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CartService } from 'src/app/services/cart.service';
 import { SalesService } from 'src/app/services/sales.service';
@@ -11,8 +10,6 @@ import { UserService } from 'src/app/services/user.service';
 import { sales } from 'src/app/interfaces/sales';
 import { user } from 'src/app/interfaces/user';
 import { product } from 'src/app/interfaces/product';
-import { timeout } from 'rxjs';
-import { ProductService } from 'src/app/services/product.service';
 
 
 @Component({
@@ -99,10 +96,6 @@ export class PurchaseComponent implements OnInit {
   }
 
 
-show(){
-  alert("Aca va la compra")
-}
-
 async chargeCart() {
   console.log("Id usuario",this.user?.id)
   console.log("Id Domicilio",this.idDomicile)
@@ -166,6 +159,3 @@ doSell($event: any) {
 
 
 }
-
-
-

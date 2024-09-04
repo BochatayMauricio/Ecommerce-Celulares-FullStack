@@ -12,14 +12,14 @@ export const newUser = async (req: Request, res: Response) => {
   //Validacion de si el usuario ya existe en la bd
   let user = await User.findOne({ where: { email: email } })
   if (user) {
-    return res.status(400).json({
+    return res.status(400).send({
       msg: `Ya existe un usuario con el mail ${email}`
     })
   }
 
   user = await User.findOne({ where: { dni: dni } })
   if (user) {
-    return res.status(400).json({
+    return res.status(400).send({
       msg: `Ya existe un usuario con el dni ${dni}`
     })
   }
