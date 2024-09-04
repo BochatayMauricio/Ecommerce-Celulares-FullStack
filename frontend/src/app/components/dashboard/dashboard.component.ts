@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductByPage(this.page);
-    this.productService.getProductsByPageObs().subscribe((data: any) => {
+    this.productService.getProductsByPageObs().subscribe((data) => {
       this.object = data
     });
   }

@@ -17,7 +17,6 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_1 = require("../models/user");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('new user entrando');
     const { password, email, name, surname, dni, isAdmin } = req.body;
     const hashedPassword = yield bcrypt_1.default.hash(password, 10);
     //Validacion de si el usuario ya existe en la bd

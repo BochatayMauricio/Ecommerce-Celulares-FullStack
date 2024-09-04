@@ -4,7 +4,6 @@ import { User } from '../models/user';
 import jwt from 'jsonwebtoken';
 
 export const newUser = async (req: Request, res: Response) => {
-  console.log('new user entrando');
   const { password, email, name, surname, dni, isAdmin } = req.body;
 
   const hashedPassword = await bcrypt.hash(password, 10);

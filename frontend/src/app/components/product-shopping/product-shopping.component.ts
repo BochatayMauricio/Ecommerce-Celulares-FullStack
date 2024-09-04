@@ -16,7 +16,7 @@ import { __param } from 'tslib';
 export class ProductShoppingComponent implements OnInit {
   x = 5;
   y = 2;
-  newProduct: product | undefined;
+  newProduct?: product;
   product: any;
   listOfProducts: product[] = [];
   amount: any = 0;
@@ -25,24 +25,16 @@ export class ProductShoppingComponent implements OnInit {
 
   constructor(private productService: ProductService,
     private activateRouter: ActivatedRoute, private cartService: CartService, private toast: ToastrService) {
-
-
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.productService.getProduct().subscribe((data) => {
       this.newProduct = data;
     });
 
     this.activateRouter.params.subscribe((param) => {
       this.product = param;
-      this.findProduct();
-      setTimeout(() => {
-        console.log("Producto", this.product)
-        console.log("Producto", this.newProduct),
-          this.stock = this.newProduct?.stock
-      }, 500);
-
+      this.findProduct();      
     })
   }
 
@@ -51,10 +43,10 @@ export class ProductShoppingComponent implements OnInit {
     this.productService.retraiveProducts();
     this.productService.getProductsObs().subscribe((value) => {
       this.listOfProducts = value
-      console.log(this.listOfProducts)
       let index = this.listOfProducts.findIndex((product) => product.id == this.product.id)
       console.log(index)
       this.newProduct = this.listOfProducts[index];
+      this.stock = this.newProduct?.stock;
     })
   }
 

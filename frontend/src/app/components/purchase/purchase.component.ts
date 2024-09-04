@@ -7,7 +7,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { SalesService } from 'src/app/services/sales.service';
 import { product } from 'src/app/interfaces/product';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { user } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -24,16 +24,19 @@ export class PurchaseComponent implements OnInit {
   oneAtATime = true;
   collapsed=false;
   component:string="purchase";
-  domicile?:domicile;
+  domicile:any;
   idDomicile?:number;
   data:any;
   cartSales: sales[] = [];
   productsCart: product[] = [];
   modalRef: any;
   user?: user;
+  endCollapsed=true;
+  selectedSucursal:number=0;
   
   //@Input() cartSales!:sales[];
-  constructor(private domicileService: DomicileService, 
+  constructor(
+    private domicileService: DomicileService, 
     private cartService: CartService, 
     private alertService:ToastrService,
     private salesService: SalesService,
@@ -53,11 +56,10 @@ export class PurchaseComponent implements OnInit {
       this.productsCart = products
     });
     this.userService.getThisUserBehaviour().subscribe(value => this.user = value);
-    this.createSalesWithProductsCart();
+    // this.createSalesWithProductsCart();
   }
 
   setDomicile(){
-    // Se setean los datos del formulario a la variable domicilio
     this.domicile = {
       id:0,
       postalCode: this.formGroup!.value.codPos,
@@ -67,23 +69,27 @@ export class PurchaseComponent implements OnInit {
     // Llamamos al servicio para que registre el domicilio en la BD y guarde el id del Domicilio
     this.domicileService.setDomicile(this.domicile).subscribe((data)=> {
       this.data = data;
-      this.idDomicile = this.data.id;
-      console.log(this.idDomicile) 
+      this.idDomicile = this.data.id; 
+      this.createSalesWithProductsCart();
     })
   }
 
 
-  setSucursal() {
+  setSucursal(template: TemplateRef<any>) {
     const form:any = document.getElementById('sucursales');
-    // Verifica que el elemento con el id 'sucursales' existe
-    if (!form) {
-        console.error('El formulario no se encuentra.');
-        return;
-    } else{
-      const formData = new FormData(form);
-      const selectedSucursal = formData.get('sucursal');
-      console.log('Sucursal Seleccioada: ' + selectedSucursal);
-      return selectedSucursal
+    const formData = new FormData(form);
+    this.selectedSucursal = parseInt(String(formData.get('sucursal'))) ;
+    if(!this.selectedSucursal){
+      alert("Primero debe seleccionar una sucursal ")
+      return
+    } else {    
+        this.domicileService.getOneDomicile(this.selectedSucursal).subscribe((data)=> {
+          this.domicile = data;
+          this.idDomicile=this.domicile.id  
+          this.createSalesWithProductsCart();
+          this.openModal(template)     
+        })
+        this.endCollapsed = !this.endCollapsed
     }
 }
 
@@ -116,16 +122,14 @@ openModal(template: TemplateRef<any>) {
 }
 
 
-async createSalesWithProductsCart() {
-  console.log(this.user?.id)
-  console.log(this.productsCart);
+createSalesWithProductsCart() {
   if (this.user?.id) {
     const cartSell: sales[] = [];
     for (let i = 0; i < this.productsCart.length; i++) {
       const newSale: sales = {
         idCustomer: this.user.id,
         idProduct: this.productsCart[i].id,
-        idDomicile:this.idDomicile || 1, //Hay que agregar que te devuelva el domicilio para hacer la venta
+        idDomicile:this.idDomicile!, //Hay que agregar que te devuelva el domicilio para hacer la venta
         quantity: Number(this.productsCart[i].quantity),
         idShipping: null
       };

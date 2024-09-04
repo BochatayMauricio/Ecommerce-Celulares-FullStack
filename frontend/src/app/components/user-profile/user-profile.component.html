@@ -2,13 +2,13 @@
 <div class="w-75 mx-auto border border-1 mt-4 py-3">
   <h3 class="px-5 py-3">Datos Personales</h3>
   <div class="input-group px-5 my-2">
-    <input type="text" disabled aria-label="First name" class="form-control" value={{user.name}}>
-    <input type="text" disabled aria-label="Last name" class="form-control" value={{user.surname}}>
+    <input type="text" disabled aria-label="Nombre" class="form-control" placeholder={{user.name}}>
+    <input type="text" disabled aria-label="Apellido" class="form-control" placeholder={{user.surname}}>
   </div>
 
   <div class="input-group px-5 my-2">
-    <input type="text" disabled aria-label="First name" class="form-control" value={{user.dni}}>
-    <input type="text" disabled aria-label="Last name" class="form-control" value={{user.createdAt}}>
+    <input type="text" disabled aria-label="Dni" class="form-control" placeholder={{user.dni}}>
+    <input type="text" disabled aria-label="Fecha registro" class="form-control" placeholder="{{user.createdAt | date:'fullDate'}}">
   </div>
 
   <div class="input-group px-5 my-2">

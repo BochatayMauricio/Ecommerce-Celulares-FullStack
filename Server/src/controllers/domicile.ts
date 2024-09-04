@@ -35,8 +35,34 @@ export const asignDomicile = async(Req:Request, Res:Response) => {
 };
 
 export const getDomiciles = async(Req:Request, Res:Response) => {
-    const domiciles = await Domicile.findAll();
-    Res.json(domiciles);
+    try{
+        const domiciles = await Domicile.findAll();
+        Res.status(200).json(domiciles);
+    }catch(err){
+        Res.status(400).send({
+            msg:err
+        })
+    }
+}
+
+export const getOneDomicile = async(Req:Request, Res:Response) => {
+    const {id} = Req.params;
+    try{
+        const domicile = await Domicile.findByPk(id);
+        if(domicile){
+            Res.status(200).json(domicile);
+        }else{
+            Res.status(402).send({
+                msg:'Domicilio no encontrado'
+            })
+        }
+        
+    }catch(err){
+        Res.status(400).send({
+            msg:err
+        })
+    }
+
 }
 
 

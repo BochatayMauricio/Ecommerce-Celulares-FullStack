@@ -76,6 +76,7 @@ export class ProducListComponent implements OnInit{
     });
     setTimeout(() => {
       const {total, products} = this.object
+      console.log(total, products)
       this.disabledBack='';
       this.disabledNext='';
       let pagesArray:number[] = [];
@@ -99,7 +100,8 @@ export class ProducListComponent implements OnInit{
           this.listProducts.push(products[i]) //Agregar el producto con stock >0 al arreglo
         }
       }
-    }, 500);    
+    }, 500); 
+    console.log(this.totalPages)   
   }
 
   sendPage(page:number){

@@ -35,7 +35,7 @@
           </b>
         </td><br>
         <td>
-          <b>Fecha Compra: {{sales.createdAt}}</b>
+          <b>Fecha Compra: {{sales.createdAt | date: 'fullDate'}}</b>
         </td><br>
         <td>
           <b>Precio: {{sales.price*sales.quantity}}</b>

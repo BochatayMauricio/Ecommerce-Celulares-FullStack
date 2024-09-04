@@ -43,58 +43,6 @@ export class CartComponent implements OnInit{
     this.cartService.deleteProduct(id);
   }
 
-  // async chargeCart() {
-  //   console.log(this.user?.id)
-  //   console.log(this.productsCart);
-  //   if (this.user?.id) {
-  //     const cartSell: sales[] = [];
-  //     for (let i = 0; i < this.productsCart.length; i++) {
-  //       const newSale: sales = {
-  //         idCustomer: this.user.id,
-  //         idProduct: this.productsCart[i].id,
-  //         idDomicile:0, //Hay que agregar que te devuelva el domicilio para hacer la venta
-  //         quantity: Number(this.productsCart[i].quantity),
-  //         idShipping: null
-  //       };
-  //       if (this.productsCart[i].stock >= Number(this.productsCart[i].quantity)) {
-  //         cartSell.push(newSale);
-  //       } else {
-  //         this.alertService.info(`El producto: ${this.productsCart[i].brand}--${this.productsCart[i].model} no cumple con el stock para esta compra`).onAction
-  //       }
-  //     }
-  //     this.cartSales=cartSell;
-  //   } else {
-  //     let confirmar = confirm('Antes de Comprar debe Loguearse. Quiere que lo redireccionemos al LogIn?');
-  //     if (confirmar) {
-  //       this.router.navigate(['/login'])
-  //     }
-  //   }
-  // }
-
-  // doSell($event: any) {
-  //   if ($event.status == "succeeded") {
-  //     this.modalRef?.hide();
-  //     if (this.cartSales.length > 0) {
-  //       if (this.cartSales.length < this.productsCart.length) {
-  //         this.alertService.info('Hay productos que no cumplen con el stock, por lo tanto no concretarán la compra').onAction
-
-  //       }
-  //       this.sellService.postSell(this.cartSales).subscribe({
-  //         complete: (() => {
-  //           this.cartService.clearCart();
-  //           this.alertService.success('Compra registrada con exito!')
-  //         }),
-  //         error: (() => this.alertService.error('Ocurrio un error'))
-  //       });
-  //     }
-  //     else {
-  //       this.alertService.error('Ningun producto cumple con el stock').onAction;
-  //     }
-  //   } else {
-  //     this.alertService.error('Hubo un inconveniente con la transacción del pago').onAction;
-  //   }
-  // }
-
 
   openModal2(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);

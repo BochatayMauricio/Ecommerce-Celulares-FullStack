@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDomiciles = exports.asignDomicile = void 0;
+exports.getOneDomicile = exports.getDomiciles = exports.asignDomicile = void 0;
 const domicile_1 = require("../models/domicile");
 const asignDomicile = (Req, Res) => __awaiter(void 0, void 0, void 0, function* () {
     const { postalCode, street, number } = Req.body;
@@ -46,8 +46,35 @@ const asignDomicile = (Req, Res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.asignDomicile = asignDomicile;
 const getDomiciles = (Req, Res) => __awaiter(void 0, void 0, void 0, function* () {
-    const domiciles = yield domicile_1.Domicile.findAll();
-    Res.json(domiciles);
+    try {
+        const domiciles = yield domicile_1.Domicile.findAll();
+        Res.status(200).json(domiciles);
+    }
+    catch (err) {
+        Res.status(400).send({
+            msg: err
+        });
+    }
 });
 exports.getDomiciles = getDomiciles;
+const getOneDomicile = (Req, Res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = Req.params;
+    try {
+        const domicile = yield domicile_1.Domicile.findByPk(id);
+        if (domicile) {
+            Res.status(200).json(domicile);
+        }
+        else {
+            Res.status(402).send({
+                msg: 'Domicilio no encontrado'
+            });
+        }
+    }
+    catch (err) {
+        Res.status(400).send({
+            msg: err
+        });
+    }
+});
+exports.getOneDomicile = getOneDomicile;
 exports.default = exports.asignDomicile;

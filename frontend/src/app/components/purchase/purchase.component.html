@@ -6,40 +6,7 @@
 <app-cart [component]="component"></app-cart>
 
 <h4 class="text-center">Elige como recibiras tu producto</h4>
-<!-- Acordeon -->
-<!-- <div class="row row-cols-3 justify-content-center">
-    <accordion [closeOthers]="oneAtATime" [isAnimated]="true">
-        <accordion-group heading="Envío a Domicilio">
-            <form>
-                <div class="mb-3">
-                    <label for="codPos">Codigo Postal</label>
-                    <input id="codPos" type="text" placeholder="Codigo Postal" class="form-control"
-                    formControlName="codPos">
-                </div>
-                <div class="mb-3">
-                    <label for="calle">Calle</label>
-                    <input id="calle" type="text" placeholder="Calle" class="form-control"
-                    formControlName="calle">
-                </div>
-                <div class="mb-3">
-                    <label for="numero">Numero</label>
-                    <input id="numero" type="number" placeholder="Numero" class="form-control"
-                    formControlName="numero">
-                </div>
-            </form>
-        </accordion-group>
-        <accordion-group heading="Retiro en sucursal">
-            <p>
-                Sucursal 1
-            </p>
-            <p>
-                Sucursal 2
-            </p>
-        </accordion-group>
-      </accordion>
-</div> -->
-
-<!-- Desplegable -->
+<!-- desplegable -->
 <div class="text-center">
     <div class="btn-group text-begin mb-5">
 
@@ -73,9 +40,15 @@
                         formControlName="numero">
                     </div>
                     <!-- Codigo Auxiliar -->
-                    <button [disabled]="!formGroup!.valid" class="btn btn-outline-success">Registrar Domicilio</button>
+                    <button [disabled]="!formGroup!.valid" class="btn btn-outline-success" type="submit">Registrar Domicilio</button>
                     <!--  -->
                 </form>
+                <div class="text-center my-5">
+                    <button class="btn btn-primary" [disabled]="idDomicile==0" (click)="endCollapsed = !endCollapsed" (click)="openModal(template)"
+                    [attr.aria-expanded]="!endCollapsed" aria-controls="collapseBasic">
+                        Finalizar Compra
+                    </button>   
+                </div>
             </div>
         <!-- Retiro en sucursal -->
         </div>
@@ -85,62 +58,40 @@
             <div class="well well-lg card card-block card-header">
                 <form id="sucursales">
                     <label>
-                        <input type="radio" name="sucursal" value="montevideo">
+                        <input type="radio" name="sucursal" value="1">
                         Montevideo 1343, Rosario
                     </label><br>
             
                     <label>
-                        <input type="radio" name="sucursal" value="oroño">
+                        <input type="radio" name="sucursal" value="2">
                         Oroño 1515, Rosario
                     </label><br>
             
                     <label>
-                        <input type="radio" name="sucursal" value="StaFe">
+                        <input type="radio" name="sucursal" value="3">
                         Santa Fe 2500, Rosario
                     </label><br>
             
                     <label>
-                        <input type="radio" name="sucursal" value="SanJuan">
+                        <input type="radio" name="sucursal" value="4">
                         San Juan 800, Rosario
                     </label><br>
-            
-                    <button type="button" (click)="setSucursal()">Enviar</button>
                 </form>
-
-
-
+                <div class="text-center my-2">
+                    <button class="btn btn-primary" (click)="setSucursal(template)" 
+                    [attr.aria-expanded]="!endCollapsed" aria-controls="collapseBasic">
+                        Finalizar Compra
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <!-- <div class="my-5 text-center">
-        <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
-        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Envío a Domicilio
-          </button>
-      <hr>
-          <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
-          <div class="well well-lg card card-block card-header">Some content</div>
-          </div>
-    </div >
-   <div class="my-5 text-center">
-    <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Toggle collapse
-      </button>
-  <hr>
-      <div id="collapseBasic" [collapse]="!isCollapsed" [isAnimated]="true">
-      <div class="well well-lg card card-block card-header">Some content</div>
-      </div>
-   </div> -->
-      
-
-
-
-
 </div>
-<div class="text-center my-5">
+<!-- <div class="text-center my-5">
     <button class="btn btn-primary" [disabled]="!formGroup!.valid" (click)="openModal(template)">
         Finalizar Compra
     </button>   
-</div>
+</div> -->
 
 <ng-template #template>
     <div class="modal-header">
