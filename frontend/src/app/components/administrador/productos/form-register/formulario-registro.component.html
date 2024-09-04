@@ -25,7 +25,7 @@
         <mat-label>Descripcion</mat-label>
         <textarea matInput formControlName="description" [(ngModel)]="description"></textarea>
       </mat-form-field>
-    
+      <div class="alert alert-danger" role="alert" *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.value">Lo maximo permitido son 140 caracteres</div>
       <div class="form-floating mb-3">
         <input type="file" name="file" class="form-control" placeholder="imagen" #fileInput (change)="onFileUpload()">
         <label>Imagen</label>

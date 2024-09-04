@@ -15,7 +15,7 @@
       <tr>
         <th scope="col">Imagen</th>
         <th scope="col">Modelo</th>
-        <th scope="col">Marca</th>
+        <!-- <th scope="col">Marca</th> -->
         <th scope="col">Precio</th>
         <th scope="col">Cantidad</th>
         <th scope="col">Subtotal</th>
@@ -26,10 +26,10 @@
       <tr>
         <th scope="row"><img [src]=getUrl(products.image) class="image-product" alt="imagen"></th>
         <td class="col">{{products.model}}</td>
-        <td class="col">{{products.brand}}</td>
+        <!-- <td class="col">{{products.brand}}</td> -->
         <td class="col">{{products.price}}</td>
         <td class="col">{{products.quantity}}</td>
-        <td class="col">{{products.quantity * products.price}}</td>
+        <td class="col" *ngIf="products.quantity && products.price">{{products.quantity * products.price}}</td>
         <td *ngIf="component!='purchase'"><button class="button" (click)="deleteProduct(products.id)"><img
               src="../../../assets/img/basura.png"></button></td>
       </tr>
@@ -37,7 +37,7 @@
   </table>
   
     <!-- Fijarse, porque valida segun nombre de usuario = invitado -->
-    <button class="btn btn-success" *ngIf=" productsCart.length > 0 && user?.name!='invitado' && component!='purchase'"  routerLink="/dashboard/purchase">Comprar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
+    <button class="btn btn-success" *ngIf=" productsCart.length > 0 && user?.name!='invitado' && component!='purchase'" routerLink="/dashboard/purchase">Comprar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
     <button class="btn btn-success" *ngIf=" productsCart.length > 0 && user?.name=='invitado' && component!='purchase'"  (click)="openModal2(template2)">Comprar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png"></button>
     
 
@@ -70,7 +70,7 @@
   
 </header>
 
-<ng-template #template>
+<!-- <ng-template #template>
   <div class="modal-header">
    
     <h5 style="margin-left: 10%;">Datos Tarjeta Debito</h5>
@@ -81,4 +81,4 @@
   <div class="modal-body" style="margin-left: 25px; height:auto">
     <app-payment [cartSell]="cartSales" (objectCharge)="doSell($event)"></app-payment>
   </div>
-</ng-template> 
+</ng-template>  -->

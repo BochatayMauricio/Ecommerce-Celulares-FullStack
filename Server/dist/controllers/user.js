@@ -23,13 +23,13 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //Validacion de si el usuario ya existe en la bd
     let user = yield user_1.User.findOne({ where: { email: email } });
     if (user) {
-        return res.status(400).json({
+        return res.status(400).send({
             msg: `Ya existe un usuario con el mail ${email}`
         });
     }
     user = yield user_1.User.findOne({ where: { dni: dni } });
     if (user) {
-        return res.status(400).json({
+        return res.status(400).send({
             msg: `Ya existe un usuario con el dni ${dni}`
         });
     }

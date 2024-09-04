@@ -30,17 +30,9 @@ export class FormularioRegistroComponent  {
   
   brands:brand[] = []
   //FORMULARIO Y USO DE SERVICE
-  productForm: FormGroup;
+  productForm!: FormGroup;
   constructor(private productoS: ProductService, public fb: FormBuilder, private userService: UserService, private brandsService:BrandsService,private modalService: BsModalService) {
-    this.productForm = this.fb.group({
-      model: ['', [Validators.required]],
-      idBrand: ['',[Validators.required]],
-      price: ['', [Validators.required]],
-      stock: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      file: [null, [Validators.required]]
-    });
-    
+    this.initForm();
     this.userService.getThisUserBehaviour().subscribe((value) => this.Admin = value);
     this.brandsService.getBrands().subscribe((value)=> this.brands = value);
   }
@@ -69,7 +61,7 @@ export class FormularioRegistroComponent  {
     formData.append('stock', this.productForm.get('stock')?.value);
     formData.append('file', this.productForm.get('file')?.value);
     this.productoS.postProducto(formData, this.Admin.id).subscribe({
-    complete: () => {
+    next: () => {
         this.productoS.retraiveProducts();
          this.productoS.getProductsByPage(1);
          this.alerts.push({
@@ -86,6 +78,7 @@ export class FormularioRegistroComponent  {
         })
        }
      });
+    this.initForm();
   }
   
   onClosed(dismissedAlert: AlertComponent): void {
@@ -99,6 +92,17 @@ export class FormularioRegistroComponent  {
   modalRef?: BsModalRef;
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  initForm(){
+    this.productForm = this.fb.group({
+      model: ['', [Validators.required]],
+      idBrand: ['',[Validators.required]],
+      price: ['', [Validators.required]],
+      stock: ['', [Validators.required]],
+      description: ['', [Validators.required,Validators.maxLength(140)]],
+      file: [null, [Validators.required]]
+    });
   }
 }
 

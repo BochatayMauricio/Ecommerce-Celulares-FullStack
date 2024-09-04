@@ -17,7 +17,7 @@ export class FooterComponent implements AfterViewInit, OnInit {
 
     marker([-32.954419, -60.643741]).addTo(map).bindPopup('Sucursal');
   }
-
+  
 
   ngOnInit(){
     const map = new Map('map').setView([-32.954419, -60.643741], 13);
