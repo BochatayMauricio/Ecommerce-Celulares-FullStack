@@ -4,6 +4,7 @@ import { product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.getProductByPage(this.page);
-    this.productService.getProductsByPageObs().subscribe((data: any) => {
+    this.productService.getProductsByPageObs().subscribe((data:any) => {
       this.object = data
     });
   }

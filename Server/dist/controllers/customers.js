@@ -108,7 +108,7 @@ const getSalesUser = (request, response) => __awaiter(void 0, void 0, void 0, fu
     const id = request.params.id;
     // Extraemos metadatos Querytypes y definimos la Query con Querytypes.SELECT
     const { QueryTypes } = require('sequelize');
-    const saleList = yield connection_1.default.query(`SELECT * FROM sales INNER JOIN users ON users.id = sales.idCustomer INNER JOIN products ON products.id = sales.idProduct WHERE users.id = ${id}`, { type: QueryTypes.SELECT });
+    const saleList = yield connection_1.default.query(`SELECT u.dni, u.name, p.model, p.image, p.price, p.description, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile WHERE u.id=${id}`, { type: QueryTypes.SELECT });
     if (saleList.length > 0) {
         response.status(200).json(saleList);
     }

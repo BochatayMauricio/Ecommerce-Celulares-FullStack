@@ -22,7 +22,7 @@
             <td>{{publication.idProduct}}</td>
             <td style=" width: 30%; text-align: center; justify-content: center; align-items: center;"><img
                 style="max-width: 20%" [src]=getUrl(publication.image) alt=" ..."></td>
-            <td>{{publication.createdAt}}</td>
+            <td>{{publication.createdAt | date: 'fullDate'}}</td>
           </tr>
         </tbody>
       </table>

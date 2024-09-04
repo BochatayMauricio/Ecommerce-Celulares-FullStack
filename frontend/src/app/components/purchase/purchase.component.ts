@@ -91,7 +91,8 @@ export class PurchaseComponent implements OnInit {
     } else {    
         this.domicileService.getOneDomicile(this.selectedSucursal).subscribe((data)=> {
           this.domicile = data;
-          this.idDomicile=this.domicile.id       
+          this.idDomicile=this.domicile.id  
+          this.chargeCart();     
         })
         this.endCollapsed = !this.endCollapsed
     }
@@ -105,6 +106,7 @@ show(){
 async chargeCart() {
   console.log("Id usuario",this.user?.id)
   console.log("Id Domicilio",this.idDomicile)
+  
   if (this.user?.id) {
     const cartSell: sales[] = [];
     for (let i = 0; i < this.productsCart.length; i++) {
@@ -115,6 +117,7 @@ async chargeCart() {
         quantity: Number(this.productsCart[i].quantity),
         idShipping: null
       };
+      console.log("Venta",newSale)
       if (this.productsCart[i].stock >= Number(this.productsCart[i].quantity)) {
         cartSell.push(newSale);
       } else {

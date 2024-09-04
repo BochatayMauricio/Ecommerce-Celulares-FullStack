@@ -42,9 +42,13 @@ export const getAllProducts = async (req: Request, res: Response) => { // Métod
 
 export const getProducts  = async (req:Request, res:Response) => {
   try{
-    const productList = await sequelize.query(
-      "SELECT p.id,p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand"
+      const productList = await sequelize.query(
+        "SELECT p.id, p.description,p.model,p.price,p.stock,p.image,p.createdAt,b.name as brand FROM products p INNER JOIN brands b ON b.idBrand = p.idBrand",
+        {
+          type: QueryTypes.SELECT 
+          }
     )
+    
     // const productList = await Product.findAll();
     if(!productList) {
         return res.status(404).send({
@@ -162,3 +166,4 @@ export const getProductsByName = async (req: Request, res: Response) => {
     return res.status(400).json({ msg: 'No se ha podido realizar la busqueda' });
   }
 }
+

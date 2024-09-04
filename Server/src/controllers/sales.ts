@@ -20,7 +20,7 @@ export const getSales = async (request: Request, response: Response) => {
 export const getOneSales = async (request: Request, response: Response) => {
   const id = request.params.idCustomer;
   const { QueryTypes } = require('sequelize');
-  const saleList = await sequelize.query(`SELECT * FROM sales INNER JOIN users ON users.id = sales.idCustomer INNER JOIN products ON products.id = sales.idProduct WHERE users.id = ${id}`, 
+  const saleList = await sequelize.query(`SELECT u.dni, u.name, p.model, s.quantity, d.id as idDomicile, d.street, d.number, s.createdAt FROM sales s INNER JOIN users u ON u.id = s.idCustomer INNER JOIN products p ON p.id = s.idProduct INNER JOIN domiciles d ON d.id = s.idDomicile WHERE u.id = ${id}`, 
   { type: QueryTypes.SELECT });
   if (saleList.length > 0) {
     response.status(200).json(saleList)
