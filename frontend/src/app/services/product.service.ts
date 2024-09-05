@@ -5,7 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { product } from '../interfaces/product';
 
-
+interface responseProductPaginate {
+  total:number,
+  products: product[]
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +16,9 @@ import { product } from '../interfaces/product';
 export class ProductService {
 
 
-  productos: any = [];
+  productos: product[] = [];
   private prod: BehaviorSubject<product[]> = new BehaviorSubject<product[]>([]); //el que estaba antes de paginar
-  private productsPaginated: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private productsPaginated: BehaviorSubject<responseProductPaginate> = new BehaviorSubject<responseProductPaginate>({total:0,products:[]});
 
   nullproduct?: product
   private productInfo: BehaviorSubject<product> = new BehaviorSubject<product>(this.nullproduct!);
@@ -39,7 +42,7 @@ export class ProductService {
   }
 
   getProductsByPage(page:number) {
-    this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`)
+    this.http.get<responseProductPaginate>(`${this.myAppUrl}${this.myApiUrl}/page/${page}`)
     .subscribe((value)=>{
       this.productsPaginated.next(value);
     })
@@ -59,7 +62,7 @@ export class ProductService {
   
   //ver porque no se usa
   retraiveProducts() {
-    this.http.get(`${this.myAppUrl}${this.myApiUrl}`)
+    this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`)
     .subscribe(products => {
       this.productos = products;
       this.prod.next(this.productos)

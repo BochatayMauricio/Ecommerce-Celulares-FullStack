@@ -2,9 +2,14 @@
 <div class="input-group mb-3" *ngIf="salesList.length > 0">
   <input type="text" class="form-control" placeholder="dni cliente" name="filterSales" [(ngModel)]="filterSales">
 </div>
+
 <div class="alert alert-info" role="alert" *ngIf="salesList.length === 0">
   No existen Ventas
 </div>
+
+
+
+
 <div class="row" *ngIf="salesList.length > 0">
   <div class="col-lg-12">
     <div class="table-responsive">

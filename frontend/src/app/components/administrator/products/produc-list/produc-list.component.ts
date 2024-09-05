@@ -3,6 +3,10 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 
+interface responseProductPaginate {
+  total:number,
+  products: product[]
+}
 
 @Component({
   selector: 'app-produc-list',
@@ -11,7 +15,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProducListComponent implements OnInit{
   productsRegister: product[] = [];
-  product?: product;
+  product!: product;
   currentPage: number = 1;
   page:number=0;
   totalPages:number[] = [];
@@ -19,7 +23,7 @@ export class ProducListComponent implements OnInit{
   disabledNext:string = '';
   disabledBack: string='';
   listProducts: product[] = [];
-  object:any;
+  object!:responseProductPaginate;
 
   constructor(private productoS: ProductService, private modalService: BsModalService) { }
 
@@ -71,7 +75,7 @@ export class ProducListComponent implements OnInit{
     this.page=page
     this.listProducts = [];
     this.productoS.getProductsByPage(page);
-    this.productoS.getProductsByPageObs().subscribe((data:any) => {
+    this.productoS.getProductsByPageObs().subscribe((data:responseProductPaginate) => {
       this.object = data
     });
     setTimeout(() => {

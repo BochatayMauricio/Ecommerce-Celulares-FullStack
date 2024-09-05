@@ -5,7 +5,7 @@ import { Sales } from '../models/sales';
 
 
 export const getAdministrators = async (request: Request, response: Response) => {
-  let administratorsList: any[] = [];
+  let administratorsList:any= [];
   try {
     administratorsList = await User.findAll({ where: { isAdmin: true } })
   } finally {

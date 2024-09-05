@@ -27,7 +27,7 @@ export class ModifyFormAdministratorComponent {
       isAdmin: this.administratorReceived.isAdmin
     }
     this.adminService.updateAdministrator(administratorModify).subscribe({
-      complete: () => {
+      next: () => {
         this.adminService.retraiveAdministrator();
         this.toaster.success('Administrador actulizado!');
       },

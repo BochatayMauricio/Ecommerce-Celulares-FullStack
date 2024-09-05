@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { Component} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
-import { user } from 'src/app/interfaces/user';
+import { publications } from 'src/app/interfaces/publications';
 import { PublicationsService } from 'src/app/services/publications.service';
-import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-publications-list',
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./publications-list.component.css']
 })
 export class PublicationsListComponent {
-  publicationsList: any = [];
+  publicationsList: publications[] = [];
   idAdmin:number = 0;
   myAppUrl:string = environment.endpoint
   constructor(private publicationService: PublicationsService, private rutaActiva: ActivatedRoute) {

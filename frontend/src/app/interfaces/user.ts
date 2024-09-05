@@ -1,5 +1,5 @@
 export interface user {
-  id: number, //PK, Autoincremental
+  id?: number, //PK, Autoincremental
   password: string
   email: string, //Unique 
   dni: string,

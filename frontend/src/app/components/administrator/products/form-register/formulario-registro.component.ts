@@ -9,7 +9,11 @@ import { BrandsService } from 'src/app/services/brands.service';
 import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
 
-
+interface alert {
+  msg: string,
+  type:string,
+  timeout: number
+}
 
 @Component({
   selector: 'app-formulario-registro',
@@ -19,7 +23,7 @@ import { UserService } from 'src/app/services/user.service';
 export class FormularioRegistroComponent  {
   @Output() hideModal = new EventEmitter<boolean>();
   //PARTE DEL ALERT
-  alerts: any[] = [];
+  alerts: alert[] = [];
   Admin!: user;
   //previalization card ngModal
   model:string="";
@@ -60,7 +64,7 @@ export class FormularioRegistroComponent  {
     formData.append('price', this.productForm.get('price')?.value);
     formData.append('stock', this.productForm.get('stock')?.value);
     formData.append('file', this.productForm.get('file')?.value);
-    this.productoS.postProducto(formData, this.Admin.id).subscribe({
+    this.productoS.postProducto(formData, this.Admin.id!).subscribe({
     next: () => {
         this.productoS.retraiveProducts();
          this.productoS.getProductsByPage(1);
@@ -81,7 +85,7 @@ export class FormularioRegistroComponent  {
     this.initForm();
   }
   
-  onClosed(dismissedAlert: AlertComponent): void {
+  onClosed(dismissedAlert: alert): void {
     this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
   }
 

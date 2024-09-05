@@ -12,16 +12,13 @@ import { catchError, map } from 'rxjs';
 export class FooterAdminComponent implements OnInit {
   countProducts: number = 0;
   countCustomers: number = 0;
-  countSales = 0;
+  countSales:number = 0;
   fecha: string = new Date().toLocaleDateString('en-GB');
   constructor(private productoS: ProductService, private customers: CustomerService, private sales: SalesService) { }
   ngOnInit(): void {
     this.productoS.retraiveProducts();
     this.productoS.getProductsObs().subscribe(response => this.countProducts = response.length);
     this.customers.getCustomers().subscribe(response => this.countCustomers = response.length);
-    // this.sales.getSales().subscribe({
-    //   next:(resp) => this.countSales = resp.length}
-    // );
     this.sales.getSales()
       .subscribe({
        next:(value)=> this.countSales = value.length

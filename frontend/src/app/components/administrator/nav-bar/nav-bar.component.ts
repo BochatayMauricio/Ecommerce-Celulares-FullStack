@@ -15,13 +15,13 @@ export class NavBarComponent implements OnInit {
   @Input() component?: string;
 
   administrator!: user;
-  constructor(private modalService: BsModalService,
+  constructor(
+    private modalService: BsModalService,
     private router: Router, private userService: UserService) {
 
   }
 
   ngOnInit(): void {
-    //this.administrator = this.userService.getThisUserWithSignal();
     this.userService.getThisUserBehaviour().subscribe(value => this.administrator = value);
   }
 

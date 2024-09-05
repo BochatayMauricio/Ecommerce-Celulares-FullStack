@@ -11,12 +11,13 @@ import { environment } from 'src/app/environments/environments';
 })
 export class FormularioModificarComponent implements OnInit {
   constructor(private productoS: ProductService, private toastr: ToastrService) { }
-  @Input() productReceived: any;
+  @Input() productReceived!: product;
   @Output() hideModal = new EventEmitter<boolean>();
   @Output() updatedSuccess = new EventEmitter<boolean>();
+
   ngOnInit(): void {  };
   myAppUrl:string = environment.endpoint;
-  updateProducto(price: any, stock: any, description: any) {
+  updateProducto(price: HTMLInputElement, stock: HTMLInputElement, description: HTMLTextAreaElement) {
     if(price.value == '' && stock.value == '' && description.value == ''){
       this.toastr.info('No realizaste ningun cambio !').message;
     }else{
@@ -24,8 +25,8 @@ export class FormularioModificarComponent implements OnInit {
       id: this.productReceived.id,
       model: this.productReceived.model,
       idBrand: this.productReceived.idBrand,
-      price: price.value || this.productReceived.price,
-      stock: stock.value || this.productReceived.stock,
+      price: Number(price.value) || this.productReceived.price,
+      stock: Number(stock.value) || this.productReceived.stock,
       description: description.value || this.productReceived.description,
       createdAt: this.productReceived.createdAt,
       quantity:this.productReceived.quantity,

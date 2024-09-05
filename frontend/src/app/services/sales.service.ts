@@ -12,9 +12,9 @@ export class SalesService {
   private myAppUrl: string;
   private myApiUrl: string;
 
-  sales: any = [];
-  salesCustomer: any = [];
-  private sell: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  sales: sales[] = [];
+  salesCustomer: sales[] = [];
+  private sell: BehaviorSubject<sales[]> = new BehaviorSubject<sales[]>([]);
   private sellCustomer: BehaviorSubject<sales[]> = new BehaviorSubject<sales[]>([]);
 
 
@@ -24,7 +24,7 @@ export class SalesService {
   }
 
   getSales() {
-    this.http.get(`${this.myAppUrl}${this.myApiUrl}`)
+    this.http.get<sales[]>(`${this.myAppUrl}${this.myApiUrl}`)
     .subscribe(sales => {
       this.sales = sales;
       this.sell.next(this.sales)
@@ -32,9 +32,9 @@ export class SalesService {
     return this.sell.asObservable()
   }
 
-  getSalesCustomer(dni: any) {
-    const dniCustomer = dni.value
-    this.http.get(`${this.myAppUrl}${this.myApiUrl}/${dniCustomer}`).subscribe(sales => {
+  getSalesCustomer(dni: string) {
+    const dniCustomer = dni.valueOf
+    this.http.get<sales[]>(`${this.myAppUrl}${this.myApiUrl}/${dniCustomer}`).subscribe(sales => {
       this.salesCustomer = sales;
       this.sellCustomer.next(this.salesCustomer)
     });

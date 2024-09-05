@@ -4,7 +4,11 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { user } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { catchError } from 'rxjs';
+
+interface responseAdminPaginate {
+  total:number,
+  administrators: user[]
+}
 
 @Component({
   selector: 'app-administrators-list',
@@ -13,12 +17,12 @@ import { catchError } from 'rxjs';
 })
 export class AdministratorsListComponent {
   adminList: user[] = [];
-  administrator: any;
+  administrator!: user;
   user!: user;
-  index: number | undefined;
+  index?: number;
   currentPage: number = 1;
   page:number=0;
-  totalPages = [];
+  totalPages:number[] = [];
 
   constructor(
     private adminService: AdministratorsService, 
@@ -37,15 +41,11 @@ export class AdministratorsListComponent {
 
   deleteAdministrator(indice: number) {
     const administrator = this.adminList[indice];
-
-
     this.adminService.deleteAdministrator(administrator).subscribe({
       next: () => this.adminService.getAdministrators(this.page),
       error: (error) => this.toastr.error(error)
     });
-
     this.modalRef?.hide()
-
   };
 
   modalRef?: BsModalRef;
@@ -62,16 +62,16 @@ export class AdministratorsListComponent {
 
   getAdministrators(page:number){
     this.page=page
-    let object: any;
+    let object: responseAdminPaginate;
     this.adminList = [];
     this.adminService.getAdministrators(this.page)
-    .subscribe((data: any) => {
+    .subscribe((data: responseAdminPaginate) => {
       object = data
     });
 
     setTimeout(() => {
       const {total, administrators} = object
-      let pagesArray:any = [];
+      let pagesArray:number[] = [];
       let i;
       for(i=1; i< total/3; i++){
         pagesArray.push(i);
@@ -83,23 +83,17 @@ export class AdministratorsListComponent {
       for (let i = 0; i < administrators.length; i++) {
           this.adminList.push(administrators[i]) //Agregar el producto con stock >0 al arreglo
         }
-      console.log(this.totalPages)
-      console.log(this.adminList)
     }, 500);
   }
 
   getAllAdministrators(){
     this.page=-1;
     this.adminService.retraiveAdministrator().subscribe({
-      next:(data: any) => {
+      next:(data: user[]) => {
         this.adminList = data
       },
       error:(error)=> this.toastr.error(error)
     })
   }
-
-
-
-
 
 }

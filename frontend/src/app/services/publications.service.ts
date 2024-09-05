@@ -15,6 +15,6 @@ export class PublicationsService {
   }
 
   getPublications(idAdministrator: number) {
-    return this.http.get(`${this.myAppUrl}${this.myApiUrl}/${idAdministrator}`)
+    return this.http.get<publications[]>(`${this.myAppUrl}${this.myApiUrl}/${idAdministrator}`)
   }
 }
