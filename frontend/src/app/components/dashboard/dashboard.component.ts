@@ -101,8 +101,6 @@ export class DashboardComponent implements OnInit {
         }
        
       }
-      console.log(this.totalPages)
-      console.log(this.listProducts)
     }, 500);
    
     
@@ -110,7 +108,6 @@ export class DashboardComponent implements OnInit {
 
   sendPage(page:number){
     this.getProductByPage(page);
-    console.log(this.listProducts)
   }
 
 

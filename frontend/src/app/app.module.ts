@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 
 
 //Modulos
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { FilterPipe } from './components/administrador/ventas/pipes/filter.pipe';
+import { FilterPipe } from './components/administrator/sales/pipes/filter.pipe';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -45,28 +45,28 @@ import { ProductShoppingComponent } from './components/product-shopping/product-
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { AdministratorComponent } from './components/administrador/administrator/administrator.component';
+import { AdministratorComponent } from './components/administrator/administrator/administrator.component';
 
 
-import { PanelAdministradorComponent } from './components/administrador/panel-administrator/panel-administrador.component';
-import { ProductosComponent } from './components/administrador/productos/productos.component';
-import { TabsComponent } from './components/administrador/tabs/tabs.component';
-import { VentasComponent } from './components/administrador/ventas/ventas.component';
-import { FormularioModificarComponent } from './components/administrador/productos/form-modify/formulario-modificar.component';
-import { FormularioRegistroComponent } from './components/administrador/productos/form-register/formulario-registro.component';
-import { ProducListComponent } from './components/administrador/productos/produc-list/produc-list.component';
-import { AdministratorFormComponent } from './components/administrador/administrator/administrator-form/administrator-form.component';
-import { AdministratorsListComponent } from './components/administrador/administrator/administrators-list/administrators-list.component';
+import { PanelAdministradorComponent } from './components/administrator/panel-administrator/panel-administrador.component';
+import { ProductsComponent } from './components/administrator/products/products.component';
+import { TabsComponent } from './components/administrator/tabs/tabs.component';
+import { SalesComponent } from './components/administrator/sales/sales.component';
+import { FormularioModificarComponent } from './components/administrator/products/form-modify/formulario-modificar.component';
+import { FormularioRegistroComponent } from './components/administrator/products/form-register/formulario-registro.component';
+import { ProducListComponent } from './components/administrator/products/produc-list/produc-list.component';
+import { AdministratorFormComponent } from './components/administrator/administrator/administrator-form/administrator-form.component';
+import { AdministratorsListComponent } from './components/administrator/administrator/administrators-list/administrators-list.component';
 
-import { NavBar2Component } from './components/administrador/administrator/nav-bar2/nav-bar2.component';
-import { ModifyFormAdministratorComponent } from './components/administrador/administrator/modify-form-administrator/modify-form-administrator.component';
 
-import { NavBarComponent } from './components/administrador/nav-bar/nav-bar.component';
-import { SalesListComponent } from './components/administrador/ventas/sales-list/sales-list.component';
-import { FooterAdminComponent } from './components/administrador/footerAdmin/footer.component';
+import { ModifyFormAdministratorComponent } from './components/administrator/administrator/modify-form-administrator/modify-form-administrator.component';
+
+import { NavBarComponent } from './components/administrator/nav-bar/nav-bar.component';
+import { SalesListComponent } from './components/administrator/sales/sales-list/sales-list.component';
+import { FooterAdminComponent } from './components/administrator/footerAdmin/footer.component';
 import { UserPurchasesComponent } from './components/user-purchases/user-purchases.component';
 import { CartComponent } from './components/cart/cart.component';
-import { PublicationsListComponent } from './components/administrador/publications-list/publications-list.component';
+import { PublicationsListComponent } from './components/administrator/publications-list/publications-list.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -74,7 +74,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AllProductsComponent } from './components/all-products/all-products.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PurchaseComponent } from './components/purchase/purchase.component';
-import { FormBrandComponent } from './components/administrador/productos/form-brand/form-brand.component';
+import { FormBrandComponent } from './components/administrator/products/form-brand/form-brand.component';
 import { HandleErrorInterceptor } from './interceptors/handle-error.interceptor';
 
 
@@ -100,9 +100,9 @@ import { HandleErrorInterceptor } from './interceptors/handle-error.interceptor'
     ProductShoppingComponent,
     SalesListComponent,
     PanelAdministradorComponent,
-    ProductosComponent,
+    ProductsComponent,
     TabsComponent,
-    VentasComponent,
+    SalesComponent,
     UserProfileComponent,
     AdministratorComponent,
     FormularioModificarComponent,
@@ -115,7 +115,6 @@ import { HandleErrorInterceptor } from './interceptors/handle-error.interceptor'
     FooterComponent,
     NavBarComponent,
     FilterPipe,
-    NavBar2Component,
     NavbarComponent,
     UserPurchasesComponent,
     CartComponent,
@@ -166,7 +165,7 @@ import { HandleErrorInterceptor } from './interceptors/handle-error.interceptor'
 
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
     {provide:HTTP_INTERCEPTORS,useClass: HandleErrorInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]

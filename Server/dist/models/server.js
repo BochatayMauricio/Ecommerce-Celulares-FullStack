@@ -30,8 +30,10 @@ const publication_1 = require("./publication");
 const sales_2 = require("./sales");
 const shipping_1 = require("./shipping");
 const brand_2 = require("./brand");
+const dotenv_1 = require("dotenv");
 class Server {
     constructor() {
+        (0, dotenv_1.config)();
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '3306';
         this.listen();

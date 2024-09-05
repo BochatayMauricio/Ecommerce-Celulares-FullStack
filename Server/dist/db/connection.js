@@ -9,9 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = require("dotenv");
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize('rrhh', 'root', 'root', {
-    host: 'localhost',
+(0, dotenv_1.config)();
+const sequelize = new sequelize_1.Sequelize(process.env.DB_NAME || 'root', process.env.DB_USER || 'root', process.env.DB_PASSWORD || 'root', {
+    host: process.env.DB_HOST || 'localhost',
     dialect: 'mysql'
 });
 function testConection() {

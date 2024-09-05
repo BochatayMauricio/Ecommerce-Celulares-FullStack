@@ -11,20 +11,19 @@ import { ProductShoppingComponent } from './components/product-shopping/product-
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { HelpsComponent } from './components/helps/helps.component';
 
-import { PanelAdministradorComponent } from './components/administrador/panel-administrator/panel-administrador.component';
-import { ProductosComponent } from './components/administrador/productos/productos.component';
-import { AdministratorComponent } from './components/administrador/administrator/administrator.component';
-import { VentasComponent } from './components/administrador/ventas/ventas.component';
+import { PanelAdministradorComponent } from './components/administrator/panel-administrator/panel-administrador.component';
+import { ProductsComponent } from './components/administrator/products/products.component';
+import { AdministratorComponent } from './components/administrator/administrator/administrator.component';
+import { SalesComponent } from './components/administrator/sales/sales.component';
 import { UserPurchasesComponent } from './components/user-purchases/user-purchases.component';
 import { CartComponent } from './components/cart/cart.component';
-import { PublicationsListComponent } from './components/administrador/publications-list/publications-list.component';
+import { PublicationsListComponent } from './components/administrator/publications-list/publications-list.component';
 import { AllProductsComponent } from './components/all-products/all-products.component';
 import { roleGuard } from './utils/role.guard';
 import { loginGuard } from './utils/login.guard';
 import { currentUserGuard } from './utils/current-user.guard';
 import { PurchaseComponent } from './components/purchase/purchase.component';
-import { FormularioRegistroComponent } from './components/administrador/productos/form-register/formulario-registro.component';
-import { FormBrandComponent } from './components/administrador/productos/form-brand/form-brand.component';
+import { FormularioRegistroComponent } from './components/administrator/products/form-register/formulario-registro.component';
 
 
 const routes: Routes = [
@@ -43,7 +42,7 @@ const routes: Routes = [
   },
   { path: 'admin/products',
     canActivate:[roleGuard], 
-    component: ProductosComponent 
+    component: ProductsComponent 
   },
   { path: 'admin/customers', 
     canActivate:[roleGuard],
@@ -51,7 +50,7 @@ const routes: Routes = [
   },
   { path: 'admin/sales',
     canActivate:[roleGuard], 
-    component: VentasComponent 
+    component: SalesComponent 
   },
   { path: 'admin/publications/:id',
     canActivate:[roleGuard,currentUserGuard], 
