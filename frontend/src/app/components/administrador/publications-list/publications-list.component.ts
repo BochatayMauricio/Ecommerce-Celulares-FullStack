@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { environment } from 'src/app/environments/environments';
 import { user } from 'src/app/interfaces/user';
 import { PublicationsService } from 'src/app/services/publications.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class PublicationsListComponent {
   publicationsList: any = [];
   idAdmin:number = 0;
-
+  myAppUrl:string = environment.endpoint
   constructor(private publicationService: PublicationsService, private rutaActiva: ActivatedRoute) {
     this.idAdmin = this.rutaActiva.snapshot.params['id'];
   }
@@ -23,6 +24,6 @@ export class PublicationsListComponent {
   }
 
   getUrl(image: string) {
-    return `http://localhost:3001/static/${image}`
+    return `${this.myAppUrl}static/${image}`
   }
 }

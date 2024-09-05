@@ -16,12 +16,14 @@ import { Publication } from './publication';
 import { Sales } from './sales';
 import { Shipping } from './shipping';
 import { Brand } from './brand';
+import { config } from 'dotenv';
 
 class Server {
   private app: express.Application;
   private port: string;
 
   constructor() {
+    config();
     this.app = express();
     this.port = process.env.PORT || '3306';
     this.listen();

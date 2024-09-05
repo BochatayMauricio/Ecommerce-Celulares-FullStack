@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { product } from 'src/app/interfaces/product';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from 'src/app/services/product.service';
+import { environment } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-formulario-modificar',
@@ -14,7 +15,7 @@ export class FormularioModificarComponent implements OnInit {
   @Output() hideModal = new EventEmitter<boolean>();
   @Output() updatedSuccess = new EventEmitter<boolean>();
   ngOnInit(): void {  };
-
+  myAppUrl:string = environment.endpoint;
   updateProducto(price: any, stock: any, description: any) {
     if(price.value == '' && stock.value == '' && description.value == ''){
       this.toastr.info('No realizaste ningun cambio !').message;
@@ -42,6 +43,6 @@ export class FormularioModificarComponent implements OnInit {
   }
 
   getUrl(image: string) {
-    return `http://localhost:3001/static/${image}`
+    return `${this.myAppUrl}static/${image}`
   }
 }

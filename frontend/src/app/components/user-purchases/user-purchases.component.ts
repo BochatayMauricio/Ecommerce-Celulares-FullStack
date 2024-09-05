@@ -2,6 +2,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { environment } from 'src/app/environments/environments';
 import { user } from 'src/app/interfaces/user';
 import { CustomerService } from 'src/app/services/customer.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,6 +19,7 @@ export class UserPurchasesComponent implements OnInit {
   listOfSales: any;
   modalRef?: BsModalRef;
   panelOpenState = false;
+  myAppUrl:string=environment.endpoint
   constructor(private customerService: CustomerService,
     private modalService: BsModalService, private rutaActiva: ActivatedRoute) {
 
@@ -37,7 +39,7 @@ export class UserPurchasesComponent implements OnInit {
   }
 
   getUrl(image: string | undefined) {
-    return `http://localhost:3001/static/${image}`
+    return `${this.myAppUrl}static/${image}`
   }
 
 }
