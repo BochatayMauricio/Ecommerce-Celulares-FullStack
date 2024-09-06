@@ -3,10 +3,7 @@
   <div class="text-start mt-3">
     <h2 *ngIf="component!='purchase'">Carrito de Compras</h2>
    
-  </div>
-
-
-  
+  </div>  
   <div class="alert alert-info" role="alert" *ngIf="productsCart.length === 0">
     No tienes productos en el carrito
   </div>
@@ -55,30 +52,6 @@
           (click)="modalRef?.hide()">Loguearse</button>
         <button class="btn btn-success" (click)="modalRef?.hide()" style="margin: 0 0 0   10px;">Seguir Mirando</button>
       </div>
-
     </div>
-  </ng-template>
-
-
-  
-
-  <!-- <button class="btn btn-outline-success" *ngIf="productsCart.length > 0 && user" (click)="chargeCart(template)"
-    >
-    Comprar Todo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="../../../assets/img/aplicacion-wallet-pass.png">
-  </button> -->
-
-  
+  </ng-template>  
 </header>
-
-<!-- <ng-template #template>
-  <div class="modal-header">
-   
-    <h5 style="margin-left: 10%;">Datos Tarjeta Debito</h5>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body" style="margin-left: 25px; height:auto">
-    <app-payment [cartSell]="cartSales" (objectCharge)="doSell($event)"></app-payment>
-  </div>
-</ng-template>  -->

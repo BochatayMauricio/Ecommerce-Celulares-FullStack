@@ -38,16 +38,16 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination">
       <li class="page-item">
-        <a class="page-link {{disabledBack}}" aria-label="Previous" (click)="getProductByPage(page-1)">
+        <a class="page-link" aria-label="Previous" (click)="getProductByPage(page-1)" [hidden]="disabledBack">
           <span aria-hidden="true">Back</span>
         </a>
       </li>
   
         <li  class="page-item"><a class="page-link" (click)="getProductByPage(0)">1</a></li>
         <li class="page-item"><a class="page-link" (click)="getProductByPage(1)">2</a></li>
-        <li class="page-item"><a class="page-link" (click)="getProductByPage(2)">3</a></li>
+        <li class="page-item"><a class="page-link" (click)="getProductByPage(2)" *ngIf="this.totalPages.length>=2">3</a></li>
       <li class="page-item">
-        <a  class="page-link {{disabledNext}}" aria-label="Next">
+        <a class="page-link" aria-label="Next" [hidden]="!disabledNext">
           <span aria-hidden="true" (click)="getProductByPage(page+1)">Next</span>
         </a>
       </li>

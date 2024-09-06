@@ -1,14 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component,Input, OnInit,TemplateRef } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { sales } from 'src/app/interfaces/sales';
-import { SalesService } from '../../services/sales.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { user } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/app/environments/environments';
-import { HttpClient } from '@angular/common/http';
 import { product } from 'src/app/interfaces/product';
 
 @Component({
@@ -20,17 +17,18 @@ export class CartComponent implements OnInit{
   @Input() component?: string;
   hideModal = false;
   modalRef?: BsModalRef;
-  responsePayment: any;
-  buttonDisable: boolean = false;
   productsCart: product[] = [];
   cartSales: sales[] = [];
   user!:user;
 
 
   private myAppUrl: string = environment.endpoint;
-  constructor(private modalService: BsModalService, private cartService: CartService, private alertService: ToastrService, private userService: UserService) {
-
-  }
+  constructor(
+    private modalService: BsModalService, 
+    private cartService: CartService, 
+    private userService: UserService) {
+      
+    }
   ngOnInit() {
     this.cartService.products.subscribe((products) => {
       this.productsCart = products

@@ -17,9 +17,9 @@ export class DomicileService {
    }
 
    setDomicile(domicile:domicile){
-    return this.http.post(`${this.myAppUrl}${this.myApiUrl}`,domicile)
+    return this.http.post<domicile>(`${this.myAppUrl}${this.myApiUrl}`,domicile)
    }
    getOneDomicile(id:number){
-    return this.http.get(`${this.myAppUrl}${this.myApiUrl}/${id}`)
+    return this.http.get<domicile>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
    }
 }

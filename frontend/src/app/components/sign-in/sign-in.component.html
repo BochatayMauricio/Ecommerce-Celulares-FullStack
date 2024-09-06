@@ -4,17 +4,16 @@
     <h3>Registrar Usuario</h3>
 
     <form [formGroup]="userForm" (ngSubmit)="onSubmit(passwordConfirm)" class="form">
-
       <div class="form-floating mb-3  mt-3">
         <input type="text" formControlName="name" class="form-control" placeholder="Ingrese Nombre">
         <label>Nombre</label>
       </div>
-
+      <div class="alert alert-danger" role="alert" *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.value">Lo maximo permitido son 20 caracteres</div>
       <div class="form-floating mb-3  mt-3">
         <input type="text" formControlName="surname" class="form-control" placeholder="Ingrese Apellido">
         <label>Apellido</label>
       </div>
-
+      <div class="alert alert-danger" role="alert" *ngIf="userForm.get('surname')?.invalid && userForm.get('surname')?.value">Lo maximo permitido son 20 caracteres</div>
       <div class="form-floating mb-3  mt-3">
         <input type="text" formControlName="email" class="form-control" placeholder="Ingrese Mail">
         <label>Email</label>
@@ -24,17 +23,16 @@
         <input type="number" formControlName="dni" class="form-control" placeholder="Ingrese DNI">
         <label>Dni</label>
       </div>
-
+      <div class="alert alert-danger" role="alert" *ngIf="userForm.get('dni')?.invalid && userForm.get('dni')?.value">Lo maximo permitido son 12 caracteres</div>
       <div class="form-floating mb-3">
         <input type="password" formControlName="password" class="form-control" placeholder="Ingrese Password">
         <label>Password</label>
       </div>
-
+      <div class="alert alert-danger" role="alert" *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.value">Lo maximo permitido son 20 caracteres</div>
       <div class="form-floating mb-3">
         <input type="password" #passwordConfirm class="form-control" placeholder="Ingrese Password de Nuevo">
         <label>Repetir Password</label>
       </div>
-
       <button [disabled]="!userForm.valid" class="btn btn-primary btn-lg">Aceptar</button>
 
     </form>

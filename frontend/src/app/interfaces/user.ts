@@ -5,5 +5,6 @@ export interface user {
   dni: string,
   name: string,
   surname: string,
-  isAdmin: boolean
+  isAdmin: boolean,
+  createdAt?:string
 }

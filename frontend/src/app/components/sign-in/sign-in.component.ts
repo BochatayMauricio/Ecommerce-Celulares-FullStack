@@ -1,10 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
-import { ErrorService } from 'src/app/services/error.service';
+import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -31,11 +29,11 @@ export class SignInComponent {
 
       this.userForm = this.fb.group({
         email: ['', [Validators.required,Validators.email]],
-        dni: ['', [Validators.required]],
-        name: ['', [Validators.required]],
-        surname: ['', [Validators.required]],
+        dni: ['', [Validators.required, Validators.maxLength(12)]],
+        name: ['', [Validators.required,Validators.maxLength(20)]],
+        surname: ['', [Validators.required,Validators.maxLength(20)]],
         isAdmin: [false],
-        password: ['', [Validators.required]]
+        password: ['', [Validators.required,Validators.maxLength(20)]]
       });
 
   }
@@ -49,12 +47,12 @@ export class SignInComponent {
     this.loading = true;
 
     this.userService.signIn(this.userForm.value).subscribe({
-        next: (v) => {
+        next: () => {
           this.loading = false;
           this.toastr.success(`Registrado Exitosamente`, 'Usuario Registrado');
           this.router.navigate(['/login']);
         },
-        error: (e) => {
+        error: (e:string) => {
           this.toastr.error(e);
           this.loading = false;
         }});

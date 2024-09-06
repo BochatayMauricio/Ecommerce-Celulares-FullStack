@@ -5,6 +5,10 @@ import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
 
+interface responseProductPaginate{
+  total:number,
+  products: product[]
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -12,17 +16,14 @@ import { environment } from 'src/app/environments/environments';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  private myAppUrl: string = environment.endpoint;
+  myAppUrl: string = environment.endpoint;
   listProducts: product[] = [];
-  public oneProduct: product | undefined;
-  modalRef: BsModalRef | undefined;
-  errorService: any;
+  modalRef?:BsModalRef;
   page:number=0;
-  totalPages = [];
-  active: string ='active';
-  disabledNext:string = '';
-  disabledBack: string='';
-  object: any;
+  totalPages:number[] = [];
+  disabledNext:boolean = false;
+  disabledBack: boolean=true;
+  object!:responseProductPaginate;
 
   constructor(private productService: ProductService,
     private modalService: BsModalService,
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit {
     this.productService.getProductsByPageObs().subscribe((data) => {
       this.object = data
     });
+    this.disabledNext = false;
   }
 
   getProducts() {
@@ -73,13 +75,12 @@ export class DashboardComponent implements OnInit {
 
     this.listProducts = [];
     this.productService.getProductsByPage(page);
-
     
     setTimeout(() => {
       const {total, products} = this.object
-      this.disabledBack='';
-      this.disabledNext='';
-      let pagesArray:any = [];
+      this.disabledBack=false;
+      this.disabledNext=false;
+      let pagesArray:number[] = [];
       let i;
       for(i=1; i< total/3; i++){
         pagesArray.push(i);
@@ -90,10 +91,10 @@ export class DashboardComponent implements OnInit {
       }
       this.totalPages = pagesArray
       if(page == this.totalPages.length-1){
-        this.disabledNext = 'disabled'
+        this.disabledNext = true
       }
       if(page == 0){
-        this.disabledBack = 'disabled'
+        this.disabledBack = true
       }
       for (let i = 0; i < products.length; i++) {
         if (products[i].stock > 0) {

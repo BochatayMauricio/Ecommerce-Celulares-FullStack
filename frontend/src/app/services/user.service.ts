@@ -10,6 +10,10 @@ type loginUser = {
   password:string,
   isAdmin:boolean
 }
+interface responseLogin{
+  tok:string,
+  us:user
+}
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +55,8 @@ export class UserService{
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}`, user);
   }
 
-  login(user: loginUser): Observable<string> {
-    return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user);
+  login(user: loginUser): Observable<responseLogin> {
+    return this.http.post<responseLogin>(`${this.myAppUrl}${this.myApiUrl}/login`, user);
   }
 
    updateUser(){

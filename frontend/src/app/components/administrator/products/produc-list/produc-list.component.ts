@@ -3,7 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 
-interface responseProductPaginate {
+interface responseProductPaginate{
   total:number,
   products: product[]
 }

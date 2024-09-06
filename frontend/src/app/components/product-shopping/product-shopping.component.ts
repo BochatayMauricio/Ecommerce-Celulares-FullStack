@@ -1,12 +1,15 @@
 import { Component, OnInit, afterNextRender } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs';
 import { environment } from 'src/app/environments/environments';
 import { product } from 'src/app/interfaces/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { __param } from 'tslib';
+
+interface paramsProduct extends Params{
+  id?:number
+}
 
 @Component({
   selector: 'app-product-shopping',
@@ -17,10 +20,10 @@ export class ProductShoppingComponent implements OnInit {
   x = 5;
   y = 2;
   newProduct?: product;
-  product: any;
+  product!: paramsProduct;
   listOfProducts: product[] = [];
-  amount: any = 0;
-  stock: any;
+  amount: number = 0;
+  stock!: number;
   private myAppUrl: string = environment.endpoint;
 
   constructor(private productService: ProductService,
@@ -50,7 +53,7 @@ export class ProductShoppingComponent implements OnInit {
     })
   }
 
-  addCart(newProduct: product, amount: any) {
+  addCart(newProduct: product, amount: number) {
     const product: product = {
       id: newProduct.id, //PK
       model: newProduct.model,

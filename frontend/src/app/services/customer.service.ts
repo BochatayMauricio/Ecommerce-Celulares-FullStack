@@ -31,7 +31,6 @@ export class CustomerService {
   }
 
   getCustomers() {
-    //this.http.get('http://localhost:3001/api/Customers')
     this.http.get(`${this.myAppUrl}${this.myApiUrl}`).subscribe((value) => {
       this.customers = value;
       this.customer.next(this.customers);

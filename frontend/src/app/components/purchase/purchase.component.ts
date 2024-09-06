@@ -19,30 +19,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./purchase.component.css']
 })
 export class PurchaseComponent implements OnInit {
-  private fb = inject(FormBuilder);
   formGroup?:FormGroup
   oneAtATime = true;
   collapsed=false;
   component:string="purchase";
-  domicile:any;
+  domicile!:domicile; //tambien cambie este tipado
   idDomicile?:number;
-  data:any;
+  data?:domicile;
   cartSales: sales[] = [];
   productsCart: product[] = [];
-  modalRef: any;
+  modalRef?: BsModalRef; //probar si funciona con este tipado
   user?: user;
   endCollapsed=true;
   selectedSucursal:number=0;
   
-  //@Input() cartSales!:sales[];
   constructor(
     private domicileService: DomicileService, 
     private cartService: CartService, 
-    private alertService:ToastrService,
+    private toastr:ToastrService,
     private salesService: SalesService,
     private modalService: BsModalService,
     private userService:UserService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ){}
 
   ngOnInit(): void{
@@ -56,7 +55,6 @@ export class PurchaseComponent implements OnInit {
       this.productsCart = products
     });
     this.userService.getThisUserBehaviour().subscribe(value => this.user = value);
-    // this.createSalesWithProductsCart();
   }
 
   setDomicile(){
@@ -66,7 +64,6 @@ export class PurchaseComponent implements OnInit {
       street: this.formGroup!.value.calle,
       number: this.formGroup!.value.numero
     } 
-    // Llamamos al servicio para que registre el domicilio en la BD y guarde el id del Domicilio
     this.domicileService.setDomicile(this.domicile).subscribe((data)=> {
       this.data = data;
       this.idDomicile = this.data.id; 
@@ -80,7 +77,7 @@ export class PurchaseComponent implements OnInit {
     const formData = new FormData(form);
     this.selectedSucursal = parseInt(String(formData.get('sucursal'))) ;
     if(!this.selectedSucursal){
-      alert("Primero debe seleccionar una sucursal ")
+      this.toastr.info("Primero debe seleccionar una sucursal ")
       return
     } else {    
         this.domicileService.getOneDomicile(this.selectedSucursal).subscribe((data)=> {
@@ -98,21 +95,21 @@ doSell($event: any) {
     this.modalRef?.hide();
     if (this.cartSales.length > 0) {
       if (this.cartSales.length < this.productsCart.length) {
-        this.alertService.info('Hay productos que no cumplen con el stock, por lo tanto no concretarán la compra').onAction
+        this.toastr.info('Hay productos que no cumplen con el stock, por lo tanto no concretarán la compra').onAction
       }
       this.salesService.postSell(this.cartSales).subscribe({
         complete: (() => {
           this.cartService.clearCart();
-          this.alertService.success('Compra registrada con exito!')
+          this.toastr.success('Compra registrada con exito!')
         }),
-        error: (() => this.alertService.error('Ocurrio un error'))
+        error: (() => this.toastr.error('Ocurrio un error'))
       });
     }
     else {
-      this.alertService.error('Ningun producto cumple con el stock').onAction;
+      this.toastr.error('Ningun producto cumple con el stock').onAction;
     }
   } else {
-    this.alertService.error('Hubo un inconveniente con la transacción del pago').onAction;
+    this.toastr.error('Hubo un inconveniente con la transacción del pago').onAction;
   }
 }
 
@@ -136,7 +133,7 @@ createSalesWithProductsCart() {
       if (this.productsCart[i].stock >= Number(this.productsCart[i].quantity)) {
         cartSell.push(newSale);
       } else {
-        this.alertService.info(`El producto: ${this.productsCart[i].brand}--${this.productsCart[i].model} no cumple con el stock para esta compra`).onAction
+        this.toastr.info(`El producto: ${this.productsCart[i].brand}--${this.productsCart[i].model} no cumple con el stock para esta compra`).onAction
       }
     }
     this.cartSales=cartSell;
