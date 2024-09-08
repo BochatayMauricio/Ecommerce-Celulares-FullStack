@@ -76,7 +76,6 @@ export class UserProfileComponent{
 
     }
 
-
   }
 
   showPasswords(pass1: HTMLInputElement, pass2: HTMLInputElement) {
